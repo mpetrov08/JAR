@@ -1,4 +1,3 @@
-using JAR.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

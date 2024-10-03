@@ -1,4 +1,4 @@
-﻿using JAR.Data;
+﻿using JAR.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,9 +8,9 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<JarDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.SignIn.RequireConfirmedAccount = true;
             })
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<JarDbContext>();
 
             return services;
         }
