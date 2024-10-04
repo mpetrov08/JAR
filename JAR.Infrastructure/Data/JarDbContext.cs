@@ -1,4 +1,5 @@
 ﻿using JAR.Infrastructure.Data.Models;
+using JAR.Infrastructure.Data.Seed;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,24 +12,31 @@ namespace JAR.Infrastructure.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<JobApplication>()
+            builder.Entity<JobApplication>()
                 .HasKey(ja => new { ja.JobOfferId, ja.UserId });
 
-            modelBuilder.Entity<JobApplication>()
+            builder.Entity<JobApplication>()
                 .HasOne(ja => ja.JobOffer)
                 .WithMany(jo => jo.JobApplications)
                 .HasForeignKey(ja => ja.JobOfferId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<JobApplication>()
+            builder.Entity<JobApplication>()
                 .HasOne(ja => ja.User)
                 .WithMany()
                 .HasForeignKey(ja => ja.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            base.OnModelCreating(modelBuilder); 
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new JobTypeConfiguration());
+            builder.ApplyConfiguration(new CompanyConfiguration());
+            builder.ApplyConfiguration(new JobOfferConfiguration());
+            builder.ApplyConfiguration(new JobApplicationConfiguration());
+
+            base.OnModelCreating(builder); 
         }
 
         public DbSet<Category> Categories { get; set; }

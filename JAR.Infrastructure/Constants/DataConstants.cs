@@ -46,7 +46,7 @@ namespace JAR.Infrastructure.Constants
 
         public const int JobOfferRequiredMinLength = 5;
 
-        public const int JobOfferRequiredMaxLength = 75;
+        public const int JobOfferRequiredMaxLength = 150;
 
         public const int AddressMinLength = 20;
 
