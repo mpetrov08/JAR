@@ -21,12 +21,12 @@ namespace JAR.Infrastructure.Repository
             return context.Set<T>();
         }
 
-        public IQueryable<T> AllAsync<T>() where T : class
+        public IQueryable<T> All<T>() where T : class
         {
             return DbSet<T>();
         }
 
-        public IQueryable<T> AllReadOnlyAsync<T>() where T : class
+        public IQueryable<T> AllReadOnly<T>() where T : class
         {
             return DbSet<T>().AsNoTracking();
         }
