@@ -1,5 +1,6 @@
 ﻿using JAR.Core.Contracts;
 using JAR.Core.Enumerations;
+using JAR.Core.Models.Company;
 using JAR.Core.Models.JobOffer;
 using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
@@ -95,6 +96,44 @@ namespace JAR.Core.Services
             return await repository.AllReadOnly<JobType>()
                 .Select(jt => jt.Name)
                 .ToListAsync();
+        }
+
+        public async Task<bool> Exists(int id)
+        {
+            return await repository.GetByIdAsync<JobOffer>(id) != null;
+        }
+
+        public async Task<JobOfferDetailsViewModel> JobOfferDetailsAsync(int id)
+        {
+            return await repository
+                .AllReadOnly<JobOffer>()
+                .Where(jo => jo.Id == id)
+                .Select(jo => new JobOfferDetailsViewModel()
+                {
+                    Id = id,
+                    Title = jo.Title,
+                    Description = jo.Description,
+                    Address = jo.Address,
+                    RequiredLanguage = jo.RequiredLanguage,
+                    RequiredDegree = jo.RequiredDegree,
+                    RequiredExperience = jo.RequiredExperience,
+                    RequiredSkills = jo.RequiredSkills,
+                    Salary = jo.Salary,
+                    Category = jo.Category.Name,
+                    JobType = jo.JobType.Name,
+                    Company = new CompanyViewModel()
+                    {
+                       Id = jo.Company.Id,
+                       Name = jo.Company.Name,
+                       Description = jo.Company.Description,
+                       Address = jo.Company.Address,
+                       PhoneNumber = jo.Company.PhoneNumber,
+                       Email = jo.Company.Email,
+                       OwnerName = jo.Company.Owner.UserName
+                    },
+                    CreatedOn = jo.CreatedOn.Date.ToString()
+                })
+                .FirstAsync();
         }
     }
 }

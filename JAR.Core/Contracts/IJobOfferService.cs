@@ -20,5 +20,9 @@ namespace JAR.Core.Contracts
         Task<List<string>> AllCategoriesNamesAsync();
 
         Task<List<string>> AllJobTypeNamesAsync();
+
+        Task<JobOfferDetailsViewModel> JobOfferDetailsAsync(int id);
+
+        Task<bool> Exists(int id);
     }
 }

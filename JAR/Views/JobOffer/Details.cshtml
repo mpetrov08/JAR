@@ -1,0 +1,47 @@
+﻿@model JobOfferDetailsViewModel
+
+@{
+    ViewBag.Title = "Job Offer Details";
+}
+
+<h2 class="text-center">Job Offer Details</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="card col-12 border-3">
+            <h3 class="text-center">@Model.Title</h3>
+            <p>Description: @Model.Description</p>
+            <p>Address: @Model.Address</p>
+            <p>Category: @Model.Category</p>
+            <p>Job Type: @Model.JobType</p>
+
+            @if (!string.IsNullOrEmpty(Model.RequiredLanguage))
+            {
+                <p>Required Language: @Model.RequiredLanguage</p>
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.RequiredDegree))
+            {
+                <p>Required Degree: @Model.RequiredDegree</p>
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.RequiredExperience))
+            {
+                <p>Required Experience: @Model.RequiredExperience</p>
+            }
+            
+            <p>Required Skills: @Model.RequiredSkills</p>
+            <p>Salary: @Model.Salary</p>
+            <p>Created On: @Model.CreatedOn</p>
+
+            <h3 text>Company Details:</h3>
+            <h3 class="text-center">@Model.Company.Name</h3>
+            <p>Description: @Model.Company.Description</p>
+            <p>Address: @Model.Company.Address</p>
+            <p>Phone Number: @Model.Company.PhoneNumber</p>
+            <p>Email: @Model.Company.Email</p>
+            <p>Owner: @Model.Company.OwnerName</p>
+        </div>
+    </div>
+</div>

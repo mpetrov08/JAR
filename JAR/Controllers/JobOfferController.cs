@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JAR.Controllers
 {
+    [Authorize]
     public class JobOfferController : Controller
     {
         private readonly IJobOfferService jobOfferService;
@@ -35,6 +36,19 @@ namespace JAR.Controllers
             model.JobTypes = await jobOfferService.AllJobTypeNamesAsync();
 
             return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (!await jobOfferService.Exists(id))
+            {
+                return BadRequest();
+            }
+
+            var jobOfferDetailsModel = await jobOfferService.JobOfferDetailsAsync(id);
+            return View(jobOfferDetailsModel);
         }
     }
 }
