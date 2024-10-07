@@ -1,4 +1,6 @@
-﻿using JAR.Infrastructure.Data;
+﻿using JAR.Core.Contracts;
+using JAR.Core.Services;
+using JAR.Infrastructure.Data;
 using JAR.Infrastructure.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +16,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<JarDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddScoped<IRepository, Repository>();
+
+            services.AddDatabaseDeveloperPageExceptionFilter(); 
 
             return services;
         }
@@ -32,8 +34,10 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IJobOfferService, JobOfferService>();
+
             return services;
         }
     }

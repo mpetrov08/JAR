@@ -12,7 +12,7 @@ namespace JAR
             builder.Services.AddApplicationDbContext(builder.Configuration);
             builder.Services.AddApplicationIdentity(builder.Configuration);
             builder.Services.AddControllersWithViews();
-            builder.Services.AddApplicationServices(builder.Configuration);
+            builder.Services.AddApplicationServices();
 
             var app = builder.Build();
 

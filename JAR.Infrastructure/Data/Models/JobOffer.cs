@@ -49,6 +49,7 @@ namespace JAR.Infrastructure.Data.Models
         [Comment("Job Offer Required Experience")]
         public string RequiredExperience { get; set; } = string.Empty;
 
+        [Required]
         [MaxLength(JobOfferRequiredMaxLength)]
         [Comment("Job Offer Required Skills")]
         public string RequiredSkills { get; set; } = string.Empty;

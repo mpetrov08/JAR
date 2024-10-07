@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JAR.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace JAR.Infrastructure.Repository
     {
         private readonly DbContext context;
 
-        public Repository(DbContext _context) 
+        public Repository(JarDbContext _context) 
         { 
             context = _context;
         }
