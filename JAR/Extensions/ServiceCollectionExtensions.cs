@@ -27,7 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddDefaultIdentity<IdentityUser>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
             })
             .AddEntityFrameworkStores<JarDbContext>();
 
@@ -37,7 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IJobOfferService, JobOfferService>();
-
+            services.AddScoped<ICompanyService, CompanyService>();
             return services;
         }
     }
