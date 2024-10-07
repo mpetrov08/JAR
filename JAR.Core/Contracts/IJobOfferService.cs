@@ -37,5 +37,11 @@ namespace JAR.Core.Contracts
         Task<bool> Exists(int id);
 
         Task<int> Create(JobOfferAddModel model, int companyId, DateTime createdOn);
+
+        Task<JobOfferAddModel> GetJobOfferAddModelByIdAsync(int id);
+
+        Task<bool> HasCompanyWithIdAsync(int jobOfferId, string userId);
+
+        Task EditAsync(JobOfferAddModel model, int jobOfferId);
     }
 }

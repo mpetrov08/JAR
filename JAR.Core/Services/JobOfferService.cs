@@ -195,5 +195,62 @@ namespace JAR.Core.Services
         {
             return await repository.AllReadOnly<JobType>().AnyAsync(c => c.Id == id);
         }
+
+        public async Task<JobOfferAddModel> GetJobOfferAddModelByIdAsync(int id)
+        {
+            var jobOffer = await repository
+                .AllReadOnly<JobOffer>()
+                .Select(jo => new JobOfferAddModel
+                {
+                    Title = jo.Title,
+                    Description = jo.Description,
+                    Address = jo.Address,
+                    Salary = jo.Salary,
+                    RequiredLanguage = jo.RequiredLanguage,
+                    RequiredDegree = jo.RequiredDegree,
+                    RequiredExperience = jo.RequiredExperience,
+                    RequiredSkills = jo.RequiredSkills,
+                    CategoryId = jo.CategoryId,
+                    JobTypeId = jo.JobTypeId,
+                })
+                .FirstOrDefaultAsync();
+
+            if (jobOffer != null)
+            {
+                jobOffer.Categories = await AllCategories();
+                jobOffer.JobTypes = await AllJobTypes();
+            }
+
+            return jobOffer;
+        }
+
+        public async Task<bool> HasCompanyWithIdAsync(int houseId, string userId)
+        {
+            return await repository
+                .AllReadOnly<JobOffer>()
+                .AnyAsync(jo => jo.Id == houseId && jo.Company.OwnerId == userId);
+        }
+
+        public async Task EditAsync(JobOfferAddModel model, int jobOfferId)
+        {
+            var jobOffer = await repository
+                .GetByIdAsync<JobOffer>(jobOfferId);
+
+            if (jobOffer != null) 
+            {
+                jobOffer.Title = model.Title;
+                jobOffer.Description = model.Description;
+                jobOffer.Address = model.Address;
+                jobOffer.Salary = model.Salary;
+                jobOffer.RequiredLanguage = model.RequiredLanguage;
+                jobOffer.RequiredDegree = model.RequiredDegree;
+                jobOffer.RequiredExperience = model.RequiredExperience;
+                jobOffer.RequiredSkills = model.RequiredSkills;
+                jobOffer.CategoryId = model.CategoryId;
+                jobOffer.JobTypeId = model.JobTypeId;
+
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }

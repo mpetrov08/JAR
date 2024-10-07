@@ -42,6 +42,10 @@
             <p>Phone Number: @Model.Company.PhoneNumber</p>
             <p>Email: @Model.Company.Email</p>
             <p>Owner: @Model.Company.OwnerName</p>
+
+            <div class="form-group col-md-3">
+                <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            </div>
         </div>
     </div>
 </div>
