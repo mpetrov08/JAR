@@ -147,5 +147,49 @@ namespace JAR.Controllers
 
             return RedirectToAction(nameof(Details), new { id });   
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!await jobOfferService.Exists(id))
+            {
+                return BadRequest();
+            }
+
+            if (!await jobOfferService.HasCompanyWithIdAsync(id, User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            var jobOffer = await jobOfferService.JobOfferDetailsAsync(id);
+
+            var model = new JobOfferDetailsViewModel()
+            {
+                Id = id,
+                Title = jobOffer.Title,
+                Description = jobOffer.Description,
+                Address = jobOffer.Address
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(JobOfferDetailsViewModel model)
+        {
+            if (!await jobOfferService.Exists(model.Id))
+            {
+                return BadRequest();
+            }
+
+            if (!await jobOfferService.HasCompanyWithIdAsync(model.Id, User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            await jobOfferService.Delete(model.Id);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

@@ -43,5 +43,7 @@ namespace JAR.Core.Contracts
         Task<bool> HasCompanyWithIdAsync(int jobOfferId, string userId);
 
         Task EditAsync(JobOfferAddModel model, int jobOfferId);
+
+        Task Delete(int id);
     }
 }

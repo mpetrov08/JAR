@@ -31,7 +31,9 @@ namespace JAR.Core.Services
             int currentPage = 1, 
             int jobsPerPage = 1)
         {
-            var jobOffers = repository.AllReadOnly<JobOffer>();
+            var jobOffers = repository
+                .AllReadOnly<JobOffer>()
+                .Where(jo => jo.IsDeleted == false);
 
             if (!string.IsNullOrEmpty(category))
             {
@@ -126,7 +128,12 @@ namespace JAR.Core.Services
 
         public async Task<bool> Exists(int id)
         {
-            return await repository.GetByIdAsync<JobOffer>(id) != null;
+            var jobOffer = await repository
+                .AllReadOnly<JobOffer>()
+                .Where(jo => jo.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            return jobOffer != null;
         }
 
         public async Task<JobOfferDetailsViewModel> JobOfferDetailsAsync(int id)
@@ -134,6 +141,7 @@ namespace JAR.Core.Services
             return await repository
                 .AllReadOnly<JobOffer>()
                 .Where(jo => jo.Id == id)
+                .Where(jo => jo.IsDeleted == false)
                 .Select(jo => new JobOfferDetailsViewModel()
                 {
                     Id = id,
@@ -200,6 +208,7 @@ namespace JAR.Core.Services
         {
             var jobOffer = await repository
                 .AllReadOnly<JobOffer>()
+                .Where(jo => jo.IsDeleted == false)
                 .Select(jo => new JobOfferAddModel
                 {
                     Title = jo.Title,
@@ -234,7 +243,10 @@ namespace JAR.Core.Services
         public async Task EditAsync(JobOfferAddModel model, int jobOfferId)
         {
             var jobOffer = await repository
-                .GetByIdAsync<JobOffer>(jobOfferId);
+                .All<JobOffer>()
+                .Where(jo => jo.Id == jobOfferId)
+                .Where(jo => jo.IsDeleted == false)
+                .FirstOrDefaultAsync();
 
             if (jobOffer != null) 
             {
@@ -251,6 +263,19 @@ namespace JAR.Core.Services
 
                 await repository.SaveChangesAsync();
             }
+        }
+
+        public async Task Delete(int id)
+        {
+            var jobOffer = await repository
+                .GetByIdAsync<JobOffer>(id);
+
+            if (jobOffer != null)
+            {
+                jobOffer.IsDeleted = true;
+            }
+
+            await repository.SaveChangesAsync();
         }
     }
 }
