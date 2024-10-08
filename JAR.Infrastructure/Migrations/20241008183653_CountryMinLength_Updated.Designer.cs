@@ -4,6 +4,7 @@ using JAR.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JAR.Infrastructure.Migrations
 {
     [DbContext(typeof(JarDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241008183653_CountryMinLength_Updated")]
+    partial class CountryMinLength_Updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,14 +139,14 @@ namespace JAR.Infrastructure.Migrations
                         {
                             Id = 1,
                             Address = "Redmond, Washington, USA",
-                            Country = "USA",
+                            Country = "",
                             Description = "Microsoft is a global technology company known for software and hardware.",
                             Email = "microsoft@gmail.com",
                             IsDeleted = false,
                             Name = "Microsoft",
                             OwnerId = "71811921-1918-4043-90b9-20f2522f315b",
                             PhoneNumber = "1234567890",
-                            UIC = "91-1144442"
+                            UIC = ""
                         });
                 });
 
@@ -175,7 +178,7 @@ namespace JAR.Infrastructure.Migrations
                         {
                             JobOfferId = 1,
                             UserId = "2656a468-b215-4b17-865d-240a63b0d5cf",
-                            AppliedOn = new DateTime(2024, 10, 8, 18, 37, 33, 79, DateTimeKind.Utc).AddTicks(5105)
+                            AppliedOn = new DateTime(2024, 10, 8, 18, 36, 53, 619, DateTimeKind.Utc).AddTicks(6807)
                         });
                 });
 
@@ -274,7 +277,7 @@ namespace JAR.Infrastructure.Migrations
                             Address = "Redmond, Washington, USA",
                             CategoryId = 1,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 10, 8, 18, 37, 32, 996, DateTimeKind.Utc).AddTicks(6979),
+                            CreatedOn = new DateTime(2024, 10, 8, 18, 36, 53, 534, DateTimeKind.Utc).AddTicks(5327),
                             Description = "A C# junior programmer should know OOP, Design Patterns, .NET, debugging and SQL.",
                             IsDeleted = false,
                             JobTypeId = 1,
@@ -291,7 +294,7 @@ namespace JAR.Infrastructure.Migrations
                             Address = "Reading, Thames Valley Park, UK",
                             CategoryId = 1,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 10, 8, 18, 37, 32, 996, DateTimeKind.Utc).AddTicks(6983),
+                            CreatedOn = new DateTime(2024, 10, 8, 18, 36, 53, 534, DateTimeKind.Utc).AddTicks(5333),
                             Description = "C# Senior Developer must have excellent knowledge of .NET, architecture, code optimization.",
                             IsDeleted = false,
                             JobTypeId = 2,
@@ -308,7 +311,7 @@ namespace JAR.Infrastructure.Migrations
                             Address = "Reading, Thames Valley Park, UK",
                             CategoryId = 3,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 10, 8, 18, 37, 32, 996, DateTimeKind.Utc).AddTicks(6985),
+                            CreatedOn = new DateTime(2024, 10, 8, 18, 36, 53, 534, DateTimeKind.Utc).AddTicks(5336),
                             Description = "Dynamic manager needed at Microsoft to lead teams and drive innovation.",
                             IsDeleted = false,
                             JobTypeId = 2,
@@ -492,15 +495,15 @@ namespace JAR.Infrastructure.Migrations
                         {
                             Id = "2656a468-b215-4b17-865d-240a63b0d5cf",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e27c78df-b5dd-4c93-8542-38ec342fa304",
+                            ConcurrencyStamp = "576441a1-f95a-483c-9e7e-aa86108c3def",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@GMAIL.COM",
                             NormalizedUserName = "GUEST@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIW2lm0HekQVllfTS1XbnZLKiTcVj+/PYMMMgzMdqjoH9UgHeXgS0r1nbll58W0L4Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB+Bemvew8YpopWG4nqMkbUrtLci+DR6xFePDWksuJYhxeNBF7zZXuo4aA16XszBnQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "95160343-982c-431a-8061-2b7da7139be3",
+                            SecurityStamp = "304f38da-e22f-4be1-a22b-1600319d7345",
                             TwoFactorEnabled = false,
                             UserName = "guest@gmail.com"
                         },
@@ -508,15 +511,15 @@ namespace JAR.Infrastructure.Migrations
                         {
                             Id = "71811921-1918-4043-90b9-20f2522f315b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df68e265-9e33-46b0-96ad-b00012fb957d",
+                            ConcurrencyStamp = "1c8afa76-811f-4220-9ba1-3a1d9a72f632",
                             Email = "owner@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "OWNER@GMAIL.COM",
                             NormalizedUserName = "OWNER@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF1Ops5+09maNkHUDLo7O8LJyoZ+UvCGDM8aL+YkIk3RXHutywfBSU2kuz38JHPGJA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM1FQkzT/BJIRMtq+EQnSbkhTnKhCw37+0MfpSI8tp/e1COaZS+Du1RHabYRCGlUSQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a7744c3d-1f8c-4236-8445-ecd6d01fe615",
+                            SecurityStamp = "9ea2ae60-9a2c-46d1-856c-89d797000bb0",
                             TwoFactorEnabled = false,
                             UserName = "owner@gmail.com"
                         });

@@ -24,6 +24,16 @@ namespace JAR.Infrastructure.Data.Models
         public string Name { get; set; } = string.Empty;
 
         [Required]
+        [MaxLength(CompanyUICMaxLength)]
+        [Comment("Company Unique Identification Code")]
+        public string UIC { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(CountryMaxLength)]
+        [Comment("Company Country")]
+        public string Country { get; set; } = string.Empty;
+
+        [Required]
         [MaxLength(AddressMaxLength)]
         [Comment("Company Address")]
         public string Address { get; set; } = string.Empty;

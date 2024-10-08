@@ -24,6 +24,10 @@ namespace JAR.Infrastructure.Constants
 
         public const int CompanyDescriptionMaxLength = 300;
 
+        public const int CompanyUICMinLength = 5;
+
+        public const int CompanyUICMaxLength = 30;
+
         public const int CategoryNameMinLength = 2;
 
         public const int CategoryNameMaxLength = 50;
@@ -47,6 +51,10 @@ namespace JAR.Infrastructure.Constants
         public const int JobOfferRequiredMinLength = 5;
 
         public const int JobOfferRequiredMaxLength = 150;
+
+        public const int CountryMinLength = 2;
+
+        public const int CountryMaxLength = 30;
 
         public const int AddressMinLength = 20;
 

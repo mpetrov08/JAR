@@ -139,6 +139,8 @@ namespace JAR.Infrastructure.Data.Seed
             {
                 Id = 1,
                 Name = "Microsoft",
+                UIC = "91-1144442",
+                Country = "USA",
                 Address = "Redmond, Washington, USA",
                 PhoneNumber = "1234567890",
                 Email = "microsoft@gmail.com",
