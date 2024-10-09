@@ -33,11 +33,27 @@ namespace JAR.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task Approve(int jobOfferId, string userId)
+        {
+            var jobApplication = await repository
+                .All<JobApplication>()
+                .Where(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId)
+                .FirstOrDefaultAsync();
+
+            if (jobApplication != null)
+            {
+                jobApplication.IsApproved = true;
+            }
+
+            await repository.SaveChangesAsync();
+        }
+
         public async Task<List<JobOfferApplicantsViewModel>> GetApplicantsAsync(int jobOfferId)
         {
             return await repository
                     .AllReadOnly<JobApplication>()
                     .Where(ja => ja.JobOfferId == jobOfferId)
+                    .Where(ja => ja.IsApproved == false)
                     .Select(ja => new JobOfferApplicantsViewModel
                     {
                         UserId = ja.UserId,
@@ -50,6 +66,16 @@ namespace JAR.Core.Services
         }
 
         public async Task<bool> HasUserAlreadyAppliedAsync(int jobOfferId, string userId)
+        {
+            var jobApplication = await repository
+                .AllReadOnly<JobApplication>()
+                .Where(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId)
+                .FirstOrDefaultAsync();
+
+            return jobApplication != null;
+        }
+
+        public async Task<bool> IsUserAlreadyApprovedAsync(int jobOfferId, string userId)
         {
             var jobApplication = await repository
                 .AllReadOnly<JobApplication>()

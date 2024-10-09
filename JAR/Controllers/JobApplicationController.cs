@@ -79,5 +79,27 @@ namespace JAR.Controllers
 
             return RedirectToAction(nameof(JobOfferController.All), "All");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Approve(int jobId, string userId)
+        {
+            if (!await jobOfferService.Exists(jobId))
+            {
+                return BadRequest();
+            }
+
+            if (!await jobOfferService.HasCompanyWithIdAsync(jobId, User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            if (await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, User.Id()))
+            {
+                return BadRequest();
+            }
+
+            await jobApplicationService.Approve(jobId, userId);
+            return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = jobId });
+        }
     }
 }

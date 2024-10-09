@@ -11,7 +11,11 @@ namespace JAR.Core.Contracts
     {
         Task<bool> HasUserAlreadyAppliedAsync(int jobOfferId, string userId);
 
+        Task<bool> IsUserAlreadyApprovedAsync(int jobOfferId, string userId);
+
         Task Apply(int jobOfferId, string userId, DateTime appliedOn);
+
+        Task Approve(int jobOfferId, string userId);
 
         Task<List<JobOfferApplicantsViewModel>> GetApplicantsAsync(int jobOfferId);
     }

@@ -28,6 +28,9 @@ namespace JAR.Infrastructure.Data.Models
         public IdentityUser User { get; set; } = null!;
 
         [Required]
+        public bool IsApproved { get; set; }
+
+        [Required]
         [Comment("When Job Application has been applied")]
         public DateTime AppliedOn { get; set; }  
     }

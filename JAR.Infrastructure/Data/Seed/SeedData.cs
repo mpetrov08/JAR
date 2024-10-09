@@ -211,6 +211,7 @@ namespace JAR.Infrastructure.Data.Seed
             {
                 JobOfferId = 1,
                 UserId = "2656a468-b215-4b17-865d-240a63b0d5cf",
+                IsApproved = false,
                 AppliedOn = DateTime.UtcNow,
             };
         }
