@@ -1,0 +1,20 @@
+﻿@model List<JobOfferApplicantsViewModel>
+
+@{
+    ViewBag.Title = "View Job Applicants";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+@foreach (var applicant in Model)
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@applicant.Email</h5>
+            <p class="card-text">@applicant.AppliedOn</p>
+        </div>
+    </div>
+
+    <br />
+}

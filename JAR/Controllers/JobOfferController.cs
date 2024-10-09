@@ -3,6 +3,7 @@ using JAR.Core.Models.JobOffer;
 using JAR.Core.Services;
 using JAR.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using System.Security.Claims;
@@ -16,15 +17,19 @@ namespace JAR.Controllers
 
         private readonly ICompanyService companyService;
 
+        private readonly IJobApplicationService jobApplicationService;
+
         private readonly ILogger<JobOfferController> logger;
 
         public JobOfferController(ILogger<JobOfferController> _logger, 
             IJobOfferService _jobOfferService, 
-            ICompanyService _companyService)
+            ICompanyService _companyService,
+            IJobApplicationService _jobApplicationService)
         {
             jobOfferService = _jobOfferService;
             logger = _logger;
             companyService = _companyService;
+            jobApplicationService = _jobApplicationService;
         }
 
         [AllowAnonymous]
@@ -46,6 +51,7 @@ namespace JAR.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Mine()
         {
             var userId = User.Id();
@@ -207,6 +213,24 @@ namespace JAR.Controllers
             await jobOfferService.Delete(model.Id);
 
             return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewApplicants(int id)
+        {
+            if (!await jobOfferService.Exists(id))
+            {
+                return BadRequest();
+            }
+
+            if (!await jobOfferService.HasCompanyWithIdAsync(id, User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            var jobApplicants = await jobApplicationService.GetApplicantsAsync(id);
+
+            return View(jobApplicants);
         }
     }
 }

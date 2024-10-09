@@ -1,4 +1,5 @@
 ﻿using JAR.Core.Contracts;
+using JAR.Core.Models.JobOffer;
 using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,22 @@ namespace JAR.Core.Services
 
             await repository.AddAsync(jobApplication);
             await repository.SaveChangesAsync();
+        }
+
+        public async Task<List<JobOfferApplicantsViewModel>> GetApplicantsAsync(int jobOfferId)
+        {
+            return await repository
+                    .AllReadOnly<JobApplication>()
+                    .Where(ja => ja.JobOfferId == jobOfferId)
+                    .Select(ja => new JobOfferApplicantsViewModel
+                    {
+                        UserId = ja.UserId,
+                        JobId = jobOfferId,
+                        Email = ja.User.Email,
+                        AppliedOn = ja.AppliedOn.Date.ToString()
+                    })
+                    .ToListAsync();
+                                
         }
 
         public async Task<bool> HasUserAlreadyAppliedAsync(int jobOfferId, string userId)
