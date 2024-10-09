@@ -1,0 +1,53 @@
+﻿@model JobOfferDetailsViewModel
+
+@{
+    ViewBag.Title = "Apply For Job Offer";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" disabled="disabled" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" disabled="disabled" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" disabled="disabled" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RequiredLanguage" class="control-label"></label>
+                <input asp-for="RequiredLanguage" class="form-control" disabled="disabled" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RequiredDegree" class="control-label"></label>
+                <input asp-for="RequiredDegree" class="form-control" disabled="disabled" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RequiredExperience" class="control-label"></label>
+                <input asp-for="RequiredExperience" class="form-control" disabled="disabled" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RequiredSkills" class="control-label"></label>
+                <input asp-for="RequiredSkills" class="form-control" disabled="disabled" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Apply" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>

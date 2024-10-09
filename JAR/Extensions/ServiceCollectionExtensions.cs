@@ -38,6 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IJobOfferService, JobOfferService>();
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IJobApplicationService, JobApplicationService>();
             return services;
         }
     }

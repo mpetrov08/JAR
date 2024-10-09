@@ -47,5 +47,10 @@ namespace JAR.Core.Services
         {
             return (await repository.AllReadOnly<Company>().FirstOrDefaultAsync(c => c.OwnerId == userId))?.Id;
         }
+
+        public async Task<bool> OwnerCompanyExistsAsync(string userId)
+        {
+            return await repository.AllReadOnly<Company>().FirstOrDefaultAsync(c => c.OwnerId == userId) != null;
+        }
     }
 }

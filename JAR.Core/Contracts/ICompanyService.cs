@@ -13,6 +13,8 @@ namespace JAR.Core.Contracts
 
         Task<bool> CompanyWithUICExists(string uic);
 
+        Task<bool> OwnerCompanyExistsAsync(string userId);
+
         Task CreateCompanyAsync(CompanyRegisterModel model, string userId);
     }
 }
