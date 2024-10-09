@@ -20,6 +20,10 @@ namespace JAR.Core.Contracts
             int currentPage = 1, 
             int jobsPerPage = 1);
 
+        Task<List<JobOfferViewModel>> AllByUserIdAsync(string userId);
+
+        Task<List<JobOfferViewModel>> AllByOwnerIdAsync(string ownerId);
+
         Task<List<string>> AllCategoriesNamesAsync();
 
         Task<List<CategoryViewModel>> AllCategories();

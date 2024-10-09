@@ -4,6 +4,7 @@ using JAR.Core.Services;
 using JAR.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 using System.Security.Claims;
 
 namespace JAR.Controllers
@@ -43,6 +44,22 @@ namespace JAR.Controllers
             model.JobTypes = await jobOfferService.AllJobTypeNamesAsync();
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Mine()
+        {
+            var userId = User.Id();
+            var jobOffers = new List<JobOfferViewModel>();
+            if (await companyService.OwnerCompanyExistsAsync(userId))
+            {
+                jobOffers = await jobOfferService.AllByOwnerIdAsync(userId);
+            }
+            else
+            {
+                jobOffers = await jobOfferService.AllByUserIdAsync(userId);
+            }
+
+            return View(jobOffers);
         }
 
         [AllowAnonymous]

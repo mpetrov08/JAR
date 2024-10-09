@@ -277,5 +277,47 @@ namespace JAR.Core.Services
 
             await repository.SaveChangesAsync();
         }
+
+        public async Task<List<JobOfferViewModel>> AllByUserIdAsync(string userId)
+        {
+            return await repository
+                    .AllReadOnly<JobOffer>()
+                    .Where(jo => jo.IsDeleted == false)
+                    .Where(jo => jo.JobApplications.Any(ja => ja.UserId == userId))
+                    .Select(jo => new JobOfferViewModel
+                    {
+                        Id = jo.Id,
+                        Title = jo.Title,
+                        Address = jo.Address,
+                        RequiredLanguage = jo.RequiredLanguage,
+                        RequiredDegree = jo.RequiredDegree,
+                        RequiredExperience = jo.RequiredExperience,
+                        RequiredSkills = jo.RequiredSkills,
+                        Salary = jo.Salary,
+                        CreatedOn = jo.CreatedOn.Date.ToString()
+                    })
+                    .ToListAsync();
+        }
+
+        public async Task<List<JobOfferViewModel>> AllByOwnerIdAsync(string ownerId)
+        {
+            return await repository
+                    .AllReadOnly<JobOffer>()
+                    .Where(jo => jo.IsDeleted == false)
+                    .Where(jo => jo.Company.OwnerId == ownerId)
+                    .Select(jo => new JobOfferViewModel
+                    {
+                        Id = jo.Id,
+                        Title = jo.Title,
+                        Address = jo.Address,
+                        RequiredLanguage = jo.RequiredLanguage,
+                        RequiredDegree = jo.RequiredDegree,
+                        RequiredExperience = jo.RequiredExperience,
+                        RequiredSkills = jo.RequiredSkills,
+                        Salary = jo.Salary,
+                        CreatedOn = jo.CreatedOn.Date.ToString()
+                    })
+                    .ToListAsync();
+        }
     }
 }
