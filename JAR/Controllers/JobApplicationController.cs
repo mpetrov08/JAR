@@ -77,7 +77,7 @@ namespace JAR.Controllers
 
             await jobApplicationService.Apply(model.Id, User.Id(), DateTime.Now);
 
-            return RedirectToAction(nameof(JobOfferController.All), "All");
+            return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
         }
 
         [HttpPost]

@@ -53,12 +53,12 @@ namespace JAR.Core.Services
             return await repository
                     .AllReadOnly<JobApplication>()
                     .Where(ja => ja.JobOfferId == jobOfferId)
-                    .Where(ja => ja.IsApproved == false)
                     .Select(ja => new JobOfferApplicantsViewModel
                     {
                         UserId = ja.UserId,
                         JobId = jobOfferId,
                         Email = ja.User.Email,
+                        IsApproved = ja.IsApproved,
                         AppliedOn = ja.AppliedOn.Date.ToString()
                     })
                     .ToListAsync();

@@ -15,6 +15,8 @@ namespace JAR.Core.Models.JobOffer
 
         public string Email { get; set; } = null!;
 
+        public bool IsApproved { get; set; }
+
         public string AppliedOn { get; set; } = null!;
     }
 }
