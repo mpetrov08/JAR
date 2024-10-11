@@ -81,10 +81,9 @@ namespace JAR.Controllers
             return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Approve(int jobId, string userId)
         {
-
             if (!await jobOfferService.Exists(jobId))
             {
                 return BadRequest();
@@ -100,8 +99,41 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            await jobApplicationService.Approve(jobId, userId);
-            return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = jobId });
+            var applicant = await jobApplicationService.GetApplicantByIdAsync(jobId, userId);
+
+            var model = new JobApplicationApproveViewModel()
+            {
+                JobId = jobId,
+                UserId = userId,
+                Email = applicant.Email,
+                IsApproved = applicant.IsApproved,
+                AppliedOn = applicant.AppliedOn
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Approve(JobApplicationApproveViewModel model)
+        {
+
+            if (!await jobOfferService.Exists(model.JobId))
+            {
+                return BadRequest();
+            }
+
+            if (!await jobOfferService.HasCompanyWithIdAsync(model.JobId, User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(model.JobId, model.UserId))
+            {
+                return BadRequest();
+            }
+
+            await jobApplicationService.Approve(model.JobId, model.UserId, model.Message);
+            return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = model.JobId });
         }
 
         [HttpGet]
@@ -114,20 +146,12 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, User.Id()))
+            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, userId))
             {
                 return BadRequest();
             }
 
-            var IsApproved = await jobApplicationService.CheckStatus(jobId, User.Id());
-            var jobOffer = await jobOfferService.JobOfferDetailsAsync(jobId);
-            var model = new JobApplicationStatusViewModel()
-            {
-                Title = jobOffer.Title,
-                Description = jobOffer.Description,
-                Address = jobOffer.Address,
-                IsApproved = IsApproved,
-            };
+            var model = await jobApplicationService.GetJobApplicationStatusViewModelAsync(jobId, userId);
 
             return View(model);
         }

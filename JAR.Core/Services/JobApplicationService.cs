@@ -1,8 +1,10 @@
 ﻿using JAR.Core.Contracts;
+using JAR.Core.Models.JobApplication;
 using JAR.Core.Models.JobOffer;
 using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +35,7 @@ namespace JAR.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task Approve(int jobOfferId, string userId)
+        public async Task Approve(int jobOfferId, string userId, string message)
         {
             var jobApplication = await repository
                 .All<JobApplication>()
@@ -43,6 +45,7 @@ namespace JAR.Core.Services
             if (jobApplication != null)
             {
                 jobApplication.IsApproved = true;
+                jobApplication.Message = message;
             }
 
             await repository.SaveChangesAsync();
@@ -59,12 +62,30 @@ namespace JAR.Core.Services
             return jobOffer != null && jobOffer.IsApproved == true;
         }
 
-        public async Task<List<JobOfferApplicantsViewModel>> GetApplicantsAsync(int jobOfferId)
+        public async Task<JobOfferApplicantViewModel> GetApplicantByIdAsync(int jobOfferId, string userId)
+        {
+            JobOfferApplicantViewModel? applicant = await repository
+                .AllReadOnly<JobApplication>()
+                .Where(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId)
+                .Select(ja => new JobOfferApplicantViewModel()
+                {
+                    UserId = userId,
+                    JobId = jobOfferId,
+                    Email = ja.User.Email,
+                    IsApproved = ja.IsApproved,
+                    AppliedOn = ja.AppliedOn.Date.ToString()
+                })
+                .FirstOrDefaultAsync();
+
+            return applicant ?? new JobOfferApplicantViewModel();
+        }
+
+        public async Task<List<JobOfferApplicantViewModel>> GetApplicantsAsync(int jobOfferId)
         {
             return await repository
                     .AllReadOnly<JobApplication>()
                     .Where(ja => ja.JobOfferId == jobOfferId)
-                    .Select(ja => new JobOfferApplicantsViewModel
+                    .Select(ja => new JobOfferApplicantViewModel
                     {
                         UserId = ja.UserId,
                         JobId = jobOfferId,
@@ -74,6 +95,24 @@ namespace JAR.Core.Services
                     })
                     .ToListAsync();
                                 
+        }
+
+        public async Task<JobApplicationStatusViewModel> GetJobApplicationStatusViewModelAsync(int jobOfferId, string userId)
+        {
+            var model = await repository
+                .AllReadOnly<JobApplication>()
+                .Where(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId)
+                .Select(ja => new JobApplicationStatusViewModel
+                {
+                    Title = ja.JobOffer.Title,
+                    Address = ja.JobOffer.Address,
+                    Description = ja.JobOffer.Description,
+                    Message = ja.Message,
+                    IsApproved = ja.IsApproved
+                })
+                .FirstOrDefaultAsync();
+
+            return model ?? new JobApplicationStatusViewModel();
         }
 
         public async Task<bool> HasUserAlreadyAppliedAsync(int jobOfferId, string userId)

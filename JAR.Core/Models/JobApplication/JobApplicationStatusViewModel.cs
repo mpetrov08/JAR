@@ -15,6 +15,8 @@ namespace JAR.Core.Models.JobApplication
 
         public string Description { get; set; } = null!;
 
+        public string Message { get; set; } = null!;
+
         public bool IsApproved {  get; set; }
     }
 }

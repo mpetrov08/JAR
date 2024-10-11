@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JAR.Core.Models.JobOffer
 {
-    public class JobOfferApplicantsViewModel
+    public class JobOfferApplicantViewModel
     {
         public string UserId { get; set; } = null!;
 
