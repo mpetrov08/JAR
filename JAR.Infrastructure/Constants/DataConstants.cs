@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JAR.Infrastructure.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,6 +52,10 @@ namespace JAR.Infrastructure.Constants
         public const int JobOfferRequiredMinLength = 5;
 
         public const int JobOfferRequiredMaxLength = 150;
+
+        public const int JobApplicationMessageMinLength = 10;
+
+        public const int JobApplicationMessageMaxLength = 500;
 
         public const int CountryMinLength = 2;
 

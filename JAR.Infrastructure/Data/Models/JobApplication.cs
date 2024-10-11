@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static JAR.Infrastructure.Constants.DataConstants;
 
 namespace JAR.Infrastructure.Data.Models
 {
@@ -28,7 +29,12 @@ namespace JAR.Infrastructure.Data.Models
         public IdentityUser User { get; set; } = null!;
 
         [Required]
+        [Comment("Job Application Is Approved")]
         public bool IsApproved { get; set; }
+
+        [MaxLength(JobApplicationMessageMaxLength)]
+        [Comment("Job Application Message")]
+        public string Message { get; set; } = string.Empty;
 
         [Required]
         [Comment("When Job Application has been applied")]
