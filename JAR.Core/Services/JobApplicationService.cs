@@ -48,6 +48,17 @@ namespace JAR.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task<bool> CheckStatus(int jobOfferId, string userId)
+        {
+            var jobOffer =  await repository
+                .AllReadOnly<JobApplication>()
+                .Where(ja => ja.JobOfferId == jobOfferId)
+                .Where(ja => ja.UserId == userId)
+                .FirstOrDefaultAsync();
+
+            return jobOffer != null && jobOffer.IsApproved == true;
+        }
+
         public async Task<List<JobOfferApplicantsViewModel>> GetApplicantsAsync(int jobOfferId)
         {
             return await repository

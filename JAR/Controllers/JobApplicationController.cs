@@ -1,4 +1,5 @@
 ﻿using JAR.Core.Contracts;
+using JAR.Core.Models.JobApplication;
 using JAR.Core.Models.JobOffer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -83,6 +84,7 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Approve(int jobId, string userId)
         {
+
             if (!await jobOfferService.Exists(jobId))
             {
                 return BadRequest();
@@ -93,13 +95,41 @@ namespace JAR.Controllers
                 return Unauthorized();
             }
 
-            if (await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, User.Id()))
+            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, userId))
             {
                 return BadRequest();
             }
 
             await jobApplicationService.Approve(jobId, userId);
             return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = jobId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CheckStatus(int jobId)
+        {
+            string userId = User.Id();
+
+            if (!await jobOfferService.Exists(jobId))
+            {
+                return BadRequest();
+            }
+
+            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, User.Id()))
+            {
+                return BadRequest();
+            }
+
+            var IsApproved = await jobApplicationService.CheckStatus(jobId, User.Id());
+            var jobOffer = await jobOfferService.JobOfferDetailsAsync(jobId);
+            var model = new JobApplicationStatusViewModel()
+            {
+                Title = jobOffer.Title,
+                Description = jobOffer.Description,
+                Address = jobOffer.Address,
+                IsApproved = IsApproved,
+            };
+
+            return View(model);
         }
     }
 }

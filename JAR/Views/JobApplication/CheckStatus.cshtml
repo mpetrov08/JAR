@@ -1,0 +1,22 @@
+﻿@model JobApplicationStatusViewModel
+
+@{
+    ViewBag.Title = "Check Job Application Status";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+<div class="card">
+    <h5 class="card-header">@Model.Title</h5>
+
+    <div class="card-body">
+        <h5 class="card-title">@Model.Address</h5>
+        <h6>@Model.Description</h6>
+        <p class="card-text">
+            Status: @( Model.IsApproved ? "Approved" : "Not Approved" )
+        </p>
+    </div>
+</div>
+
+<br />
