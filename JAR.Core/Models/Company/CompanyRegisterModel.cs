@@ -32,8 +32,8 @@ namespace JAR.Core.Models.Company
         public string Address { get; set; } = null!;
 
         [Required]
-        [StringLength(CompanyPhoneNumberMaxLength,
-            MinimumLength = CompanyPhoneNumberMinLength)]
+        [StringLength(PhoneNumberMaxLength,
+            MinimumLength = PhoneNumberMinLength)]
         public string PhoneNumber { get; set; } = null!;
 
         [Required]
@@ -42,8 +42,8 @@ namespace JAR.Core.Models.Company
         public string Email { get; set; } = null!;
 
         [Required]
-        [StringLength(CompanyDescriptionMaxLength,
-            MinimumLength = CompanyDescriptionMinLength)]
+        [StringLength(DescriptionMaxLength,
+            MinimumLength = DescriptionMinLength)]
         public string Description { get; set; } = null!;
     }
 }

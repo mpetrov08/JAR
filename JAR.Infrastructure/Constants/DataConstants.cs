@@ -1,4 +1,5 @@
 ﻿using JAR.Infrastructure.Data.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,9 @@ namespace JAR.Infrastructure.Constants
 
         public const int CompanyNameMaxLength = 100;   
 
-        public const int CompanyPhoneNumberMinLength = 7;
-
-        public const int CompanyPhoneNumberMaxLength = 15;
-
         public const int CompanyEmailMinLength = 8;
 
         public const int CompanyEmailMaxLength = 50;
-
-        public const int CompanyDescriptionMinLength = 20;
-
-        public const int CompanyDescriptionMaxLength = 300;
 
         public const int CompanyUICMinLength = 5;
 
@@ -57,12 +50,62 @@ namespace JAR.Infrastructure.Constants
 
         public const int JobApplicationMessageMaxLength = 500;
 
+        public const int CVLanguagesMinLength = 5;
+
+        public const int CVLanguagesMaxLength = 200;
+
+        public const int CVSkillsMinLength = 15;
+
+        public const int CVSkillsMaxLength = 300;
+
+        public const int CVLinkedInProfileMinLength = 30;
+
+        public const int CVLinkedInProfileMaxLength = 300;
+
+        public const int CVGenderMinLength = 1;
+
+        public const int CVGenderMaxLength = 20;
+
+        public const int CVCitizenshipMinLength = 2;
+
+        public const int CVCitizenshipMaxLength = 50;
+
+        public const int CVDrivingLicenseCategoryLength = 1;
+
+        public const int DegreeEducationalInstitutionMinLength = 5;
+
+        public const int DegreeEducationalInstitutionMaxLength = 200;
+
+        public const int DegreeMajorMinLength = 2;
+
+        public const int DegreeMajorMaxLength = 100;
+
+        public const int DegreeEducationLevelMinLength = 5;
+
+        public const int DegreeEducationLevelMaxLength = 50;
+
         public const int CountryMinLength = 2;
 
         public const int CountryMaxLength = 30;
 
+        public const int CityMinLength = 1;
+
+        public const int CityMaxLength = 85;
+
         public const int AddressMinLength = 20;
 
         public const int AddressMaxLength = 200;
+
+        public const int PhoneNumberMinLength = 7;
+
+        public const int PhoneNumberMaxLength = 15;
+
+        public const int DescriptionMinLength = 20;
+
+        public const int DescriptionMaxLength = 300;
+
+        public const int NameMinLength = 2;
+
+        public const int NameMaxLength = 50;
     }
 }

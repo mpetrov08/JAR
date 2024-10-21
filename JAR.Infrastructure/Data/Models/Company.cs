@@ -39,7 +39,7 @@ namespace JAR.Infrastructure.Data.Models
         public string Address { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(CompanyPhoneNumberMaxLength)]
+        [MaxLength(PhoneNumberMaxLength)]
         [Comment("Company PhoneNumber")]
         public string PhoneNumber { get; set; } = string.Empty;
 
@@ -50,7 +50,7 @@ namespace JAR.Infrastructure.Data.Models
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(CompanyDescriptionMaxLength)]
+        [MaxLength(DescriptionMaxLength)]
         [Comment("Company Description")]
         public string Description { get; set; } = string.Empty;
 

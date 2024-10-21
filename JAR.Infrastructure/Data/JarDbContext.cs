@@ -48,5 +48,11 @@ namespace JAR.Infrastructure.Data
         public DbSet<JobOffer> JobOffers { get; set; }
 
         public DbSet<JobType> JobTypes { get; set; }
+
+        public DbSet<CV> CVs { get; set; }
+
+        public DbSet<Degree> Degrees { get; set; }
+
+        public DbSet<ProfessionalExperience> ProfessionalExperiences { get; set; }
     }
 }
