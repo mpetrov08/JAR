@@ -80,5 +80,9 @@ namespace JAR.Infrastructure.Data.Models
         [MaxLength(CVDrivingLicenseCategoryLength)]
         [Comment("Driving License Category that user has")]
         public string? DrivingLicenseCategory { get; set; }
+
+        public IEnumerable<Degree> Degrees { get; set; } = new List<Degree>();
+
+        public IEnumerable<ProfessionalExperience> ProfessionalExperiences { get; set; } = new List<ProfessionalExperience>();
     }
 }
