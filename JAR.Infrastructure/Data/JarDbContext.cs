@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JAR.Infrastructure.Data
 {
-    public class JarDbContext : IdentityDbContext
+    public class JarDbContext : IdentityDbContext<User>
     {
         public JarDbContext(DbContextOptions<JarDbContext> options)
             : base(options)

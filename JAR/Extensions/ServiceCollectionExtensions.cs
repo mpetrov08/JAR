@@ -1,6 +1,7 @@
 ﻿using JAR.Core.Contracts;
 using JAR.Core.Services;
 using JAR.Infrastructure.Data;
+using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<User>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
             })

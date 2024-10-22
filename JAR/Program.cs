@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using JAR.Infrastructure.Data;
+using JAR.Infrastructure.Data.Models;
 
 namespace JAR
 {
@@ -8,6 +10,7 @@ namespace JAR
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString = builder.Configuration.GetConnectionString("JarDbContextConnection") ?? throw new InvalidOperationException("Connection string 'JarDbContextConnection' not found.");
 
             builder.Services.AddApplicationDbContext(builder.Configuration);
             builder.Services.AddApplicationIdentity(builder.Configuration);

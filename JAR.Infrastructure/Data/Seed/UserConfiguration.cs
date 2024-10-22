@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using JAR.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace JAR.Infrastructure.Data.Seed
 {
-    internal class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
+    internal class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<IdentityUser> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             var data = new SeedData();  
             
-            builder.HasData(new IdentityUser[] { data.GuestUser ,data.CompanyOwnerUser});
+            builder.HasData(new User[] { data.GuestUser ,data.CompanyOwnerUser});
         }
     }
 }

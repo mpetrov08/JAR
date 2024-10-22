@@ -10,9 +10,9 @@ namespace JAR.Infrastructure.Data.Seed
 {
     internal class SeedData
     {
-        public IdentityUser GuestUser { get; set; }
+        public User GuestUser { get; set; }
 
-        public IdentityUser CompanyOwnerUser { get; set; }
+        public User CompanyOwnerUser { get; set; }
 
         public Category SoftwareEngineeringCategory { get; set; }
 
@@ -54,25 +54,29 @@ namespace JAR.Infrastructure.Data.Seed
         {
             var hasher = new PasswordHasher<IdentityUser>();
 
-            GuestUser = new IdentityUser()
+            GuestUser = new User()
             {
                 Id = "2656a468-b215-4b17-865d-240a63b0d5cf",
                 UserName = "guest@gmail.com",
                 NormalizedUserName = "GUEST@GMAIL.COM",
                 Email = "guest@gmail.com",
-                NormalizedEmail = "GUEST@GMAIL.COM"
+                NormalizedEmail = "GUEST@GMAIL.COM",
+                FirstName = "Guest",
+                LastName = "Guestov"
             };
 
             GuestUser.PasswordHash = 
                 hasher.HashPassword(GuestUser, "guest123");
 
-            CompanyOwnerUser = new IdentityUser()
+            CompanyOwnerUser = new User()
             {
                 Id = "71811921-1918-4043-90b9-20f2522f315b",
                 UserName = "owner@gmail.com",
                 NormalizedUserName = "OWNER@GMAIL.COM",
                 Email = "owner@gmail.com",
-                NormalizedEmail = "OWNER@GMAIL.COM"
+                NormalizedEmail = "OWNER@GMAIL.COM",
+                FirstName = "Owner",
+                LastName = "Ownerov"
             };
 
             CompanyOwnerUser.PasswordHash = 

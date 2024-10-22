@@ -63,7 +63,7 @@ namespace JAR.Infrastructure.Data.Models
         public string OwnerId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(OwnerId))]
-        public IdentityUser Owner { get; set; } = null!;
+        public User Owner { get; set; } = null!;
 
         public IEnumerable<JobOffer> JobOffers { get; set; } = new List<JobOffer>();
     }
