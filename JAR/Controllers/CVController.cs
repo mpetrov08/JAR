@@ -20,7 +20,8 @@ namespace JAR.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            var model = new CVFormModel();
+            return View(model);
         }
 
         [HttpPost]
