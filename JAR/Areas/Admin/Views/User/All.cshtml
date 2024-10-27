@@ -1,0 +1,40 @@
+﻿@model IEnumerable<UserViewModel> 
+@inject UserManager<User> UserManager
+
+@{ 
+    ViewBag.Title = "All Users"; 
+} 
+
+<h2 class="text-center">@ViewBag.Title</h2> 
+<hr /> 
+<table class="table table-striped"> 
+    <thead>
+        <tr>
+            <th><label>Email</label></th>
+            <th><label>Full Name</label></th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td><label>@user.Email</label></td>
+                <td><label>@user.FullName</label></td>
+                @if (!await UserManager.IsInRoleAsync(await UserManager.FindByIdAsync(user.Id), "Administrator"))
+                {
+                    <td>
+                        <form asp-area="Admin" asp-controller="User" asp-action="PromoteUser" method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" class="btn btn-primary btn-lg">Promote to Admin</button>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td><label>Admin</label></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
