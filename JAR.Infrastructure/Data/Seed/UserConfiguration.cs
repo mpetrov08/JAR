@@ -16,7 +16,7 @@ namespace JAR.Infrastructure.Data.Seed
         {
             var data = new SeedData();  
             
-            builder.HasData(new User[] { data.GuestUser ,data.CompanyOwnerUser});
+            builder.HasData(new User[] { data.GuestUser, data.CompanyOwnerUser, data.AdminUser });
         }
     }
 }

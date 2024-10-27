@@ -30,6 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.SignIn.RequireConfirmedAccount = false;
             })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<JarDbContext>();
 
             return services;

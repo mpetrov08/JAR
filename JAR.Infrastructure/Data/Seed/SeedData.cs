@@ -14,6 +14,8 @@ namespace JAR.Infrastructure.Data.Seed
 
         public User CompanyOwnerUser { get; set; }
 
+        public User AdminUser { get; set; }
+
         public Category SoftwareEngineeringCategory { get; set; }
 
         public Category HealthCareCategory { get; set; }
@@ -81,6 +83,20 @@ namespace JAR.Infrastructure.Data.Seed
 
             CompanyOwnerUser.PasswordHash = 
                 hasher.HashPassword(CompanyOwnerUser, "owner123");
+
+            AdminUser = new User()
+            {
+                Id = "80277b99-4cab-4ff1-8084-6d0a5df3e787",
+                UserName = "admin@gmail.com",
+                NormalizedUserName = "ADMIN@GMAIL.COM",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "ADMIN@GMAIL.COM",
+                FirstName = "Admin",
+                LastName = "Adminov"
+            };
+
+            AdminUser.PasswordHash = 
+                hasher.HashPassword(AdminUser, "admin123");
         }
 
         private void SeedCategories()
