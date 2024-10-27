@@ -166,6 +166,7 @@ namespace JAR.Infrastructure.Data.Seed
                 Email = "microsoft@gmail.com",
                 Description = "Microsoft is a global technology company known for software and hardware.",
                 IsDeleted = false,
+                IsApproved = true,
                 OwnerId = CompanyOwnerUser.Id
             };
         }

@@ -59,6 +59,10 @@ namespace JAR.Infrastructure.Data.Models
         public bool IsDeleted { get; set; } = false;
 
         [Required]
+        [Comment("Checks if the Company has been approved")]
+        public bool IsApproved { get; set; } = false;
+
+        [Required]
         [Comment("Company Owner Identifier")]
         public string OwnerId { get; set; } = string.Empty;
 

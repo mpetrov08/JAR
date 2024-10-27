@@ -22,6 +22,6 @@ namespace JAR.Core.Models.Company
 
         public string Description { get; set; } = null!;
 
-        public string? OwnerName { get; set; } = null!;
+        public string OwnerName { get; set; } = null!;
     }
 }

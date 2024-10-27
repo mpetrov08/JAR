@@ -1,0 +1,54 @@
+﻿@model List<CompanyApproveViewModel>
+
+@{
+    ViewBag.Title = "All Companies";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Company Name</label></th>
+            <th><label>UIC</label></th>
+            <th><label>Country</label></th>
+            <th><label>Address</label></th>
+            <th><label>Phone Number</label></th>
+            <th><label>Email</label></th>
+            <th><label>Description</label></th>
+            <th><label>OwnerName</label></th>
+            <th><label>IsDeleted</label></th>
+            <th><label>IsApproved</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model)
+        {
+            <tr>
+                <td><label>@company.Name</label></td>
+                <td><label>@company.UIC</label></td>
+                <td><label>@company.Country</label></td>
+                <td><label>@company.Address</label></td>
+                <td><label>@company.PhoneNumber</label></td>
+                <td><label>@company.Email</label></td>
+                <td><label>@company.Description</label></td>
+                <td><label>@company.OwnerName</label></td>
+                <td><label>@company.IsDeleted</label></td>
+
+                @if (company.IsApproved)
+                {
+                    <td><label>@company.IsApproved</label></td>
+                }
+                else
+                {
+                    <td>
+                        <form asp-area="Admin" asp-controller="Company" asp-action="ApproveCompany" method="post">
+                            <input type="hidden" name="id" value="@company.Id" />
+                            <button type="submit" class="btn btn-primary btn-lg">Approve Company</button>
+                        </form>
+                    </td>   
+                }
+            </tr>
+        }
+    </tbody>
+</table>

@@ -20,6 +20,26 @@ namespace JAR.Core.Services
             repository = _repository;
         }
 
+        public async Task<bool> ApproveCompany(int companyId)
+        {
+            var company = await repository.GetByIdAsync<Company>(companyId);
+
+            if (company == null && company.IsDeleted == true && company.IsApproved == true)
+            {
+                return false;
+            }
+
+            company.IsApproved = true;
+            await repository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> CompanyExists(int companyId)
+        {
+            return await repository.AllReadOnly<Company>().AnyAsync(c => c.Id == companyId && c.IsDeleted == false && c.IsApproved == true);  
+        }
+
         public async Task<bool> CompanyWithUICExists(string uic)
         {
             return await repository.AllReadOnly<Company>().Where(c => c.UIC == uic).FirstOrDefaultAsync() != null;
@@ -41,6 +61,29 @@ namespace JAR.Core.Services
 
             await repository.AddAsync(company);
             await repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CompanyApproveViewModel>> GetAllCompanies()
+        {
+            var companies = await repository
+                .All<Company>()
+                .Select(c => new CompanyApproveViewModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    UIC = c.UIC,
+                    Country = c.Country,
+                    Address = c.Address,
+                    PhoneNumber = c.PhoneNumber,
+                    Email = c.Email,
+                    Description = c.Description,
+                    OwnerName = $"{c.Owner.FirstName} {c.Owner.LastName}",
+                    IsApproved = c.IsApproved,
+                    IsDeleted = c.IsDeleted
+                })
+                .ToListAsync();
+
+            return companies;
         }
 
         public async Task<int?> GetCompanyIdAsync(string userId)
