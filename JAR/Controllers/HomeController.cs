@@ -1,6 +1,7 @@
 using JAR.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using static JAR.Infrastructure.Constants.AdministratorConstants;
 
 namespace JAR.Controllers
 {
@@ -15,6 +16,10 @@ namespace JAR.Controllers
 
         public IActionResult Index()
         {
+            if (User.IsInRole(AdminRole))
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
             return View();
         }
 
