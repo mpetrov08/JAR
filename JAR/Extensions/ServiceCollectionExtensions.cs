@@ -42,6 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<ICVService, CVService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
     }
