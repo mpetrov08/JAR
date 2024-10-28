@@ -75,7 +75,8 @@ namespace JAR.Core.Services
                     RequiredExperience = jo.RequiredExperience,
                     RequiredSkills = jo.RequiredSkills,
                     Salary = jo.Salary,
-                    CreatedOn = jo.CreatedOn.Date.ToString()
+                    CreatedOn = jo.CreatedOn.Date.ToString(),
+                    CompanyLogo = jo.Company.Logo
                 })
                 .ToListAsync();
 

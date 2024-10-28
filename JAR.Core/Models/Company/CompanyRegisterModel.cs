@@ -17,6 +17,9 @@ namespace JAR.Core.Models.Company
         public string Name { get; set; } = null!;
 
         [Required]
+        public string Logo { get; set; } = null!;
+
+        [Required]
         [StringLength(CompanyUICMaxLength,
             MinimumLength = CompanyUICMinLength)]
         public string UIC { get; set; } = null!;

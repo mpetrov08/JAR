@@ -49,5 +49,8 @@ namespace JAR.Core.Models.JobOffer
 
         [Required]
         public string CreatedOn { get; set; } = string.Empty;
+
+        [Required]
+        public string CompanyLogo {  get; set; } = string.Empty;
     }
 }

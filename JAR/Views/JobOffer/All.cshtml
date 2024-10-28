@@ -96,43 +96,49 @@
 
 @foreach (var jobOffer in Model.JobOffers)
 {
-    <div class="card">
+    <div class="card mb-3">
         <h5 class="card-header">@jobOffer.Title</h5>
 
-        <div class="card-body">
-            <h5 class="card-title">@jobOffer.Address</h5>
-            <h6>@jobOffer.Salary$</h6>
-            <p class="card-text">
-                @jobOffer.RequiredSkills
+        <div class="card-body d-flex align-items-center gap-2">
+            <!-- Text Column -->
+            <div class="col-md-8">
+                <h5 class="card-title">@jobOffer.Address</h5>
+                <h6>@jobOffer.Salary$</h6>
+                <p class="card-text">
+                    @jobOffer.RequiredSkills
 
-                @if (jobOffer.RequiredLanguage != string.Empty)
-                {
-                    @jobOffer.RequiredLanguage
-                }
+                    @if (!string.IsNullOrEmpty(jobOffer.RequiredLanguage))
+                    {
+                        <br /> @jobOffer.RequiredLanguage
+                    }
 
-                @if (jobOffer.RequiredDegree != string.Empty)
-                {
-                    @jobOffer.RequiredDegree
-                }
+                    @if (!string.IsNullOrEmpty(jobOffer.RequiredDegree))
+                    {
+                        <br /> @jobOffer.RequiredDegree
+                    }
 
-                @if (jobOffer.RequiredExperience != string.Empty)
-                {
-                    @jobOffer.RequiredDegree
-                }              
-            </p>
+                    @if (!string.IsNullOrEmpty(jobOffer.RequiredExperience))
+                    {
+                        <br /> @jobOffer.RequiredExperience
+                    }
+                </p>
 
-            <p class="card-text">@jobOffer.CreatedOn</p>
+                <p class="card-text">@jobOffer.CreatedOn</p>
 
-            <div class="form-group col-md-3">
-                <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="Details" asp-route-id="@jobOffer.Id">Details</a>
-                <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@jobOffer.Id">Edit</a>
-                <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="Delete" asp-route-id="@jobOffer.Id">Delete</a>
-                <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="ViewApplicants" asp-route-id="@jobOffer.Id">View Applicants</a>
+                <div class="form-group">
+                    <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="Details" asp-route-id="@jobOffer.Id">Details</a>
+                    <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@jobOffer.Id">Edit</a>
+                    <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="Delete" asp-route-id="@jobOffer.Id">Delete</a>
+                    <a class="btn btn-primary" asp-area="" asp-controller="JobOffer" asp-action="ViewApplicants" asp-route-id="@jobOffer.Id">View Applicants</a>
+                </div>
+            </div>
+
+            <!-- Image Column -->
+            <div class="col-md-4 text-end">
+                <img class="img-fluid rounded" src="@jobOffer.CompanyLogo" alt="Company Logo" style="max-height: 200px;">
             </div>
         </div>
     </div>
-
-    <br />
 }
 
 @section Scripts {

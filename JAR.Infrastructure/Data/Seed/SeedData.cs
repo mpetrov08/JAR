@@ -159,6 +159,7 @@ namespace JAR.Infrastructure.Data.Seed
             {
                 Id = 1,
                 Name = "Microsoft",
+                Logo = "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg",
                 UIC = "91-1144442",
                 Country = "USA",
                 Address = "Redmond, Washington, USA",
