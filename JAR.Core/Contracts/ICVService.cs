@@ -1,4 +1,5 @@
 ﻿using JAR.Core.Models.CV;
+using JAR.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace JAR.Core.Contracts
 {
     public interface ICVService
     {
-        Task CreateCV(CVFormModel model, string userId);
+        Task CreateCVAsync(CVFormModel model, string userId);
 
-        Task CreateDegree(DegreeFormModel model, int cvId);
+        Degree CreateDegree(DegreeFormModel model, int cvId);
 
-        Task CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId);
+        ProfessionalExperience CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId);
     }
 }

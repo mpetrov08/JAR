@@ -1,6 +1,7 @@
 ﻿using JAR.Core.Contracts;
 using JAR.Core.Models.JobApplication;
 using JAR.Core.Models.JobOffer;
+using JAR.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -26,7 +27,7 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Apply(int id)
         {
-            if (!await jobOfferService.Exists(id))
+            if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
             }
@@ -61,7 +62,7 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Apply(JobOfferDetailsViewModel model)
         {
-            if (!await jobOfferService.Exists(model.Id))
+            if (!await jobOfferService.ExistsAsync(model.Id))
             {
                 return BadRequest();
             }
@@ -76,7 +77,7 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            await jobApplicationService.Apply(model.Id, User.Id(), DateTime.Now);
+            await jobApplicationService.ApplyAsync(model.Id, User.Id(), DateTime.Now);
 
             return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
         }
@@ -84,7 +85,7 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Approve(int jobId, string userId)
         {
-            if (!await jobOfferService.Exists(jobId))
+            if (!await jobOfferService.ExistsAsync(jobId))
             {
                 return BadRequest();
             }
@@ -95,6 +96,11 @@ namespace JAR.Controllers
             }
 
             if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, userId))
+            {
+                return BadRequest();
+            }
+
+            if (!await jobApplicationService.IsUserAlreadyApprovedAsync(jobId, userId))
             {
                 return BadRequest();
             }
@@ -117,7 +123,7 @@ namespace JAR.Controllers
         public async Task<IActionResult> Approve(JobApplicationApproveViewModel model)
         {
 
-            if (!await jobOfferService.Exists(model.JobId))
+            if (!await jobOfferService.ExistsAsync(model.JobId))
             {
                 return BadRequest();
             }
@@ -132,7 +138,12 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            await jobApplicationService.Approve(model.JobId, model.UserId, model.Message);
+            if (!await jobApplicationService.IsUserAlreadyApprovedAsync(model.JobId, model.UserId))
+            {
+                return BadRequest();
+            }
+
+            await jobApplicationService.ApproveAsync(model.JobId, model.UserId, model.Message);
             return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = model.JobId });
         }
 
@@ -141,7 +152,7 @@ namespace JAR.Controllers
         {
             string userId = User.Id();
 
-            if (!await jobOfferService.Exists(jobId))
+            if (!await jobOfferService.ExistsAsync(jobId))
             {
                 return BadRequest();
             }

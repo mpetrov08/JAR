@@ -26,28 +26,28 @@ namespace JAR.Core.Contracts
 
         Task<List<string>> AllCategoriesNamesAsync();
 
-        Task<List<CategoryViewModel>> AllCategories();
+        Task<List<CategoryViewModel>> AllCategoriesAsync();
 
-        Task<bool> CategoryExists(int id);
+        Task<bool> CategoryExistsAsync(int id);
 
         Task<List<string>> AllJobTypeNamesAsync();
 
-        Task<List<JobTypeViewModel>> AllJobTypes();
+        Task<List<JobTypeViewModel>> AllJobTypesAsync();
 
         Task<JobOfferDetailsViewModel> JobOfferDetailsAsync(int id);
 
-        Task<bool> JobTypeExists(int id);
+        Task<bool> JobTypeExistsAsync(int id);
 
-        Task<bool> Exists(int id);
+        Task<bool> ExistsAsync(int id);
 
-        Task<int> Create(JobOfferAddModel model, int companyId, DateTime createdOn);
+        Task<int> CreateAsync(JobOfferFormModel model, int companyId, DateTime createdOn);
 
-        Task<JobOfferAddModel> GetJobOfferAddModelByIdAsync(int id);
+        Task<JobOfferFormModel> GetJobOfferFormModelByIdAsync(int id);
 
         Task<bool> HasCompanyWithIdAsync(int jobOfferId, string userId);
 
-        Task EditAsync(JobOfferAddModel model, int jobOfferId);
+        Task EditAsync(JobOfferFormModel model, int jobOfferId);
 
-        Task Delete(int id);
+        Task DeleteAsync(int id);
     }
 }

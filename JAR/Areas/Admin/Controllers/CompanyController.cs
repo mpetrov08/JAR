@@ -16,19 +16,19 @@ namespace JAR.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var companies = await companyService.GetAllCompanies();
+            var companies = await companyService.GetAllCompaniesAsync();
             return View(companies);
         }
 
         [HttpPost]
         public async Task<IActionResult> ApproveCompany(int id)
         {
-            if (!await companyService.CompanyExists(id))
+            if (!await companyService.CompanyExistsAsync(id))
             {
                 return BadRequest();
             }
 
-            bool IsSucceeded = await companyService.ApproveCompany(id);
+            bool IsSucceeded = await companyService.ApproveCompanyAsync(id);
 
             if (!IsSucceeded)
             {

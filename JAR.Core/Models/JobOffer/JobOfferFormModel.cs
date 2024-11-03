@@ -10,7 +10,7 @@ using static JAR.Infrastructure.Constants.DataConstants;
 
 namespace JAR.Core.Models.JobOffer
 {
-    public class JobOfferAddModel
+    public class JobOfferFormModel
     {
         [Required]
         [StringLength(JobOfferTitleMaxLength, 

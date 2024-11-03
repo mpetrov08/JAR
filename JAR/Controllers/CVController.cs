@@ -32,7 +32,7 @@ namespace JAR.Controllers
                 return View(model);
             }
 
-            await cvService.CreateCV(model, User.Id());
+            await cvService.CreateCVAsync(model, User.Id());
 
             return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
         }

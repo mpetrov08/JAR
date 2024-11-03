@@ -89,7 +89,7 @@ namespace JAR.Core.Services
             };
         }
 
-        public async Task<List<CategoryViewModel>> AllCategories()
+        public async Task<List<CategoryViewModel>> AllCategoriesAsync()
         {
             return await repository
                 .AllReadOnly<Category>()
@@ -108,7 +108,7 @@ namespace JAR.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<List<JobTypeViewModel>> AllJobTypes()
+        public async Task<List<JobTypeViewModel>> AllJobTypesAsync()
         {
             return await repository
                 .AllReadOnly<JobType>()
@@ -127,14 +127,11 @@ namespace JAR.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<bool> Exists(int id)
+        public async Task<bool> ExistsAsync(int id)
         {
-            var jobOffer = await repository
+            return await repository
                 .AllReadOnly<JobOffer>()
-                .Where(jo => jo.IsDeleted == false)
-                .FirstOrDefaultAsync();
-
-            return jobOffer != null;
+                .AnyAsync(jo => jo.Id == id && jo.IsDeleted == false);
         }
 
         public async Task<JobOfferDetailsViewModel> JobOfferDetailsAsync(int id)
@@ -171,7 +168,7 @@ namespace JAR.Core.Services
                 .FirstAsync();
         }
 
-        public async Task<int> Create(JobOfferAddModel model, int companyId, DateTime createdOn)
+        public async Task<int> CreateAsync(JobOfferFormModel model, int companyId, DateTime createdOn)
         {
             JobOffer jobOffer = new JobOffer()
             {
@@ -195,22 +192,22 @@ namespace JAR.Core.Services
             return jobOffer.Id;
         }
 
-        public async Task<bool> CategoryExists(int id)
+        public async Task<bool> CategoryExistsAsync(int id)
         {
             return await repository.AllReadOnly<Category>().AnyAsync(c => c.Id == id);
         }
 
-        public async Task<bool> JobTypeExists(int id)
+        public async Task<bool> JobTypeExistsAsync(int id)
         {
             return await repository.AllReadOnly<JobType>().AnyAsync(c => c.Id == id);
         }
 
-        public async Task<JobOfferAddModel> GetJobOfferAddModelByIdAsync(int id)
+        public async Task<JobOfferFormModel> GetJobOfferFormModelByIdAsync(int id)
         {
             var jobOffer = await repository
                 .AllReadOnly<JobOffer>()
                 .Where(jo => jo.IsDeleted == false)
-                .Select(jo => new JobOfferAddModel
+                .Select(jo => new JobOfferFormModel
                 {
                     Title = jo.Title,
                     Description = jo.Description,
@@ -227,8 +224,8 @@ namespace JAR.Core.Services
 
             if (jobOffer != null)
             {
-                jobOffer.Categories = await AllCategories();
-                jobOffer.JobTypes = await AllJobTypes();
+                jobOffer.Categories = await AllCategoriesAsync();
+                jobOffer.JobTypes = await AllJobTypesAsync();
             }
 
             return jobOffer;
@@ -238,10 +235,10 @@ namespace JAR.Core.Services
         {
             return await repository
                 .AllReadOnly<JobOffer>()
-                .AnyAsync(jo => jo.Id == houseId && jo.Company.OwnerId == userId);
+                .AnyAsync(jo => jo.Id == houseId && jo.Company.OwnerId == userId && jo.Company.IsDeleted == false);
         }
 
-        public async Task EditAsync(JobOfferAddModel model, int jobOfferId)
+        public async Task EditAsync(JobOfferFormModel model, int jobOfferId)
         {
             var jobOffer = await repository
                 .All<JobOffer>()
@@ -266,7 +263,7 @@ namespace JAR.Core.Services
             }
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var jobOffer = await repository
                 .GetByIdAsync<JobOffer>(id);

@@ -22,7 +22,7 @@ namespace JAR.Core.Services
             repository = _repository;
         }
 
-        public async Task CreateCV(CVFormModel model, string userId)
+        public async Task CreateCVAsync(CVFormModel model, string userId)
         {
             if (!DateTime.TryParseExact(model.BirthDate, DateTimeFormat, CultureInfo.InvariantCulture, 
                 DateTimeStyles.None, out DateTime birthDate))
@@ -47,21 +47,21 @@ namespace JAR.Core.Services
                 UserId = userId
             };
 
-            foreach (var degree in model.Degrees)
-            {
-                await CreateDegree(degree, cv.Id);
-            }
+            var degrees = model.Degrees
+                .Select(d => CreateDegree(d, cv.Id))
+                .ToList();
 
-            foreach (var professionalExperience in model.ProfessionalExperiences)
-            {
-                await CreateProfessionalExperience(professionalExperience, cv.Id);
-            }
+            var experiences = model.ProfessionalExperiences
+                .Select(e => CreateProfessionalExperience(e, cv.Id))
+                .ToList();
 
             await repository.AddAsync(cv);
+            await repository.AddRangeAsync(degrees);
+            await repository.AddRangeAsync(experiences);
             await repository.SaveChangesAsync();
         }
 
-        public async Task CreateDegree(DegreeFormModel model, int cvId)
+        public Degree CreateDegree(DegreeFormModel model, int cvId)
         {
             if (!DateTime.TryParseExact(model.StartDate, DateTimeFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime startDate))
@@ -75,7 +75,7 @@ namespace JAR.Core.Services
                 throw new InvalidOperationException("Invalid date format");
             }
 
-            var degree = new Degree()
+            return new Degree()
             {
                 EducationalInstitution = model.EducationalInstitution,
                 Major = model.Major,
@@ -86,11 +86,9 @@ namespace JAR.Core.Services
                 Description = model.Description,
                 CVId = cvId
             };
-
-            await repository.AddAsync(degree);  
         }
 
-        public async Task CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId)
+        public ProfessionalExperience CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId)
         {
             if (!DateTime.TryParseExact(model.StartDate, DateTimeFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime startDate))
@@ -104,7 +102,7 @@ namespace JAR.Core.Services
                 throw new InvalidOperationException("Invalid date format");
             }
 
-            var professionalExperience = new ProfessionalExperience()
+            return new ProfessionalExperience()
             {
                 CompanyName = model.CompanyName,
                 City = model.City,
@@ -113,8 +111,6 @@ namespace JAR.Core.Services
                 Description = model.Description,
                 CVId = cvId
             };
-
-            await repository.AddAsync(professionalExperience);
         }
     }
 }

@@ -72,7 +72,7 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            if (!await jobOfferService.Exists(id))
+            if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
             }
@@ -84,37 +84,37 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var model = new JobOfferAddModel()
+            var model = new JobOfferFormModel()
             {
-                Categories = await jobOfferService.AllCategories(),
-                JobTypes = await jobOfferService.AllJobTypes(),
+                Categories = await jobOfferService.AllCategoriesAsync(),
+                JobTypes = await jobOfferService.AllJobTypesAsync(),
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(JobOfferAddModel model)
+        public async Task<IActionResult> Add(JobOfferFormModel model)
         {
-            if (!await jobOfferService.CategoryExists(model.CategoryId))
+            if (!await jobOfferService.CategoryExistsAsync(model.CategoryId))
             {
                 ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists");
             }
 
-            if (!await jobOfferService.JobTypeExists(model.JobTypeId))
+            if (!await jobOfferService.JobTypeExistsAsync(model.JobTypeId))
             {
                 ModelState.AddModelError(nameof(model.JobTypeId), "Job Type does not exists");
             }
 
             if (!ModelState.IsValid)
             {
-                model.Categories = await jobOfferService.AllCategories();
+                model.Categories = await jobOfferService.AllCategoriesAsync();
 
                 return View(model);
             }
 
             int? companyId = await companyService.GetCompanyIdAsync(User.Id());
-            int houseId = await jobOfferService.Create(model, companyId ?? 0, DateTime.Now);
+            int houseId = await jobOfferService.CreateAsync(model, companyId ?? 0, DateTime.Now);
 
             return RedirectToAction(nameof(Details), new { id = houseId });
         }
@@ -122,7 +122,7 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            if (!await jobOfferService.Exists(id))
+            if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
             }
@@ -132,15 +132,15 @@ namespace JAR.Controllers
                 return Unauthorized();
             }
 
-            var model = await jobOfferService.GetJobOfferAddModelByIdAsync(id);
+            var model = await jobOfferService.GetJobOfferFormModelByIdAsync(id);
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, JobOfferAddModel model)
+        public async Task<IActionResult> Edit(int id, JobOfferFormModel model)
         {
-            if(!await jobOfferService.Exists(id))
+            if(!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
             }
@@ -150,20 +150,20 @@ namespace JAR.Controllers
                 return Unauthorized();
             }
             
-            if (!await jobOfferService.CategoryExists(model.CategoryId))
+            if (!await jobOfferService.CategoryExistsAsync(model.CategoryId))
             {
                 ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists");
             }
 
-            if (!await jobOfferService.JobTypeExists(model.JobTypeId))
+            if (!await jobOfferService.JobTypeExistsAsync(model.JobTypeId))
             {
                 ModelState.AddModelError(nameof(model.JobTypeId), "Job Type does not exists");
             }
 
             if (!ModelState.IsValid)
             {
-                model.Categories = await jobOfferService.AllCategories();
-                model.JobTypes = await jobOfferService.AllJobTypes();
+                model.Categories = await jobOfferService.AllCategoriesAsync();
+                model.JobTypes = await jobOfferService.AllJobTypesAsync();
             }
 
             await jobOfferService.EditAsync(model, id);
@@ -174,7 +174,7 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            if (!await jobOfferService.Exists(id))
+            if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
             }
@@ -200,7 +200,7 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(JobOfferDetailsViewModel model)
         {
-            if (!await jobOfferService.Exists(model.Id))
+            if (!await jobOfferService.ExistsAsync(model.Id))
             {
                 return BadRequest();
             }
@@ -210,7 +210,7 @@ namespace JAR.Controllers
                 return Unauthorized();
             }
 
-            await jobOfferService.Delete(model.Id);
+            await jobOfferService.DeleteAsync(model.Id);
 
             return RedirectToAction(nameof(All));
         }
@@ -218,7 +218,7 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewApplicants(int id)
         {
-            if (!await jobOfferService.Exists(id))
+            if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
             }

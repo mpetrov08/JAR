@@ -10,7 +10,7 @@ namespace JAR.Core.Contracts
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserViewModel>> All();
+        Task<IEnumerable<UserViewModel>> AllAsync();
 
         Task<bool> PromoteUserToAdminAsync(string userId);
     }

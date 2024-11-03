@@ -20,11 +20,11 @@ namespace JAR.Core.Services
             repository = _repository;
         }
 
-        public async Task<bool> ApproveCompany(int companyId)
+        public async Task<bool> ApproveCompanyAsync(int companyId)
         {
             var company = await repository.GetByIdAsync<Company>(companyId);
 
-            if (company == null && company.IsDeleted == true && company.IsApproved == true)
+            if (company == null || company.IsDeleted == true || company.IsApproved == true)
             {
                 return false;
             }
@@ -35,14 +35,18 @@ namespace JAR.Core.Services
             return true;
         }
 
-        public async Task<bool> CompanyExists(int companyId)
+        public async Task<bool> CompanyExistsAsync(int companyId)
         {
-            return await repository.AllReadOnly<Company>().AnyAsync(c => c.Id == companyId && c.IsDeleted == false && c.IsApproved == true);  
+            return await repository
+                .AllReadOnly<Company>()
+                .AnyAsync(c => c.Id == companyId && c.IsDeleted == false && c.IsApproved == true);  
         }
 
-        public async Task<bool> CompanyWithUICExists(string uic)
+        public async Task<bool> CompanyWithUICExistsAsync(string uic)
         {
-            return await repository.AllReadOnly<Company>().Where(c => c.UIC == uic).FirstOrDefaultAsync() != null;
+            return await repository
+                .AllReadOnly<Company>()
+                .FirstOrDefaultAsync(c => c.UIC == uic && c.IsDeleted == false) != null;
         }
 
         public async Task CreateCompanyAsync(CompanyRegisterModel model, string userId)
@@ -64,7 +68,7 @@ namespace JAR.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CompanyApproveViewModel>> GetAllCompanies()
+        public async Task<IEnumerable<CompanyApproveViewModel>> GetAllCompaniesAsync()
         {
             var companies = await repository
                 .All<Company>()
@@ -89,12 +93,16 @@ namespace JAR.Core.Services
 
         public async Task<int?> GetCompanyIdAsync(string userId)
         {
-            return (await repository.AllReadOnly<Company>().FirstOrDefaultAsync(c => c.OwnerId == userId))?.Id;
+            return (await repository
+                .AllReadOnly<Company>()
+                .FirstOrDefaultAsync(c => c.OwnerId == userId && c.IsDeleted == false))?.Id;
         }
 
         public async Task<bool> OwnerCompanyExistsAsync(string userId)
         {
-            return await repository.AllReadOnly<Company>().FirstOrDefaultAsync(c => c.OwnerId == userId) != null;
+            return await repository
+                .AllReadOnly<Company>()
+                .FirstOrDefaultAsync(c => c.OwnerId == userId && c.IsDeleted == false) != null;
         }
     }
 }

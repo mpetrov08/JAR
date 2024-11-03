@@ -24,7 +24,7 @@ namespace JAR.Core.Services
             userManager = _userManager;
         }
 
-        public async Task<IEnumerable<UserViewModel>> All()
+        public async Task<IEnumerable<UserViewModel>> AllAsync()
         {
             var users = await repository
                 .All<User>()
@@ -49,6 +49,7 @@ namespace JAR.Core.Services
             }
 
             var result = await userManager.AddToRoleAsync(user, AdminRole);
+
             return result.Succeeded;
         }
     }

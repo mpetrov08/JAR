@@ -26,7 +26,7 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(CompanyRegisterModel model)
         {
-            if (await companyService.CompanyWithUICExists(model.UIC))
+            if (await companyService.CompanyWithUICExistsAsync(model.UIC))
             {
                 ModelState.AddModelError(nameof(model.UIC), "Already exists company with the same UIC");
             }
