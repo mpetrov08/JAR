@@ -92,10 +92,16 @@
                         </button>
 
                         <div id="degreeList">
-                            @foreach (var degree in Model.Degrees)
-                            {
-                                <p>@degree.EducationalInstitution - @degree.Major (@degree.StartDate - @degree.EndDate)</p>
-                            }
+                            <div id="degreeList">
+                                @foreach (var degree in Model.Degrees)
+                                {
+                                    <div class="degree-item">
+                                        <p>@degree.EducationalInstitution - @degree.Major (@degree.StartDate - @degree.EndDate)</p>
+                                        <button type="button" class="btn btn-sm btn-warning editDegreeButton">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-danger deleteDegreeButton">Delete</button>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
 
@@ -157,10 +163,18 @@
                     </button>
 
                     <div id="professionalExperienceList">
-                        @foreach (var professionalExperience in Model.ProfessionalExperiences)
-                        {
-                            <p>@professionalExperience.CompanyName - @professionalExperience.City (@professionalExperience.StartDate - @professionalExperience.EndDate)</p>
-                        }
+                        <div id="professionalExperienceList">
+                            <div id="professionalExperienceList">
+                                @foreach (var professionalExperience in Model.ProfessionalExperiences)
+                                {
+                                    <div class="experience-item" data-company-name="@professionalExperience.CompanyName" data-city="@professionalExperience.City">
+                                        <p>@professionalExperience.CompanyName - @professionalExperience.City (@professionalExperience.StartDate - @professionalExperience.EndDate)</p>
+                                        <button type="button" class="btn btn-sm btn-warning editExperienceButton">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-danger deleteExperienceButton">Delete</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </div>
 
                     <input type="hidden" asp-for="ProfessionalExperiences" />
