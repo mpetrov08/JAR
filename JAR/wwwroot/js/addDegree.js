@@ -1,7 +1,7 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     const degreeModalElement = document.getElementById('degreeModal');
     const degreeModal = new bootstrap.Modal(degreeModalElement);
-    const degrees = [];
+    let degrees = [];
 
     function addDegree(educationalInstitution, major, educationalLevel, city, startDate, endDate, description) {
         degrees.push({
@@ -14,11 +14,12 @@
             Description: description
         });
         updateDegreeList();
+        updateDegreesJson();
     }
 
     function updateDegreeList() {
         const degreeList = document.getElementById('degreeList');
-        degreeList.innerHTML = ''; 
+        degreeList.innerHTML = '';
         degrees.forEach((degree, index) => {
             const degreeItem = document.createElement('div');
             degreeItem.className = 'degree-item';
@@ -30,6 +31,11 @@
             `;
             degreeList.appendChild(degreeItem);
         });
+    }
+
+    function updateDegreesJson() {
+        // Update the hidden input for DegreesJson with the current degrees array as a JSON string
+        document.getElementById('degreesJson').value = JSON.stringify(degrees);
     }
 
     document.getElementById('addDegreeButton').addEventListener('click', function () {
@@ -62,6 +68,7 @@
             const index = degreeItem.getAttribute('data-index');
             const degree = degrees[index];
 
+            // Fill the modal inputs with the selected degree's data
             document.getElementById('educationalInstitution').value = degree.EducationalInstitution;
             document.getElementById('major').value = degree.Major;
             document.getElementById('educationalLevel').value = degree.EducationalLevel;
@@ -70,9 +77,11 @@
             document.getElementById('endDate').value = degree.EndDate;
             document.getElementById('description').value = degree.Description;
 
-            degreeModal.show();
+            // Remove the degree from the array so it can be edited
             degrees.splice(index, 1);
             updateDegreeList();
+            updateDegreesJson();
+            degreeModal.show();
         }
     });
 
@@ -82,6 +91,11 @@
             const index = degreeItem.getAttribute('data-index');
             degrees.splice(index, 1);
             updateDegreeList();
+            updateDegreesJson();
         }
+    });
+
+    document.getElementById('submit').addEventListener('click', function () {
+        document.getElementById('degreesJson').value = JSON.stringify(degrees);
     });
 });

@@ -24,7 +24,7 @@ namespace JAR.Core.Services
 
         public async Task CreateCVAsync(CVFormModel model, string userId)
         {
-            if (!DateTime.TryParseExact(model.BirthDate, DateTimeFormat, CultureInfo.InvariantCulture, 
+            if (!DateTime.TryParseExact(model.BirthDate, DateTimeFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime birthDate))
             {
                 throw new InvalidOperationException("Invalid date format");
@@ -47,6 +47,9 @@ namespace JAR.Core.Services
                 UserId = userId
             };
 
+            await repository.AddAsync(cv);
+            await repository.SaveChangesAsync();
+
             var degrees = model.Degrees
                 .Select(d => CreateDegree(d, cv.Id))
                 .ToList();
@@ -55,7 +58,6 @@ namespace JAR.Core.Services
                 .Select(e => CreateProfessionalExperience(e, cv.Id))
                 .ToList();
 
-            await repository.AddAsync(cv);
             await repository.AddRangeAsync(degrees);
             await repository.AddRangeAsync(experiences);
             await repository.SaveChangesAsync();

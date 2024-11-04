@@ -62,10 +62,12 @@ namespace JAR.Core.Models.CV
         public string Skills { get; set; } = null!;
 
         [StringLength(CVDrivingLicenseCategoryLength)]
-        public string DrivingLicense { get; set; } = string.Empty;
+        public string? DrivingLicense { get; set; }
 
+        public string? DegreesJson { get; set; }
         public IEnumerable<DegreeFormModel> Degrees { get; set; } = new List<DegreeFormModel>();
 
+        public string? ProfessionalExperiencesJson { get; set; }
         public IEnumerable<ProfessionalExperienceFormModel> ProfessionalExperiences { get; set; } = new List<ProfessionalExperienceFormModel>();
     }
 }

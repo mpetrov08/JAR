@@ -1,8 +1,10 @@
 ﻿using JAR.Core.Contracts;
 using JAR.Core.Models.CV;
+using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Security.Claims;
 
 namespace JAR.Controllers
@@ -27,6 +29,16 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CVFormModel model)
         {
+            if (!string.IsNullOrEmpty(model.DegreesJson))
+            {
+                model.Degrees = JsonConvert.DeserializeObject<List<DegreeFormModel>>(model.DegreesJson);
+            }
+
+            if (!string.IsNullOrEmpty(model.ProfessionalExperiencesJson))
+            {
+                model.ProfessionalExperiences = JsonConvert.DeserializeObject<List<ProfessionalExperienceFormModel>>(model.ProfessionalExperiencesJson);
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);

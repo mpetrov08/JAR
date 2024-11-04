@@ -72,7 +72,7 @@
 
             <div class="form-group">
                 <label asp-for="Skills"></label>
-                <input asp-for="Skills" class="form-control" placeholder="Required Skills" />
+                <input asp-for="Skills" id="skills" class="form-control" placeholder="Required Skills" />
                 <span asp-validation-for="Skills" class="small text-danger"></span>
             </div>
 
@@ -92,20 +92,16 @@
                         </button>
 
                         <div id="degreeList">
-                            <div id="degreeList">
-                                @foreach (var degree in Model.Degrees)
-                                {
-                                    <div class="degree-item">
-                                        <p>@degree.EducationalInstitution - @degree.Major (@degree.StartDate - @degree.EndDate)</p>
-                                        <button type="button" class="btn btn-sm btn-warning editDegreeButton">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-danger deleteDegreeButton">Delete</button>
-                                    </div>
-                                }
-                            </div>
+                            @foreach (var degree in Model.Degrees)
+                            {
+                                <div class="degree-item">
+                                    <p>@degree.EducationalInstitution - @degree.Major (@degree.StartDate - @degree.EndDate)</p>
+                                    <button type="button" class="btn btn-sm btn-warning editDegreeButton">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger deleteDegreeButton">Delete</button>
+                                </div>
+                            }
                         </div>
                     </div>
-
-                    <input type="hidden" asp-for="Degrees" />
                 </div>
 
                 <div class="modal fade" id="degreeModal" tabindex="-1" aria-labelledby="degreeModalLabel" aria-hidden="true">
@@ -134,11 +130,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="startDate">Start Date</label>
-                                    <input type="date" id="startDate" class="form-control">
+                                    <input id="startDate" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="endDate">End Date</label>
-                                    <input type="date" id="endDate" class="form-control">
+                                    <input id="endDate" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
@@ -164,20 +160,16 @@
 
                     <div id="professionalExperienceList">
                         <div id="professionalExperienceList">
-                            <div id="professionalExperienceList">
-                                @foreach (var professionalExperience in Model.ProfessionalExperiences)
-                                {
-                                    <div class="experience-item" data-company-name="@professionalExperience.CompanyName" data-city="@professionalExperience.City">
-                                        <p>@professionalExperience.CompanyName - @professionalExperience.City (@professionalExperience.StartDate - @professionalExperience.EndDate)</p>
-                                        <button type="button" class="btn btn-sm btn-warning editExperienceButton">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-danger deleteExperienceButton">Delete</button>
-                                    </div>
-                                }
-                            </div>
+                            @foreach (var professionalExperience in Model.ProfessionalExperiences)
+                            {
+                                <div class="experience-item" data-company-name="@professionalExperience.CompanyName" data-city="@professionalExperience.City">
+                                    <p>@professionalExperience.CompanyName - @professionalExperience.City (@professionalExperience.StartDate - @professionalExperience.EndDate)</p>
+                                    <button type="button" class="btn btn-sm btn-warning editExperienceButton">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger deleteExperienceButton">Delete</button>
+                                </div>
+                            }
                         </div>
                     </div>
-
-                    <input type="hidden" asp-for="ProfessionalExperiences" />
                 </div>
 
                 <div class="modal fade" id="professionalExperienceModal" tabindex="-1" aria-labelledby="professionalExperienceModalLabel" aria-hidden="true">
@@ -198,11 +190,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="experienceStartDate">Start Date</label>
-                                    <input type="date" id="experienceStartDate" class="form-control" required>
+                                    <input id="experienceStartDate" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="experienceEndDate">End Date</label>
-                                    <input type="date" id="experienceEndDate" class="form-control" required>
+                                    <input id="experienceEndDate" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="experienceDescription">Description</label>
@@ -218,8 +210,16 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <input asp-for="DegreesJson" id="degreesJson" type="hidden" value="" />
+            </div>
+
+            <div class="form-group">
+                <input asp-for= "ProfessionalExperiencesJson" id="professionalExperiencesJson" type="hidden" value="" />
+            </div>
+
             <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+                <input id ="submit" class="btn btn-primary mt-3" type="submit" value="Save" />
             </div>
         </form>
     </div>
