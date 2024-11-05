@@ -14,6 +14,8 @@ namespace JAR.Core.Contracts
 
         Task EditCV(CVFormModel model, int cvId);
 
+        Task DeleteCV(int cvId);
+
         Degree CreateDegree(DegreeFormModel model, int cvId);
 
         ProfessionalExperience CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId);

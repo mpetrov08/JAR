@@ -117,6 +117,18 @@ namespace JAR.Core.Services
             };
         }
 
+        public async Task DeleteCV(int cvId)
+        {
+            var cv = await repository.GetByIdAsync<CV>(cvId);
+
+            if (cv != null)
+            {
+                cv.IsDeleted = true;
+            }
+            
+            await repository.SaveChangesAsync();
+        }
+
         public async Task EditCV(CVFormModel model, int cvId)
         {
             if (!DateTime.TryParseExact(model.BirthDate, DateTimeFormat, CultureInfo.InvariantCulture,

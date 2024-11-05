@@ -103,6 +103,25 @@ namespace JAR.Controllers
             return RedirectToAction(nameof(Preview));
         }
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            string userId = User.Id();
+
+            if (!await cvService.Exists(id))
+            {
+                return BadRequest();
+            }
+
+            if (!await cvService.UserHasCV(id, userId))
+            {
+                return BadRequest();
+            }
+
+            await cvService.DeleteCV(id);
+
+            return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
+        }
+
         [HttpGet]
         public async Task<IActionResult> Preview(string userId = null)
         {
