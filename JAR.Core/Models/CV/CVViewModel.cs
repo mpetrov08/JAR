@@ -8,6 +8,8 @@ namespace JAR.Core.Models.CV
 {
     public class CVViewModel
     {
+        public int Id { get; set; }
+
         public string FirstName { get; set; } = null!;
 
         public string LastName { get; set; } = null!;

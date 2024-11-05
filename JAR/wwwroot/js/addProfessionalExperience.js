@@ -32,7 +32,6 @@
     }
 
     function updateExperiencesJson() {
-        // Update the hidden input for ProfessionalExperiencesJson with the current experiences array as a JSON string
         document.getElementById('professionalExperiencesJson').value = JSON.stringify(experiences);
     }
 
@@ -62,14 +61,12 @@
             const index = experienceItem.getAttribute('data-index');
             const experience = experiences[index];
 
-            // Fill the modal inputs with the selected experience's data
             document.getElementById('companyName').value = experience.CompanyName;
             document.getElementById('experienceCity').value = experience.City;
             document.getElementById('experienceStartDate').value = experience.StartDate;
             document.getElementById('experienceEndDate').value = experience.EndDate;
             document.getElementById('experienceDescription').value = experience.Description;
 
-            // Remove the experience from the array so it can be edited
             experiences.splice(index, 1);
             updateExperienceList();
             updateExperiencesJson();

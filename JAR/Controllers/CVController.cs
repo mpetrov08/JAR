@@ -50,6 +50,60 @@ namespace JAR.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            string userId = User.Id();
+
+            if (!await cvService.Exists(id))
+            {
+                return BadRequest();
+            }
+
+            if (!await cvService.UserHasCV(id, userId))
+            {
+                return BadRequest();
+            }
+
+            var cv = await cvService.GetCVFormModelByUserId(userId);
+
+            return View(cv);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CVFormModel model, int id)
+        {
+            if (!await cvService.Exists(id))
+            {
+                return BadRequest();
+            }
+
+            if (!await cvService.UserHasCV(id, User.Id()))
+            {
+                return BadRequest();
+            }
+
+            if (!string.IsNullOrEmpty(model.DegreesJson))
+            {
+                model.Degrees = JsonConvert.DeserializeObject<List<DegreeFormModel>>(model.DegreesJson);
+            }
+
+            if (!string.IsNullOrEmpty(model.ProfessionalExperiencesJson))
+            {
+                model.ProfessionalExperiences = JsonConvert.DeserializeObject<List<ProfessionalExperienceFormModel>>(model.ProfessionalExperiencesJson);
+            }
+
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await cvService.EditCV(model, id);
+
+            return RedirectToAction(nameof(Preview));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Preview(string userId = null)
         {
             if (userId == null)
@@ -57,7 +111,7 @@ namespace JAR.Controllers
                 userId = User.Id();
             }
 
-            var cv = await cvService.GetCVByUserId(userId);
+            var cv = await cvService.GetCVViewModelByUserId(userId);
 
             if (cv == null)
             {

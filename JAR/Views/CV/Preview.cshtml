@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CVViewModel
+
+@{
     ViewBag.Title = "Preview Your CV";
 }
 
@@ -6,7 +8,6 @@
 <hr />
 
 <div class="container my-5">
-    <!-- Header Section -->
     <div class="row">
         <div class="col-md-3 text-center">
             <img src="@Model.PhotoUrl" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
@@ -30,7 +31,6 @@
 
     <hr>
 
-    <!-- Skills Section -->
     <div class="row mb-4">
         <div class="col-md-12">
             <h4>Skills</h4>
@@ -38,7 +38,6 @@
         </div>
     </div>
 
-    <!-- Education Section -->
     <div class="row mb-4">
         <div class="col-md-12">
             <h4>Education</h4>
@@ -58,7 +57,6 @@
         </div>
     </div>
 
-    <!-- Professional Experience Section -->
     <div class="row mb-4">
         <div class="col-md-12">
             <h4>Professional Experience</h4>
@@ -75,4 +73,7 @@
             }
         </div>
     </div>
+
+    <a class="btn btn-primary" asp-area="" asp-controller="CV" asp-action="Edit" asp-route-id="@Model.Id">Details</a>
+
 </div>

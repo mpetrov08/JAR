@@ -12,10 +12,18 @@ namespace JAR.Core.Contracts
     {
         Task CreateCVAsync(CVFormModel model, string userId);
 
+        Task EditCV(CVFormModel model, int cvId);
+
         Degree CreateDegree(DegreeFormModel model, int cvId);
 
         ProfessionalExperience CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId);
 
-        Task<CVViewModel> GetCVByUserId(string userId);
+        Task<CVViewModel> GetCVViewModelByUserId(string userId);
+
+        Task<CVFormModel> GetCVFormModelByUserId(string userId);
+
+        Task<bool> Exists(int cvId);
+
+        Task<bool> UserHasCV(int cvId, string userId);
     }
 }

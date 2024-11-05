@@ -117,13 +117,121 @@ namespace JAR.Core.Services
             };
         }
 
-        public async Task<CVViewModel> GetCVByUserId(string userId)
+        public async Task EditCV(CVFormModel model, int cvId)
+        {
+            if (!DateTime.TryParseExact(model.BirthDate, DateTimeFormat, CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out DateTime birthDate))
+            {
+                throw new InvalidOperationException("Invalid date format");
+            }
+
+            var cv = await repository.GetByIdAsync<CV>(cvId);
+
+            if (cv != null)
+            {
+                cv.FirstName = model.FirstName;
+                cv.LastName = model.LastName;
+                cv.Email = model.Email;
+                cv.LinkedInProfile = model.LinkedInProfile;
+                cv.PhoneNumber = model.PhoneNumber;
+                cv.Address = model.Address;
+                cv.Gender = model.Gender;
+                cv.BirthDate = birthDate;
+                cv.Citizenship = model.Citizenship;
+                cv.Photo = model.Photo;
+                cv.Languages = model.Languages;
+                cv.Skills = model.Skills;
+                cv.DrivingLicenseCategory = model.DrivingLicense;
+
+                var degrees = model.Degrees
+                    .Select(d => CreateDegree(d, cv.Id))
+                    .ToList();
+
+                foreach (var degree in degrees)
+                {
+                    if (!cv.Degrees.Contains(degree))
+                    {
+                        await repository.AddAsync(degree);
+                    }
+                }
+
+                var experiences = model.ProfessionalExperiences
+                .Select(e => CreateProfessionalExperience(e, cv.Id))
+                .ToList();
+
+                foreach (var experience in experiences)
+                {
+                    if (!cv.ProfessionalExperiences.Contains(experience))
+                    {
+                        await repository.AddAsync(experience);
+                    }
+                }
+            }
+
+            await repository.SaveChangesAsync();
+        }
+
+        public async Task<bool> Exists(int cvId)
+        {
+            return await repository.GetByIdAsync<CV>(cvId) != null;
+        }
+
+        public async Task<CVFormModel> GetCVFormModelByUserId(string userId)
+        {
+            var cv = await repository
+                .AllReadOnly<CV>()
+                .Where(c => c.UserId == userId)
+                .Select(c => new CVFormModel()
+                {
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Email = c.Email,
+                    LinkedInProfile = c.LinkedInProfile,
+                    PhoneNumber = c.PhoneNumber,
+                    Address = c.Address,
+                    Gender = c.Gender,
+                    BirthDate = c.BirthDate.ToString(DateTimeFormat),
+                    Citizenship = c.Citizenship,
+                    Photo = c.Photo,
+                    Languages = c.Languages,
+                    Skills = c.Skills,
+                    DrivingLicense = c.DrivingLicenseCategory,
+                    Degrees = c.Degrees
+                               .Select(d => new DegreeFormModel()
+                               {
+                                   EducationalInstitution = d.EducationalInstitution,
+                                   Major = d.Major,
+                                   EducationalLevel = d.EducationLevel,
+                                   City = d.City,
+                                   StartDate = d.StartDate.ToString(DateTimeFormat),
+                                   EndDate = d.EndDate.ToString(DateTimeFormat),
+                                   Description = d.Description,
+                               })
+                               .ToList(),
+                    ProfessionalExperiences = c.ProfessionalExperiences
+                                               .Select(pf => new ProfessionalExperienceFormModel()
+                                               {
+                                                   CompanyName = pf.CompanyName,
+                                                   City = pf.City,
+                                                   StartDate = pf.StartDate.ToString(DateTimeFormat),
+                                                   EndDate = pf.EndDate.ToString(DateTimeFormat),
+                                                   Description = pf.Description
+                                               })
+                                               .ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            return cv;
+        }
+
+        public async Task<CVViewModel> GetCVViewModelByUserId(string userId)
         {
             var cv = await repository
                 .AllReadOnly<CV>()
                 .Where(c => c.UserId == userId)
                 .Select(c => new CVViewModel()
                 {
+                    Id = c.Id,
                     FirstName = c.FirstName,
                     LastName = c.LastName,
                     Email = c.Email,
@@ -163,6 +271,11 @@ namespace JAR.Core.Services
                 .FirstOrDefaultAsync();
 
             return cv;
+        }
+
+        public async Task<bool> UserHasCV(int cvId, string userId)
+        {
+            return await repository.AllReadOnly<CV>().AnyAsync(c => c.Id == cvId && c.UserId == userId);
         }
     }
 }
