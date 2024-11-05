@@ -108,6 +108,10 @@ namespace JAR.Infrastructure.Constants
 
         public const int NameMaxLength = 50;
 
+        public const int EmailMinLength = 3;
+
+        public const int EmailMaxLength = 150;
+
         public const string DateTimeFormat = "dd/MM/yyyy";
     }
 }

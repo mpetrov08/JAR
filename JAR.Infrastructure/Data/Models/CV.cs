@@ -35,6 +35,11 @@ namespace JAR.Infrastructure.Data.Models
         public string LastName { get; set; } = string.Empty;
 
         [Required]
+        [MaxLength(EmailMaxLength)]
+        [Comment("Email Address")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
         [MaxLength(CVLinkedInProfileMaxLength)]
         [Comment("LinkedIn Profile Link")]
         public string LinkedInProfile { get; set; } = string.Empty;
