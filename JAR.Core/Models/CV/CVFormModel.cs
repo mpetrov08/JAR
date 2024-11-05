@@ -21,6 +21,11 @@ namespace JAR.Core.Models.CV
         public string LastName { get; set; } = null!;
 
         [Required]
+        [StringLength(EmailMaxLength,
+            MinimumLength = EmailMinLength)]
+        public string Email { get; set; } = null!;
+
+        [Required]
         [StringLength(CVLinkedInProfileMaxLength,
             MinimumLength = CVLinkedInProfileMinLength)]
         public string LinkedInProfile { get; set; } = null!;

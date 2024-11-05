@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Preview Your CV";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+<div class="container my-5">
+    <!-- Header Section -->
+    <div class="row">
+        <div class="col-md-3 text-center">
+            <img src="@Model.PhotoUrl" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+        </div>
+        <div class="col-md-9">
+            <h2>@Model.FirstName @Model.LastName</h2>
+            <p><strong>Phone:</strong> @Model.PhoneNumber</p>
+            <p><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></p>
+            <p><strong>LinkedIn:</strong> <a href="@Model.LinkedInProfile">@Model.LinkedInProfile</a></p>
+            <p><strong>Address:</strong> @Model.Address</p>
+            <p><strong>Gender:</strong> @Model.Gender</p>
+            <p><strong>Date of Birth:</strong> @Model.BirthDate</p>
+            <p><strong>Citizenship:</strong> @Model.Citizenship</p>
+            <p><strong>Languages:</strong> @Model.Languages</p>
+            @if (!string.IsNullOrEmpty(Model.DrivingLicenseCategory))
+            {
+                <p><strong>Driving License:</strong> @Model.DrivingLicenseCategory</p>
+            }
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Skills Section -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h4>Skills</h4>
+            <p>@Model.Skills</p>
+        </div>
+    </div>
+
+    <!-- Education Section -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h4>Education</h4>
+            @foreach (var degree in Model.Degrees)
+            {
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>@degree.EducationalInstitution</h5>
+                        <p><strong>Degree:</strong> @degree.EducationalLevel</p>
+                        <p><strong>Major:</strong> @degree.Major</p>
+                        <p><strong>Location:</strong> @degree.City</p>
+                        <p><strong>Period:</strong> @degree.StartDate - @degree.EndDate</p>
+                        <p>@degree.Description</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Professional Experience Section -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h4>Professional Experience</h4>
+            @foreach (var experience in Model.ProfessionalExperiences)
+            {
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>@experience.CompanyName</h5>
+                        <p><strong>Location:</strong> @experience.City</p>
+                        <p><strong>Period:</strong> @experience.StartDate - @experience.EndDate</p>
+                        <p>@experience.Description</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

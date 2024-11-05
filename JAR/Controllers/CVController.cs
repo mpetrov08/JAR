@@ -48,5 +48,18 @@ namespace JAR.Controllers
 
             return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Preview()
+        {
+            var cv = await cvService.GetCVByUserId(User.Id());
+
+            if (cv == null)
+            {
+                return BadRequest();
+            }
+
+            return View(cv);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using JAR.Core.Models.CV;
 using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace JAR.Core.Services
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                Email = model.Email,
                 LinkedInProfile = model.LinkedInProfile,
                 PhoneNumber = model.PhoneNumber,
                 Address = model.Address,
@@ -113,6 +115,54 @@ namespace JAR.Core.Services
                 Description = model.Description,
                 CVId = cvId
             };
+        }
+
+        public async Task<CVViewModel> GetCVByUserId(string userId)
+        {
+            var cv = await repository
+                .AllReadOnly<CV>()
+                .Where(c => c.UserId == userId)
+                .Select(c => new CVViewModel()
+                {
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Email = c.Email,
+                    LinkedInProfile = c.LinkedInProfile,
+                    PhoneNumber = c.PhoneNumber,
+                    Address = c.Address,
+                    Gender = c.Gender,
+                    BirthDate = c.BirthDate.ToString(DateTimeFormat),
+                    Citizenship = c.Citizenship,
+                    PhotoUrl = c.Photo,
+                    Languages = c.Languages,
+                    Skills = c.Skills,
+                    DrivingLicenseCategory = c.DrivingLicenseCategory,
+                    Degrees = c.Degrees
+                               .Select(d => new DegreeViewModel()
+                               {
+                                   EducationalInstitution = d.EducationalInstitution,
+                                   Major = d.Major,
+                                   EducationalLevel = d.EducationLevel,
+                                   City = d.City,
+                                   StartDate = d.StartDate.ToString(DateTimeFormat),
+                                   EndDate = d.EndDate.ToString(DateTimeFormat),
+                                   Description = d.Description,
+                               })
+                               .ToList(),
+                    ProfessionalExperiences = c.ProfessionalExperiences
+                                               .Select(pf => new ProfessionalExperienceViewModel()
+                                               {
+                                                   CompanyName = pf.CompanyName,
+                                                   City = pf.City,
+                                                   StartDate = pf.StartDate.ToString(DateTimeFormat),
+                                                   EndDate = pf.EndDate.ToString(DateTimeFormat),
+                                                   Description= pf.Description
+                                               })
+                                               .ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            return cv;
         }
     }
 }

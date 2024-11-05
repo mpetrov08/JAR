@@ -15,5 +15,7 @@ namespace JAR.Core.Contracts
         Degree CreateDegree(DegreeFormModel model, int cvId);
 
         ProfessionalExperience CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId);
+
+        Task<CVViewModel> GetCVByUserId(string userId);
     }
 }
