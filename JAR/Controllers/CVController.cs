@@ -50,9 +50,14 @@ namespace JAR.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Preview()
+        public async Task<IActionResult> Preview(string userId = null)
         {
-            var cv = await cvService.GetCVByUserId(User.Id());
+            if (userId == null)
+            {
+                userId = User.Id();
+            }
+
+            var cv = await cvService.GetCVByUserId(userId);
 
             if (cv == null)
             {
