@@ -86,6 +86,10 @@ namespace JAR.Infrastructure.Data.Models
         [Comment("Driving License Category that user has")]
         public string? DrivingLicenseCategory { get; set; }
 
+        [Required]
+        [Comment("Checks if the Job Offer has been deleted")]
+        public bool IsDeleted { get; set; }
+
         public IEnumerable<Degree> Degrees { get; set; } = new List<Degree>();
 
         public IEnumerable<ProfessionalExperience> ProfessionalExperiences { get; set; } = new List<ProfessionalExperience>();
