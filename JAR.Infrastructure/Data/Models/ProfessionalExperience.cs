@@ -40,6 +40,10 @@ namespace JAR.Infrastructure.Data.Models
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        [Comment("Checks if the Professional Experience has been deleted")]
+        public bool IsDeleted { get; set; }
+
+        [Required]
         [Comment("CV Foreign Key")]
         public int CVId { get; set; }
 

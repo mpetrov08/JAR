@@ -50,6 +50,10 @@ namespace JAR.Infrastructure.Data.Models
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        [Comment("Checks if the Degree has been deleted")]
+        public bool IsDeleted { get; set; }
+
+        [Required]
         [Comment("Foreign key of CV")]
         public int CVId { get; set; }
 
