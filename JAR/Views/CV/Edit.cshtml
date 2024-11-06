@@ -107,6 +107,8 @@
                                 </div>
                             }
                         </div>
+
+                        <input type="hidden" id="initialDegrees" value='@Model.DegreesJson' />
                     </div>
                 </div>
 
@@ -174,6 +176,8 @@
                                     <button type="button" class="btn btn-sm btn-danger deleteExperienceButton">Delete</button>
                                 </div>
                             }
+
+                            <input type="hidden" id="initialProfessionalExperiences" value='@Model.ProfessionalExperiencesJson' />
                         </div>
                     </div>
                 </div>
@@ -233,6 +237,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial"></partial>
-    <script src="~/js/addDegree.js"></script>
-    <script src="~/js/addProfessionalExperience.js"></script>
+    <script src="~/js/degreeManager.js"></script>
+    <script src="~/js/professionalExperienceManager.js"></script>
 }

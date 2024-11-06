@@ -119,14 +119,49 @@ namespace JAR.Core.Services
 
         public async Task DeleteCV(int cvId)
         {
-            var cv = await repository.GetByIdAsync<CV>(cvId);
+            var cv = await repository
+                .All<CV>()
+                .Include(c => c.Degrees)
+                .Include(c => c.ProfessionalExperiences)
+                .FirstOrDefaultAsync(c => c.Id == cvId);
 
-            if (cv != null)
+            if (cv != null && cv.IsDeleted == false)
             {
                 cv.IsDeleted = true;
+
+                foreach (var degree in cv.Degrees)
+                {
+                    await DeleteDegree(degree.Id);
+                }
+
+                foreach (var professionalExperience in cv.ProfessionalExperiences)
+                {
+                    await DeleteProfessionalExperience(professionalExperience.Id);
+                }
             }
             
             await repository.SaveChangesAsync();
+        }
+
+        public async Task DeleteDegree(int degreeId)
+        {
+            var degree = await repository.GetByIdAsync<Degree>(degreeId);
+
+            if (degree != null && degree.IsDeleted == false)
+            {
+                degree.IsDeleted = true;
+            }
+        }
+
+        public async Task DeleteProfessionalExperience(int professionalExperienceId)
+        {
+            var professionalExperience = await repository
+                .GetByIdAsync<ProfessionalExperience>(professionalExperienceId);
+
+            if (professionalExperience != null && professionalExperience.IsDeleted == false)
+            {
+                professionalExperience.IsDeleted = true;
+            }
         }
 
         public async Task EditCV(CVFormModel model, int cvId)
@@ -137,7 +172,11 @@ namespace JAR.Core.Services
                 throw new InvalidOperationException("Invalid date format");
             }
 
-            var cv = await repository.GetByIdAsync<CV>(cvId);
+            var cv = await repository
+                .All<CV>()
+                .Include(c => c.Degrees)
+                .Include(c => c.ProfessionalExperiences)
+                .FirstOrDefaultAsync(c => c.Id == cvId);
 
             if (cv != null)
             {
@@ -159,6 +198,14 @@ namespace JAR.Core.Services
                     .Select(d => CreateDegree(d, cv.Id))
                     .ToList();
 
+                foreach (var degree in cv.Degrees)
+                {
+                    if (!degrees.Contains(degree))
+                    {
+                        await DeleteDegree(degree.Id);
+                    }
+                }
+
                 foreach (var degree in degrees)
                 {
                     if (!cv.Degrees.Contains(degree))
@@ -170,6 +217,14 @@ namespace JAR.Core.Services
                 var experiences = model.ProfessionalExperiences
                 .Select(e => CreateProfessionalExperience(e, cv.Id))
                 .ToList();
+
+                foreach (var experience in cv.ProfessionalExperiences)
+                {
+                    if (!experiences.Contains(experience))
+                    {
+                        await DeleteProfessionalExperience(experience.Id);
+                    }
+                }
 
                 foreach (var experience in experiences)
                 {

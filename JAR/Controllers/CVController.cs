@@ -66,6 +66,9 @@ namespace JAR.Controllers
 
             var cv = await cvService.GetCVFormModelByUserId(userId);
 
+            cv.DegreesJson = JsonConvert.SerializeObject(cv.Degrees);
+            cv.ProfessionalExperiencesJson = JsonConvert.SerializeObject(cv.ProfessionalExperiences);
+
             return View(cv);
         }
 

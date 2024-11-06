@@ -1,7 +1,9 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     const degreeModalElement = document.getElementById('degreeModal');
     const degreeModal = new bootstrap.Modal(degreeModalElement);
-    let degrees = [];
+    let degrees = JSON.parse(document.getElementById('initialDegrees').value);
+
+    console.log(degrees);
 
     function addDegree(educationalInstitution, major, educationalLevel, city, startDate, endDate, description) {
         degrees.push({
@@ -34,7 +36,6 @@
     }
 
     function updateDegreesJson() {
-        // Update the hidden input for DegreesJson with the current degrees array as a JSON string
         document.getElementById('degreesJson').value = JSON.stringify(degrees);
     }
 
@@ -68,7 +69,6 @@
             const index = degreeItem.getAttribute('data-index');
             const degree = degrees[index];
 
-            // Fill the modal inputs with the selected degree's data
             document.getElementById('educationalInstitution').value = degree.EducationalInstitution;
             document.getElementById('major').value = degree.Major;
             document.getElementById('educationalLevel').value = degree.EducationalLevel;
@@ -77,15 +77,12 @@
             document.getElementById('endDate').value = degree.EndDate;
             document.getElementById('description').value = degree.Description;
 
-            // Remove the degree from the array so it can be edited
             degrees.splice(index, 1);
             updateDegreeList();
             updateDegreesJson();
             degreeModal.show();
         }
-    });
 
-    document.getElementById('degreeList').addEventListener('click', function (event) {
         if (event.target.classList.contains('deleteDegreeButton')) {
             const degreeItem = event.target.closest('.degree-item');
             const index = degreeItem.getAttribute('data-index');
@@ -98,4 +95,6 @@
     document.getElementById('submit').addEventListener('click', function () {
         document.getElementById('degreesJson').value = JSON.stringify(degrees);
     });
+
+    updateDegreeList();
 });

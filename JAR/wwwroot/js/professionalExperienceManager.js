@@ -1,7 +1,8 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     const experienceModalElement = document.getElementById('professionalExperienceModal');
     const experienceModal = new bootstrap.Modal(experienceModalElement);
-    let experiences = [];
+
+    let experiences = JSON.parse(document.getElementById('initialProfessionalExperiences').value);
 
     function addExperience(companyName, city, startDate, endDate, description) {
         experiences.push({
@@ -72,9 +73,7 @@
             updateExperiencesJson();
             experienceModal.show();
         }
-    });
 
-    document.getElementById('professionalExperienceList').addEventListener('click', function (event) {
         if (event.target.classList.contains('deleteExperienceButton')) {
             const experienceItem = event.target.closest('.experience-item');
             const index = experienceItem.getAttribute('data-index');
@@ -82,9 +81,11 @@
             updateExperienceList();
             updateExperiencesJson();
         }
-    })
+    });
 
     document.getElementById('submit').addEventListener('click', function () {
         updateExperiencesJson();
     });
+
+    updateExperienceList();
 });
