@@ -30,6 +30,8 @@ namespace JAR.Core.Contracts
 
         Task<bool> Exists(int cvId);
 
-        Task<bool> UserHasCV(int cvId, string userId);
+        Task<bool> UserHasCVWithId(int cvId, string userId);
+
+        Task<bool> UserHasCV(string userId);
     }
 }

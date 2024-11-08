@@ -20,8 +20,13 @@ namespace JAR.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            if (await cvService.UserHasCV(User.Id()))
+            {
+                return RedirectToAction(nameof(Preview));
+            }
+
             var model = new CVFormModel();
             return View(model);
         }
@@ -46,7 +51,7 @@ namespace JAR.Controllers
 
             await cvService.CreateCVAsync(model, User.Id());
 
-            return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
+            return RedirectToAction(nameof(Preview));
         }
 
         [HttpGet]
@@ -59,7 +64,7 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            if (!await cvService.UserHasCV(id, userId))
+            if (!await cvService.UserHasCVWithId(id, userId))
             {
                 return BadRequest();
             }
@@ -80,7 +85,7 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            if (!await cvService.UserHasCV(id, User.Id()))
+            if (!await cvService.UserHasCVWithId(id, User.Id()))
             {
                 return BadRequest();
             }
@@ -115,7 +120,7 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            if (!await cvService.UserHasCV(id, userId))
+            if (!await cvService.UserHasCVWithId(id, userId))
             {
                 return BadRequest();
             }

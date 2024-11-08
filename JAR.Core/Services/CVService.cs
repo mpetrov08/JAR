@@ -176,7 +176,7 @@ namespace JAR.Core.Services
                 .All<CV>()
                 .Include(c => c.Degrees)
                 .Include(c => c.ProfessionalExperiences)
-                .FirstOrDefaultAsync(c => c.Id == cvId);
+                .FirstOrDefaultAsync(c => c.Id == cvId && c.IsDeleted == false);
 
             if (cv != null)
             {
@@ -198,7 +198,9 @@ namespace JAR.Core.Services
                     .Select(d => CreateDegree(d, cv.Id))
                     .ToList();
 
-                foreach (var degree in cv.Degrees)
+                var cvDegrees = cv.Degrees.Where(d => d.IsDeleted == false);
+
+                foreach (var degree in cvDegrees)
                 {
                     if (!degrees.Contains(degree))
                     {
@@ -208,7 +210,7 @@ namespace JAR.Core.Services
 
                 foreach (var degree in degrees)
                 {
-                    if (!cv.Degrees.Contains(degree))
+                    if (!cvDegrees.Contains(degree))
                     {
                         await repository.AddAsync(degree);
                     }
@@ -218,7 +220,9 @@ namespace JAR.Core.Services
                 .Select(e => CreateProfessionalExperience(e, cv.Id))
                 .ToList();
 
-                foreach (var experience in cv.ProfessionalExperiences)
+                var cvProfessionalExperiences = cv.ProfessionalExperiences.Where(c => c.IsDeleted == false);
+
+                foreach (var experience in cvProfessionalExperiences)
                 {
                     if (!experiences.Contains(experience))
                     {
@@ -228,7 +232,7 @@ namespace JAR.Core.Services
 
                 foreach (var experience in experiences)
                 {
-                    if (!cv.ProfessionalExperiences.Contains(experience))
+                    if (!cvProfessionalExperiences.Contains(experience))
                     {
                         await repository.AddAsync(experience);
                     }
@@ -240,14 +244,16 @@ namespace JAR.Core.Services
 
         public async Task<bool> Exists(int cvId)
         {
-            return await repository.GetByIdAsync<CV>(cvId) != null;
+            return await repository
+                .All<CV>()
+                .FirstOrDefaultAsync(c => c.Id == cvId && c.IsDeleted == false) != null;
         }
 
         public async Task<CVFormModel> GetCVFormModelByUserId(string userId)
         {
             var cv = await repository
                 .AllReadOnly<CV>()
-                .Where(c => c.UserId == userId)
+                .Where(c => c.UserId == userId && c.IsDeleted == false)
                 .Select(c => new CVFormModel()
                 {
                     FirstName = c.FirstName,
@@ -257,31 +263,33 @@ namespace JAR.Core.Services
                     PhoneNumber = c.PhoneNumber,
                     Address = c.Address,
                     Gender = c.Gender,
-                    BirthDate = c.BirthDate.ToString(DateTimeFormat),
+                    BirthDate = c.BirthDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
                     Citizenship = c.Citizenship,
                     Photo = c.Photo,
                     Languages = c.Languages,
                     Skills = c.Skills,
                     DrivingLicense = c.DrivingLicenseCategory,
                     Degrees = c.Degrees
+                               .Where(d => d.IsDeleted == false)
                                .Select(d => new DegreeFormModel()
                                {
                                    EducationalInstitution = d.EducationalInstitution,
                                    Major = d.Major,
                                    EducationalLevel = d.EducationLevel,
                                    City = d.City,
-                                   StartDate = d.StartDate.ToString(DateTimeFormat),
-                                   EndDate = d.EndDate.ToString(DateTimeFormat),
+                                   StartDate = d.StartDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                                   EndDate = d.EndDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
                                    Description = d.Description,
                                })
                                .ToList(),
                     ProfessionalExperiences = c.ProfessionalExperiences
+                                               .Where(pf => pf.IsDeleted == false)
                                                .Select(pf => new ProfessionalExperienceFormModel()
                                                {
                                                    CompanyName = pf.CompanyName,
                                                    City = pf.City,
-                                                   StartDate = pf.StartDate.ToString(DateTimeFormat),
-                                                   EndDate = pf.EndDate.ToString(DateTimeFormat),
+                                                   StartDate = pf.StartDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                                                   EndDate = pf.EndDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
                                                    Description = pf.Description
                                                })
                                                .ToList()
@@ -295,7 +303,7 @@ namespace JAR.Core.Services
         {
             var cv = await repository
                 .AllReadOnly<CV>()
-                .Where(c => c.UserId == userId)
+                .Where(c => c.UserId == userId && c.IsDeleted == false)
                 .Select(c => new CVViewModel()
                 {
                     Id = c.Id,
@@ -306,31 +314,33 @@ namespace JAR.Core.Services
                     PhoneNumber = c.PhoneNumber,
                     Address = c.Address,
                     Gender = c.Gender,
-                    BirthDate = c.BirthDate.ToString(DateTimeFormat),
+                    BirthDate = c.BirthDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
                     Citizenship = c.Citizenship,
                     PhotoUrl = c.Photo,
                     Languages = c.Languages,
                     Skills = c.Skills,
                     DrivingLicenseCategory = c.DrivingLicenseCategory,
                     Degrees = c.Degrees
+                               .Where(d => d.IsDeleted == false)
                                .Select(d => new DegreeViewModel()
                                {
                                    EducationalInstitution = d.EducationalInstitution,
                                    Major = d.Major,
                                    EducationalLevel = d.EducationLevel,
                                    City = d.City,
-                                   StartDate = d.StartDate.ToString(DateTimeFormat),
-                                   EndDate = d.EndDate.ToString(DateTimeFormat),
+                                   StartDate = d.StartDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                                   EndDate = d.EndDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
                                    Description = d.Description,
                                })
                                .ToList(),
                     ProfessionalExperiences = c.ProfessionalExperiences
+                                               .Where(pf => pf.IsDeleted == false)
                                                .Select(pf => new ProfessionalExperienceViewModel()
                                                {
                                                    CompanyName = pf.CompanyName,
                                                    City = pf.City,
-                                                   StartDate = pf.StartDate.ToString(DateTimeFormat),
-                                                   EndDate = pf.EndDate.ToString(DateTimeFormat),
+                                                   StartDate = pf.StartDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                                                   EndDate = pf.EndDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
                                                    Description= pf.Description
                                                })
                                                .ToList()
@@ -340,9 +350,18 @@ namespace JAR.Core.Services
             return cv;
         }
 
-        public async Task<bool> UserHasCV(int cvId, string userId)
+        public async Task<bool> UserHasCV(string userId)
         {
-            return await repository.AllReadOnly<CV>().AnyAsync(c => c.Id == cvId && c.UserId == userId);
+            return await repository
+                .AllReadOnly<CV>()
+                .AnyAsync(c => c.IsDeleted == false && c.UserId == userId);
+        }
+
+        public async Task<bool> UserHasCVWithId(int cvId, string userId)
+        {
+            return await repository
+                .AllReadOnly<CV>()
+                .AnyAsync(c => c.Id == cvId && c.UserId == userId && c.IsDeleted == false);
         }
     }
 }
