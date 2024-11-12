@@ -84,6 +84,10 @@ namespace JAR.Infrastructure.Constants
 
         public const int DegreeEducationLevelMaxLength = 50;
 
+        public const int ConferenceTopicMinLength = 2;
+
+        public const int ConferenceTopicMaxLength = 150;
+
         public const int CountryMinLength = 2;
 
         public const int CountryMaxLength = 30;

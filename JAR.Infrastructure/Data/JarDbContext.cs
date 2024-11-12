@@ -54,5 +54,9 @@ namespace JAR.Infrastructure.Data
         public DbSet<Degree> Degrees { get; set; }
 
         public DbSet<ProfessionalExperience> ProfessionalExperiences { get; set; }
+
+        public DbSet<Lecturer> Lecturers { get; set; }
+
+        public DbSet<Conference> Conferences { get; set; }
     }
 }
