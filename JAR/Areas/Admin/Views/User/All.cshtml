@@ -13,6 +13,7 @@
             <th><label>Email</label></th>
             <th><label>Full Name</label></th>
             <th>Role</th>
+            <th>IsLecturer</th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +25,7 @@
                 @if (!await UserManager.IsInRoleAsync(await UserManager.FindByIdAsync(user.Id), "Administrator"))
                 {
                     <td>
-                        <form asp-area="Admin" asp-controller="User" asp-action="PromoteUser" method="post">
+                        <form asp-area="Admin" asp-controller="User" asp-action="PromoteUserToAdmin" method="post">
                             <input type="hidden" name="id" value="@user.Id" />
                             <button type="submit" class="btn btn-primary btn-lg">Promote to Admin</button>
                         </form>
@@ -33,6 +34,17 @@
                 else
                 {
                     <td><label>Admin</label></td>
+                }
+
+                @if (!user.IsLecturer)
+                {
+                    <td>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="PromoteUserToLecturer" asp-route-id="@user.Id">Promote To Lecturer</a>
+                    </td>
+                }
+                else
+                {
+                    <td><label>Lecturer</label></td>
                 }
             </tr>
         }

@@ -39,7 +39,7 @@ namespace JAR.Core.Services
         {
             return await repository
                 .AllReadOnly<Company>()
-                .AnyAsync(c => c.Id == companyId && c.IsDeleted == false && c.IsApproved == true);  
+                .AnyAsync(c => c.Id == companyId && c.IsDeleted == false);  
         }
 
         public async Task<bool> CompanyWithUICExistsAsync(string uic)

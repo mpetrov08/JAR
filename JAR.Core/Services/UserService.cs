@@ -17,24 +17,31 @@ namespace JAR.Core.Services
     {
         private readonly IRepository repository;
         private readonly UserManager<User> userManager; 
+        private readonly ILecturerService lecturerService;
 
-        public UserService(IRepository _repository, UserManager<User> _userManager)
+        public UserService(IRepository _repository, 
+            UserManager<User> _userManager,
+            ILecturerService _lecturerService)
         {
             repository = _repository;
             userManager = _userManager;
+            lecturerService = _lecturerService;
         }
 
         public async Task<IEnumerable<UserViewModel>> AllAsync()
         {
+            bool IsLecturer = await lecturerService.IsLecturer("");
+
             var users = await repository
                 .All<User>()
                 .Select(u => new UserViewModel()
                 {
                     Id = u.Id,
                     Email = u.Email,
-                    FullName = $"{u.FirstName} {u.LastName}"
+                    FullName = $"{u.FirstName} {u.LastName}",
+                    IsLecturer = lecturerService.IsLecturer(u.Id).Result,
                 })
-                .ToListAsync();
+                .ToListAsync(); 
 
             return users;
         }
