@@ -206,7 +206,7 @@ namespace JAR.Core.Services
         {
             var jobOffer = await repository
                 .AllReadOnly<JobOffer>()
-                .Where(jo => jo.IsDeleted == false)
+                .Where(jo => jo.IsDeleted == false && jo.Id == id)
                 .Select(jo => new JobOfferFormModel
                 {
                     Title = jo.Title,

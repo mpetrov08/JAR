@@ -34,5 +34,36 @@ namespace JAR.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!await conferenceService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            var model = await conferenceService.GetConferenceFormModelByIdAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ConferenceFormModel model, int id)
+        {
+            if (!await conferenceService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await conferenceService.EditConferenceAsync(model, id);
+
+            return View(model);
+        }
     }
 }
