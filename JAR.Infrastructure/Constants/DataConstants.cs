@@ -88,6 +88,8 @@ namespace JAR.Infrastructure.Constants
 
         public const int ConferenceTopicMaxLength = 150;
 
+        public const string ConferenceDateTimeFormat = "dd/MM/yyyy HH:mm";
+
         public const int CountryMinLength = 2;
 
         public const int CountryMaxLength = 30;
@@ -116,6 +118,6 @@ namespace JAR.Infrastructure.Constants
 
         public const int EmailMaxLength = 150;
 
-        public const string DateTimeFormat = "dd/MM/yyyy";
+        public const string DateFormat = "dd/MM/yyyy";
     }
 }

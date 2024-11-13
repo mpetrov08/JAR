@@ -20,6 +20,11 @@ namespace JAR.Core.Services
             repository = _repository;
         }
 
+        public async Task<bool> Exists(int id)
+        {
+            return await repository.GetByIdAsync<Lecturer>(id) != null;
+        }
+
         public async Task<bool> IsLecturer(string userId)
         {
             return await repository

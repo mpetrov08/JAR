@@ -44,6 +44,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICVService, CVService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ILecturerService, LecturerService>();
+            services.AddScoped<IConferenceService, ConferenceService>();
+
             return services;
         }
     }

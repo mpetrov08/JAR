@@ -25,7 +25,7 @@ namespace JAR.Core.Services
 
         public async Task CreateCVAsync(CVFormModel model, string userId)
         {
-            if (!DateTime.TryParseExact(model.BirthDate, DateTimeFormat, CultureInfo.InvariantCulture,
+            if (!DateTime.TryParseExact(model.BirthDate, DateFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime birthDate))
             {
                 throw new InvalidOperationException("Invalid date format");
@@ -67,13 +67,13 @@ namespace JAR.Core.Services
 
         public Degree CreateDegree(DegreeFormModel model, int cvId)
         {
-            if (!DateTime.TryParseExact(model.StartDate, DateTimeFormat, CultureInfo.InvariantCulture,
+            if (!DateTime.TryParseExact(model.StartDate, DateFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime startDate))
             {
                 throw new InvalidOperationException("Invalid date format");
             }
 
-            if (!DateTime.TryParseExact(model.EndDate, DateTimeFormat, CultureInfo.InvariantCulture,
+            if (!DateTime.TryParseExact(model.EndDate, DateFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime endDate))
             {
                 throw new InvalidOperationException("Invalid date format");
@@ -94,13 +94,13 @@ namespace JAR.Core.Services
 
         public ProfessionalExperience CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId)
         {
-            if (!DateTime.TryParseExact(model.StartDate, DateTimeFormat, CultureInfo.InvariantCulture,
+            if (!DateTime.TryParseExact(model.StartDate, DateFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime startDate))
             {
                 throw new InvalidOperationException("Invalid date format");
             }
 
-            if (!DateTime.TryParseExact(model.EndDate, DateTimeFormat, CultureInfo.InvariantCulture,
+            if (!DateTime.TryParseExact(model.EndDate, DateFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime endDate))
             {
                 throw new InvalidOperationException("Invalid date format");
@@ -166,7 +166,7 @@ namespace JAR.Core.Services
 
         public async Task EditCV(CVFormModel model, int cvId)
         {
-            if (!DateTime.TryParseExact(model.BirthDate, DateTimeFormat, CultureInfo.InvariantCulture,
+            if (!DateTime.TryParseExact(model.BirthDate, DateFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime birthDate))
             {
                 throw new InvalidOperationException("Invalid date format");
@@ -263,7 +263,7 @@ namespace JAR.Core.Services
                     PhoneNumber = c.PhoneNumber,
                     Address = c.Address,
                     Gender = c.Gender,
-                    BirthDate = c.BirthDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                    BirthDate = c.BirthDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     Citizenship = c.Citizenship,
                     Photo = c.Photo,
                     Languages = c.Languages,
@@ -277,8 +277,8 @@ namespace JAR.Core.Services
                                    Major = d.Major,
                                    EducationalLevel = d.EducationLevel,
                                    City = d.City,
-                                   StartDate = d.StartDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
-                                   EndDate = d.EndDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                                   StartDate = d.StartDate.ToString(DateFormat, CultureInfo.InvariantCulture),
+                                   EndDate = d.EndDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                                    Description = d.Description,
                                })
                                .ToList(),
@@ -288,8 +288,8 @@ namespace JAR.Core.Services
                                                {
                                                    CompanyName = pf.CompanyName,
                                                    City = pf.City,
-                                                   StartDate = pf.StartDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
-                                                   EndDate = pf.EndDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                                                   StartDate = pf.StartDate.ToString(DateFormat, CultureInfo.InvariantCulture),
+                                                   EndDate = pf.EndDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                                                    Description = pf.Description
                                                })
                                                .ToList()
@@ -314,7 +314,7 @@ namespace JAR.Core.Services
                     PhoneNumber = c.PhoneNumber,
                     Address = c.Address,
                     Gender = c.Gender,
-                    BirthDate = c.BirthDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                    BirthDate = c.BirthDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     Citizenship = c.Citizenship,
                     PhotoUrl = c.Photo,
                     Languages = c.Languages,
@@ -328,8 +328,8 @@ namespace JAR.Core.Services
                                    Major = d.Major,
                                    EducationalLevel = d.EducationLevel,
                                    City = d.City,
-                                   StartDate = d.StartDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
-                                   EndDate = d.EndDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                                   StartDate = d.StartDate.ToString(DateFormat, CultureInfo.InvariantCulture),
+                                   EndDate = d.EndDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                                    Description = d.Description,
                                })
                                .ToList(),
@@ -339,8 +339,8 @@ namespace JAR.Core.Services
                                                {
                                                    CompanyName = pf.CompanyName,
                                                    City = pf.City,
-                                                   StartDate = pf.StartDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
-                                                   EndDate = pf.EndDate.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                                                   StartDate = pf.StartDate.ToString(DateFormat, CultureInfo.InvariantCulture),
+                                                   EndDate = pf.EndDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                                                    Description= pf.Description
                                                })
                                                .ToList()

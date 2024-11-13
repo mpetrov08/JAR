@@ -10,6 +10,8 @@ namespace JAR.Core.Contracts
 {
     public interface ILecturerService
     {
+        Task<bool> Exists(int id);
+
         Task<bool> IsLecturer(string userId);
 
         Task<bool> PromoteToLecturer(LecturerFormModel model);
