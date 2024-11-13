@@ -9,6 +9,8 @@ namespace JAR.Core.Contracts
 {
     public interface IConferenceService
     {
+        Task<IEnumerable<ConferenceViewModel>> AllAsync();
+
         Task CreateConferenceAsync(ConferenceFormModel model);
 
         Task EditConferenceAsync(ConferenceFormModel model, int id);

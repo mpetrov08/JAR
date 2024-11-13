@@ -16,6 +16,13 @@ namespace JAR.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var conferences = await conferenceService.AllAsync();
+            return View(conferences);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Add()
         {
             var model = new ConferenceFormModel();

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ConferenceViewModel>
+
+@{
+    ViewBag.Title = "All Conferences";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+<div class="container">
+    @if (!Model.Any())
+    {
+        <p>No conferences available.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var conference in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@conference.Topic</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                @conference.Start - @conference.End
+                            </h6>
+                            <p class="card-text">@conference.Description</p>
+                            <p class="card-text"><strong>Lecturer:</strong> @conference.Lecturer.FirstName @conference.Lecturer.LastName</p>
+
+                            <div class="d-flex justify-content-between">
+                                <a href="@Url.Action("Details", "Conference", new { id = conference.Id })" class="btn btn-info btn-sm">Details</a>
+                                <a href="@Url.Action("Edit", "Conference", new { id = conference.Id })" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="@Url.Action("Delete", "Conference", new { id = conference.Id })" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

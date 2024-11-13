@@ -26,6 +26,29 @@ namespace JAR.Core.Services
             lecturerService = _lecturerService;
         }
 
+        public async Task<IEnumerable<ConferenceViewModel>> AllAsync()
+        {
+            var conferences = await repository
+                .AllReadOnly<Conference>()
+                .Where(c => c.IsDeleted == false)
+                .Select(c => new ConferenceViewModel()
+                {
+                    Topic = c.Topic,
+                    Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
+                    End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
+                    Description = c.Description,
+                    Lecturer = new LecturerViewModel()
+                    {
+                        FirstName = c.Lecturer.User.FirstName,
+                        LastName = c.Lecturer.User.LastName,
+                        Description = c.Lecturer.Description
+                    }
+                })
+                .ToListAsync();
+
+            return conferences;
+        }
+
         public async Task CreateConferenceAsync(ConferenceFormModel model)
         {
             if (!DateTime.TryParseExact(model.Start, ConferenceDateTimeFormat, CultureInfo.InvariantCulture,
