@@ -40,6 +40,10 @@ namespace JAR.Infrastructure.Data.Models
         [Required]
         [MaxLength(DescriptionMaxLength)]
         [Comment("Conference`s Description")]
-        public string Description { get; set; } = string.Empty ;
+        public string Description { get; set; } = string.Empty;
+
+        [Required]
+        [Comment("Checks if the Conference has been deleted")]
+        public bool IsDeleted { get; set; }
     }
 }

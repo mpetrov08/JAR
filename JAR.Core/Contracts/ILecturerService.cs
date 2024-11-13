@@ -15,5 +15,7 @@ namespace JAR.Core.Contracts
         Task<bool> IsLecturer(string userId);
 
         Task<bool> PromoteToLecturer(LecturerFormModel model);
+
+        Task<LecturerViewModel> GetLecturerViewModel(int id);
     }
 }

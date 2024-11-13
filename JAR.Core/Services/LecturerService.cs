@@ -25,6 +25,22 @@ namespace JAR.Core.Services
             return await repository.GetByIdAsync<Lecturer>(id) != null;
         }
 
+        public async Task<LecturerViewModel> GetLecturerViewModel(int id)
+        {
+            var lecturer = await repository
+                .AllReadOnly<Lecturer>()
+                .Where(l => l.Id == id && l.IsDeleted == false)
+                .Select(l => new LecturerViewModel()
+                {
+                    FirstName = l.User.FirstName,
+                    LastName = l.User.LastName,
+                    Description = l.Description
+                })
+                .FirstOrDefaultAsync();
+
+            return lecturer;
+        }
+
         public async Task<bool> IsLecturer(string userId)
         {
             return await repository

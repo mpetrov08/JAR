@@ -65,5 +65,36 @@ namespace JAR.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!await conferenceService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            var model = await conferenceService.GetConferenceViewModelByIdAsync(id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ConferenceViewModel model)
+        {
+            if (!await conferenceService.ExistsAsync(model.Id))
+            {
+                return BadRequest();
+            }
+
+            await conferenceService.DeleteConferenceAsync(model.Id);
+
+            return View();
+        }
     }
 }

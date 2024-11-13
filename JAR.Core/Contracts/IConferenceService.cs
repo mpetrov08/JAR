@@ -13,7 +13,11 @@ namespace JAR.Core.Contracts
 
         Task EditConferenceAsync(ConferenceFormModel model, int id);
 
+        Task DeleteConferenceAsync(int id);
+
         Task<ConferenceFormModel> GetConferenceFormModelByIdAsync(int id);
+
+        Task<ConferenceViewModel> GetConferenceViewModelByIdAsync(int id);
 
         Task<bool> ExistsAsync(int id);
     }

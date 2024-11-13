@@ -28,6 +28,10 @@ namespace JAR.Infrastructure.Data.Models
         [Comment("Lecturer`s Description")]
         public string Description { get; set; }= string.Empty;
 
+        [Required]
+        [Comment("Checks if the Lecturer has been deleted")]
+        public bool IsDeleted { get; set; }
+
         public IEnumerable<Conference> Conferences { get; set; } = new List<Conference>();
     }
 }

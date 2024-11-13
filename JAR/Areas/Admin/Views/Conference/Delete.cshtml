@@ -1,0 +1,51 @@
+﻿@model ConferenceViewModel
+
+@{
+    ViewBag.Title = "Delete Conference";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+<form asp-action="Delete">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="Topic" class="control-label"></label>
+                <input asp-for="Topic" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Start" class="control-label"></label>
+                <input asp-for="Start" class="form-control" disabled="disabled" />
+                <div class="form-group">
+                    <label asp-for="End" class="control-label"></label>
+                    <input asp-for="End" class="form-control" disabled="disabled" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Lecturer.FirstName" class="control-label"></label>
+                <input asp-for="Lecturer.FirstName" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Lecturer.LastName" class="control-label"></label>
+                <input asp-for="Lecturer.LastName" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Lecturer.Description" class="control-label"></label>
+                <input asp-for="Lecturer.Description" class="form-control" disabled="disabled" />
+            </div>
+
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
