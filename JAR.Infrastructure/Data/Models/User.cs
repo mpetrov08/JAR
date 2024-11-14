@@ -24,10 +24,6 @@ namespace JAR.Infrastructure.Data.Models
         [Comment("User Last Name")]
         public string LastName { get; set; } = string.Empty;
 
-        [Comment("Foreign key of CV. It is not required")]
-        public int? CVId { get; set; }
-
-        [ForeignKey(nameof(CVId))]
-        public CV? CV { get; set; }
+        public IEnumerable<ConferenceUser> ConferencesUsers { get; set; } = new List<ConferenceUser>();
     }
 }

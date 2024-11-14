@@ -45,5 +45,7 @@ namespace JAR.Infrastructure.Data.Models
         [Required]
         [Comment("Checks if the Conference has been deleted")]
         public bool IsDeleted { get; set; }
+
+        public IEnumerable<ConferenceUser> ConferencesUsers { get; set; } = new List<ConferenceUser>();
     }
 }

@@ -2,6 +2,7 @@
 using JAR.Infrastructure.Data.Seed;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace JAR.Infrastructure.Data
 {
@@ -27,6 +28,23 @@ namespace JAR.Infrastructure.Data
                 .HasOne(ja => ja.User)
                 .WithMany()
                 .HasForeignKey(ja => ja.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+            builder.Entity<ConferenceUser>()
+                .HasKey(cu => new { cu.ConferenceId, cu.UserId });
+
+            builder.Entity<ConferenceUser>()
+                .HasOne(cu => cu.Conference)
+                .WithMany(c => c.ConferencesUsers)
+                .HasForeignKey(cu => cu.ConferenceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ConferenceUser>()
+                .HasOne(cu => cu.User)
+                .WithMany(u => u.ConferencesUsers)
+                .HasForeignKey(cu => cu.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.ApplyConfiguration(new UserConfiguration());
@@ -58,5 +76,7 @@ namespace JAR.Infrastructure.Data
         public DbSet<Lecturer> Lecturers { get; set; }
 
         public DbSet<Conference> Conferences { get; set; }
+
+        public DbSet<ConferenceUser> ConferencesUsers { get; set; }
     }
 }
