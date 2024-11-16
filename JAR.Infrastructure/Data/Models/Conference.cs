@@ -43,6 +43,10 @@ namespace JAR.Infrastructure.Data.Models
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        [Comment("URL to room, where to conference will be held")]
+        public string ConferenceUrl { get; set; } = string.Empty;
+
+        [Required]
         [Comment("Checks if the Conference has been deleted")]
         public bool IsDeleted { get; set; }
 

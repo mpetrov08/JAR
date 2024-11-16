@@ -38,6 +38,7 @@ namespace JAR.Core.Services
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     Description = c.Description,
+                    ConferenceUrl = c.ConferenceUrl,
                     Lecturer = new LecturerViewModel()
                     {
                         FirstName = c.Lecturer.User.FirstName,
@@ -77,6 +78,7 @@ namespace JAR.Core.Services
                 Start = start,
                 End = end,
                 Description = model.Description,
+                ConferenceUrl = model.ConferenceUrl
             };
 
             await repository.AddAsync(conference);
@@ -122,6 +124,7 @@ namespace JAR.Core.Services
                 conference.Start = start;
                 conference.End = end;
                 conference.Description = model.Description;
+                conference.ConferenceUrl = model.ConferenceUrl;
 
                 await repository.SaveChangesAsync();
             }
@@ -145,7 +148,8 @@ namespace JAR.Core.Services
                     Topic = c.Topic,
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
-                    Description = c.Description
+                    Description = c.Description,
+                    ConferenceUrl = c.ConferenceUrl
                 })
                 .FirstOrDefaultAsync();
 
@@ -164,6 +168,7 @@ namespace JAR.Core.Services
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     Description = c.Description,
+                    ConferenceUrl = c.ConferenceUrl,
                     Lecturer = new LecturerViewModel()
                     {
                         FirstName = c.Lecturer.User.FirstName,

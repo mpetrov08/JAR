@@ -28,5 +28,8 @@ namespace JAR.Core.Models.Conference
         [StringLength(DescriptionMaxLength,
             MinimumLength = DescriptionMinLength)]
         public string Description { get; set; } = null!;
+
+        [Required]
+        public string ConferenceUrl { get; set; } = null!;
     }
 }

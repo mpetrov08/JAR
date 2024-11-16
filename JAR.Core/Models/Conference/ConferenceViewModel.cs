@@ -19,6 +19,8 @@ namespace JAR.Core.Models.Conference
 
         public string Description { get; set; } = null!;
 
+        public string ConferenceUrl { get; set; } = null!;
+
         public LecturerViewModel Lecturer { get; set; } = null!;
     }
 }
