@@ -31,19 +31,17 @@ namespace JAR.Core.Services
             var conferences = await repository
                 .AllReadOnly<Conference>()
                 .Where(c => c.IsDeleted == false)
-                .Select(c => new ConferenceViewModel()
+                .Select(c => new ConferenceViewModel
                 {
                     Id = c.Id,
                     Topic = c.Topic,
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
-                    Description = c.Description,
                     ConferenceUrl = c.ConferenceUrl,
                     Lecturer = new LecturerViewModel()
                     {
                         FirstName = c.Lecturer.User.FirstName,
                         LastName = c.Lecturer.User.LastName,
-                        Description = c.Lecturer.Description
                     }
                 })
                 .ToListAsync();
@@ -137,6 +135,31 @@ namespace JAR.Core.Services
                 .FirstOrDefaultAsync(c => c.Id == id && c.IsDeleted == false) != null;
         }
 
+        public async Task<ConferenceDetailsViewModel> GetConferenceDetailsViewModelByIdAsync(int id)
+        {
+            var conference = await repository
+                .AllReadOnly<Conference>()
+                .Where(c => c.Id == id && c.IsDeleted == false)
+                .Select(c => new ConferenceDetailsViewModel()
+                {
+                    Id = c.Id,
+                    Topic = c.Topic,
+                    Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
+                    End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
+                    Description = c.Description,
+                    ConferenceUrl = c.ConferenceUrl,
+                    Lecturer = new LecturerDetailsViewModel()
+                    {
+                        FirstName = c.Lecturer.User.FirstName,
+                        LastName = c.Lecturer.User.LastName,
+                        Description = c.Lecturer.Description
+                    }
+                })
+                .FirstOrDefaultAsync();
+
+            return conference;
+        }
+
         public async Task<ConferenceFormModel> GetConferenceFormModelByIdAsync(int id)
         {
             var conference = await repository
@@ -167,13 +190,11 @@ namespace JAR.Core.Services
                     Topic = c.Topic,
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
-                    Description = c.Description,
                     ConferenceUrl = c.ConferenceUrl,
                     Lecturer = new LecturerViewModel()
                     {
                         FirstName = c.Lecturer.User.FirstName,
                         LastName = c.Lecturer.User.LastName,
-                        Description = c.Description
                     }
                 })
                 .FirstOrDefaultAsync();

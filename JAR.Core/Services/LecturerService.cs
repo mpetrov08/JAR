@@ -41,7 +41,6 @@ namespace JAR.Core.Services
                 {
                     FirstName = l.User.FirstName,
                     LastName = l.User.LastName,
-                    Description = l.Description
                 })
                 .FirstOrDefaultAsync();
 

@@ -29,6 +29,19 @@ namespace JAR.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (!await conferenceService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            var conference = await conferenceService.GetConferenceDetailsViewModelByIdAsync(id);
+            return View(conference);
+        }
+
+
+        [HttpGet]
         [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Add()
         {

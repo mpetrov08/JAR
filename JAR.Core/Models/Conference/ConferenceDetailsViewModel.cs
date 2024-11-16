@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JAR.Core.Models.Conference
 {
-    public class ConferenceViewModel
+    public class ConferenceDetailsViewModel
     {
         public int Id { get; set; }
 
@@ -17,8 +17,10 @@ namespace JAR.Core.Models.Conference
 
         public string End { get; set; } = null!;
 
+        public string Description { get; set; } = null!;
+
         public string ConferenceUrl { get; set; } = null!;
 
-        public LecturerViewModel Lecturer { get; set; } = null!;
+        public LecturerDetailsViewModel Lecturer { get; set; } = null!; 
     }
 }
