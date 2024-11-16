@@ -30,8 +30,6 @@ namespace JAR.Core.Services
 
         public async Task<IEnumerable<UserViewModel>> AllAsync()
         {
-            bool IsLecturer = await lecturerService.IsLecturer("");
-
             var users = await repository
                 .All<User>()
                 .Select(u => new UserViewModel()

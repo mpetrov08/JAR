@@ -22,5 +22,13 @@ namespace JAR.Core.Contracts
         Task<ConferenceViewModel> GetConferenceViewModelByIdAsync(int id);
 
         Task<bool> ExistsAsync(int id);
+
+        Task SignUp(int conferenceId, string userId);
+
+        Task Unregister(int conferenceId, string userId);
+
+        Task<bool> HasUserSignedUp(int conferenceId, string userId);
+
+        Task<bool> IsConferenceOver(int conferenceId, DateTime currentTime);
     }
 }

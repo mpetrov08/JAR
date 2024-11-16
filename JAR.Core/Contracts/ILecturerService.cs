@@ -16,6 +16,10 @@ namespace JAR.Core.Contracts
 
         Task<bool> PromoteToLecturer(LecturerFormModel model);
 
+        Task<bool> HasLecturerConference(string userId, int conferenceId);
+
+        Task<int> GetLecturerId(string userId);
+
         Task<LecturerViewModel> GetLecturerViewModel(int id);
     }
 }

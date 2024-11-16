@@ -1,18 +1,24 @@
 ﻿using JAR.Core.Contracts;
 using JAR.Core.Models.Conference;
-using static JAR.Infrastructure.Constants.DataConstants;
+using static JAR.Infrastructure.Constants.AdministratorConstants;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
-namespace JAR.Areas.Admin.Controllers
+namespace JAR.Controllers
 {
-    public class ConferenceController : AdminController
+    [Authorize]
+    public class ConferenceController : Controller
     {
         private readonly IConferenceService conferenceService;
+        private readonly ILecturerService lecturerService;
 
-        public ConferenceController(IConferenceService _conferenceService)
+        public ConferenceController(IConferenceService _conferenceService, 
+            ILecturerService _lecturerService)
         {
             conferenceService = _conferenceService;
+            lecturerService = _lecturerService;
         }
 
         [HttpGet]
@@ -23,6 +29,7 @@ namespace JAR.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Add()
         {
             var model = new ConferenceFormModel();
@@ -30,6 +37,7 @@ namespace JAR.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Add(ConferenceFormModel model)
         {
             if (!ModelState.IsValid)
@@ -43,6 +51,7 @@ namespace JAR.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Edit(int id)
         {
             if (!await conferenceService.ExistsAsync(id))
@@ -56,6 +65,7 @@ namespace JAR.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Edit(ConferenceFormModel model, int id)
         {
             if (!await conferenceService.ExistsAsync(id))
@@ -74,6 +84,7 @@ namespace JAR.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Delete(int id)
         {
             if (!await conferenceService.ExistsAsync(id))
@@ -92,6 +103,7 @@ namespace JAR.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Delete(ConferenceViewModel model)
         {
             if (!await conferenceService.ExistsAsync(model.Id))
@@ -102,6 +114,61 @@ namespace JAR.Areas.Admin.Controllers
             await conferenceService.DeleteConferenceAsync(model.Id);
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp(int conferenceId)
+        {
+            string userId = User.Id();
+
+            if (!await conferenceService.ExistsAsync(conferenceId))
+            {
+                return BadRequest();
+            }
+
+            if (await conferenceService.HasUserSignedUp(conferenceId, userId))
+            {
+                return BadRequest();
+            }
+
+            if (await conferenceService.IsConferenceOver(conferenceId, DateTime.Now))
+            {
+                return BadRequest();
+            }
+
+            if (await lecturerService.HasLecturerConference(userId, conferenceId))
+            {
+                return BadRequest();
+            }
+
+            await conferenceService.SignUp(conferenceId, userId);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Unregister(int conferenceId)
+        {
+            string userId = User.Id();
+
+            if (!await conferenceService.ExistsAsync(conferenceId))
+            {
+                return BadRequest();
+            }
+
+            if (!await conferenceService.HasUserSignedUp(conferenceId, userId))
+            {
+                return BadRequest();
+            }
+
+            if (await conferenceService.IsConferenceOver(conferenceId, DateTime.Now))
+            {
+                return BadRequest();
+            }
+
+            await conferenceService.Unregister(conferenceId, userId);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

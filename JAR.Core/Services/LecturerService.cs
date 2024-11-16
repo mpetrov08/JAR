@@ -25,6 +25,13 @@ namespace JAR.Core.Services
             return await repository.GetByIdAsync<Lecturer>(id) != null;
         }
 
+        public async Task<int> GetLecturerId(string userId)
+        {
+            var lecturer = await repository.AllReadOnly<Lecturer>().FirstOrDefaultAsync(l => l.UserId == userId);
+
+            return lecturer.Id;
+        }
+
         public async Task<LecturerViewModel> GetLecturerViewModel(int id)
         {
             var lecturer = await repository
@@ -39,6 +46,14 @@ namespace JAR.Core.Services
                 .FirstOrDefaultAsync();
 
             return lecturer;
+        }
+
+        public async Task<bool> HasLecturerConference(string userId, int conferenceId)
+        {
+            var conference = await repository.GetByIdAsync<Conference>(conferenceId);
+            var lecturerId = await GetLecturerId(userId);
+
+            return conference.LecturerId == lecturerId;
         }
 
         public async Task<bool> IsLecturer(string userId)

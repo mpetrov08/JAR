@@ -33,6 +33,7 @@ namespace JAR.Core.Services
                 .Where(c => c.IsDeleted == false)
                 .Select(c => new ConferenceViewModel()
                 {
+                    Id = c.Id,
                     Topic = c.Topic,
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
@@ -173,6 +174,46 @@ namespace JAR.Core.Services
                 .FirstOrDefaultAsync();
 
             return conference;
+        }
+
+        public async Task<bool> HasUserSignedUp(int conferenceId, string userId)
+        {
+            return await repository
+                .AllReadOnly<ConferenceUser>()
+                .FirstOrDefaultAsync(cu => cu.ConferenceId == conferenceId && cu.UserId == userId && cu.IsDeleted == false) 
+                != null;
+        }
+
+        public async Task<bool> IsConferenceOver(int conferenceId, DateTime currentTime)
+        {
+            var conference = await repository.GetByIdAsync<Conference>(conferenceId);
+
+            return conference.End < currentTime;
+        }
+
+        public async Task SignUp(int conferenceId, string userId)
+        {
+            var conferenceUser = new ConferenceUser()
+            {
+                ConferenceId = conferenceId,
+                UserId = userId
+            };
+
+            await repository.AddAsync(conferenceUser);
+            await repository.SaveChangesAsync();
+        }
+
+        public async Task Unregister(int conferenceId, string userId)
+        {
+            var conferenceUser = await repository
+                .All<ConferenceUser>()
+                .FirstOrDefaultAsync(cu => cu.ConferenceId == conferenceId && cu.UserId == userId && cu.IsDeleted == false);
+
+            if (conferenceUser != null)
+            {
+                conferenceUser.IsDeleted = true;
+                await repository.SaveChangesAsync();
+            }
         }
     }
 }
