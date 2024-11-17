@@ -83,6 +83,16 @@ namespace JAR.Controllers
         [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Edit(int id)
         {
+            if (!User.IsInRole(AdminRole))
+            {
+                return BadRequest();
+            }
+
+            if (!await lecturerService.HasLecturerConference(User.Id(), id))
+            {
+                return BadRequest();
+            }
+
             if (!await conferenceService.ExistsAsync(id))
             {
                 return BadRequest();
@@ -97,6 +107,16 @@ namespace JAR.Controllers
         [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Edit(ConferenceFormModel model, int id)
         {
+            if (!User.IsInRole(AdminRole))
+            {
+                return BadRequest();
+            }
+
+            if (!await lecturerService.HasLecturerConference(User.Id(), id))
+            {
+                return BadRequest();
+            }
+
             if (!await conferenceService.ExistsAsync(id))
             {
                 return BadRequest();
