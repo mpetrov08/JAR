@@ -62,7 +62,9 @@ namespace JAR.Controllers
         public async Task<IActionResult> Add()
         {
             var model = new ConferenceFormModel();
-            return View();
+            model.Lecturers = await lecturerService.AllAsync();
+
+            return View(model);
         }
 
         [HttpPost]
@@ -71,6 +73,7 @@ namespace JAR.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.Lecturers = await lecturerService.AllAsync();
                 return View(model);
             }
 
@@ -83,12 +86,8 @@ namespace JAR.Controllers
         [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Edit(int id)
         {
-            if (!User.IsInRole(AdminRole))
-            {
-                return BadRequest();
-            }
-
-            if (!await lecturerService.HasLecturerConference(User.Id(), id))
+            if (!User.IsInRole(AdminRole) &&
+                !await lecturerService.HasLecturerConference(User.Id(), id))
             {
                 return BadRequest();
             }
@@ -107,12 +106,8 @@ namespace JAR.Controllers
         [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Edit(ConferenceFormModel model, int id)
         {
-            if (!User.IsInRole(AdminRole))
-            {
-                return BadRequest();
-            }
-
-            if (!await lecturerService.HasLecturerConference(User.Id(), id))
+            if (!User.IsInRole(AdminRole) &&
+               !await lecturerService.HasLecturerConference(User.Id(), id))
             {
                 return BadRequest();
             }
@@ -124,6 +119,7 @@ namespace JAR.Controllers
 
             if (!ModelState.IsValid)
             {
+                model.Lecturers = await lecturerService.AllAsync();
                 return View(model);
             }
 

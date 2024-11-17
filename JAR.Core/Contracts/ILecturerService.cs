@@ -21,5 +21,7 @@ namespace JAR.Core.Contracts
         Task<int> GetLecturerId(string userId);
 
         Task<LecturerViewModel> GetLecturerViewModel(int id);
+
+        Task<IEnumerable<LecturerViewModel>> AllAsync();
     }
 }

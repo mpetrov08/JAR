@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JAR.Core.Models.Lecturer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace JAR.Core.Models.Conference
     {
         [Required]
         public int LecturerId { get; set; }
+
+        public IEnumerable<LecturerViewModel> Lecturers { get; set; } = new List<LecturerViewModel>();
 
         [Required]
         [StringLength(ConferenceTopicMaxLength,

@@ -40,6 +40,7 @@ namespace JAR.Core.Services
                     ConferenceUrl = c.ConferenceUrl,
                     Lecturer = new LecturerViewModel()
                     {
+                        Id = c.LecturerId,
                         FirstName = c.Lecturer.User.FirstName,
                         LastName = c.Lecturer.User.LastName,
                     }
@@ -65,6 +66,7 @@ namespace JAR.Core.Services
                     ConferenceUrl = c.ConferenceUrl,
                     Lecturer = new LecturerViewModel()
                     {
+                        Id= c.LecturerId,
                         FirstName = c.Lecturer.User.FirstName,
                         LastName = c.Lecturer.User.LastName,
                     }
@@ -86,6 +88,7 @@ namespace JAR.Core.Services
                     ConferenceUrl = c.ConferenceUrl,
                     Lecturer = new LecturerViewModel()
                     {
+                        Id = c.LecturerId,
                         FirstName = c.Lecturer.User.FirstName,
                         LastName = c.Lecturer.User.LastName,
                     }
@@ -194,6 +197,7 @@ namespace JAR.Core.Services
                     ConferenceUrl = c.ConferenceUrl,
                     Lecturer = new LecturerDetailsViewModel()
                     {
+                        Id = c.LecturerId,
                         FirstName = c.Lecturer.User.FirstName,
                         LastName = c.Lecturer.User.LastName,
                         Description = c.Lecturer.Description
@@ -220,6 +224,11 @@ namespace JAR.Core.Services
                 })
                 .FirstOrDefaultAsync();
 
+            if (conference != null)
+            {
+                conference.Lecturers = await lecturerService.AllAsync();
+            }
+
             return conference;
         }
 
@@ -235,11 +244,7 @@ namespace JAR.Core.Services
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     ConferenceUrl = c.ConferenceUrl,
-                    Lecturer = new LecturerViewModel()
-                    {
-                        FirstName = c.Lecturer.User.FirstName,
-                        LastName = c.Lecturer.User.LastName,
-                    }
+                    Lecturer = lecturerService.GetLecturerViewModel(c.LecturerId).Result
                 })
                 .FirstOrDefaultAsync();
 

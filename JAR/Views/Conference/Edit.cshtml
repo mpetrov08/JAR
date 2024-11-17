@@ -12,7 +12,12 @@
         <form method="post">
             <div class="form-group">
                 <label asp-for="LecturerId"></label>
-                <input asp-for="LecturerId" class="form-control" placeholder="Lecturer" />
+                <select asp-for="LecturerId" class="form-control">
+                    @foreach (var lecturer in Model.Lecturers)
+                    {
+                        <option value="@lecturer.Id">@lecturer.FirstName @lecturer.LastName</option>
+                    }
+                </select>
                 <span asp-validation-for="LecturerId" class="small text-danger"></span>
             </div>
 

@@ -20,6 +20,19 @@ namespace JAR.Core.Services
             repository = _repository;
         }
 
+        public async Task<IEnumerable<LecturerViewModel>> AllAsync()
+        {
+            return await repository
+                .AllReadOnly<Lecturer>()
+                .Select(l => new LecturerViewModel()
+                {
+                    Id = l.Id,
+                    FirstName = l.User.FirstName,
+                    LastName = l.User.LastName
+                })
+                .ToListAsync();
+        }
+
         public async Task<bool> Exists(int id)
         {
             return await repository.GetByIdAsync<Lecturer>(id) != null;
@@ -28,6 +41,11 @@ namespace JAR.Core.Services
         public async Task<int> GetLecturerId(string userId)
         {
             var lecturer = await repository.AllReadOnly<Lecturer>().FirstOrDefaultAsync(l => l.UserId == userId);
+
+            if (lecturer == null)
+            {
+                return 0;
+            }
 
             return lecturer.Id;
         }
@@ -39,6 +57,7 @@ namespace JAR.Core.Services
                 .Where(l => l.Id == id && l.IsDeleted == false)
                 .Select(l => new LecturerViewModel()
                 {
+                    Id = l.Id,
                     FirstName = l.User.FirstName,
                     LastName = l.User.LastName,
                 })
