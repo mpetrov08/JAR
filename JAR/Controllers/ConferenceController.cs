@@ -29,6 +29,22 @@ namespace JAR.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            var userId = User.Id();
+            var conferences = new List<ConferenceViewModel>();
+
+            if (await lecturerService.IsLecturer(userId))
+            {
+                conferences = await conferenceService.AllByLecturerId(userId);
+            }
+
+            conferences.AddRange(await conferenceService.AllByUserId(userId));
+
+            return View(conferences);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             if (!await conferenceService.ExistsAsync(id))

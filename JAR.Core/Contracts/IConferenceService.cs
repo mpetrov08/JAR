@@ -11,6 +11,10 @@ namespace JAR.Core.Contracts
     {
         Task<IEnumerable<ConferenceViewModel>> AllAsync();
 
+        Task<List<ConferenceViewModel>> AllByUserId(string userId);
+
+        Task<List<ConferenceViewModel>> AllByLecturerId(string userId);
+
         Task CreateConferenceAsync(ConferenceFormModel model);
 
         Task EditConferenceAsync(ConferenceFormModel model, int id);

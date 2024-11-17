@@ -49,6 +49,50 @@ namespace JAR.Core.Services
             return conferences;
         }
 
+        public async Task<List<ConferenceViewModel>> AllByLecturerId(string userId)
+        {
+            var lecturerId = await lecturerService.GetLecturerId(userId);
+
+            return await repository
+                .AllReadOnly<Conference>()
+                .Where(c => c.LecturerId == lecturerId && c.IsDeleted == false)
+                .Select(c => new ConferenceViewModel()
+                {
+                    Id = c.Id,
+                    Topic = c.Topic,
+                    Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
+                    End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
+                    ConferenceUrl = c.ConferenceUrl,
+                    Lecturer = new LecturerViewModel()
+                    {
+                        FirstName = c.Lecturer.User.FirstName,
+                        LastName = c.Lecturer.User.LastName,
+                    }
+                })
+                .ToListAsync();
+        }
+
+        public async Task<List<ConferenceViewModel>> AllByUserId(string userId)
+        {
+            return await repository
+                .AllReadOnly<Conference>()
+                .Where(c => c.ConferencesUsers.Any(cu => cu.UserId == userId) && c.IsDeleted == false)
+                .Select(c => new ConferenceViewModel()
+                {
+                    Id = c.Id,
+                    Topic = c.Topic,
+                    Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
+                    End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
+                    ConferenceUrl = c.ConferenceUrl,
+                    Lecturer = new LecturerViewModel()
+                    {
+                        FirstName = c.Lecturer.User.FirstName,
+                        LastName = c.Lecturer.User.LastName,
+                    }
+                })
+                .ToListAsync();
+        }
+
         public async Task CreateConferenceAsync(ConferenceFormModel model)
         {
             if (!DateTime.TryParseExact(model.Start, ConferenceDateTimeFormat, CultureInfo.InvariantCulture,

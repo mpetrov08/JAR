@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ConferenceViewModel>
+
+@{
+    ViewBag.Title = "Mine Conferences";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+<div class="container">
+    @if (!Model.Any())
+    {
+        <p>No conferences available.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var conference in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@conference.Topic</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                @conference.Start - @conference.End
+                            </h6>
+                            <p class="card-text"><strong>Lecturer:</strong> @conference.Lecturer.FirstName @conference.Lecturer.LastName</p>
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-primary" asp-area="" asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id">Edit</a>
+                                <a class="btn btn-primary" asp-area="" asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id">Delete</a>
+                                <a class="btn btn-primary" asp-area="" asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id">Details</a>
+
+                                <form asp-area="" asp-controller="Conference" asp-action="SignUp" method="post">
+                                    <input type="hidden" name="conferenceId" value="@conference.Id" />
+                                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                                </form>
+
+                                <form asp-area="" asp-controller="Conference" asp-action="Unregister" method="post">
+                                    <input type="hidden" name="conferenceId" value="@conference.Id" />
+                                    <button type="submit" class="btn btn-primary">Unregister</button>
+                                </form>
+
+                                <a class="btn btn-secondary" href="@conference.ConferenceUrl" target="_blank">Join</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
