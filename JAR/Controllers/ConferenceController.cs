@@ -137,7 +137,7 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            var model = await conferenceService.GetConferenceViewModelByIdAsync(id);
+            var model = await conferenceService.GetConferenceDetailsViewModelByIdAsync(id);
 
             if (model == null)
             {

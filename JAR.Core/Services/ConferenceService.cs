@@ -244,7 +244,12 @@ namespace JAR.Core.Services
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     ConferenceUrl = c.ConferenceUrl,
-                    Lecturer = lecturerService.GetLecturerViewModel(c.LecturerId).Result
+                    Lecturer = new LecturerViewModel()
+                    {
+                        Id = c.Id,
+                        FirstName = c.Lecturer.User.FirstName,
+                        LastName = c.Lecturer.User.LastName,
+                    }
                 })
                 .FirstOrDefaultAsync();
 
