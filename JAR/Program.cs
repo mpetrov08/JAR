@@ -1,3 +1,4 @@
+using JAR.Core.Hubs;
 using JAR.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,8 @@ app.MapControllerRoute(
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
 
+app.MapHub<ChatHub>("/chatHub");
+
 await app.CreateAdminRoleAsync();
 
-app.Run();  
+app.Run();

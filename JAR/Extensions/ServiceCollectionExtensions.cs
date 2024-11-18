@@ -38,6 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddScoped<IJobOfferService, JobOfferService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IJobApplicationService, JobApplicationService>();
@@ -45,6 +46,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ILecturerService, LecturerService>();
             services.AddScoped<IConferenceService, ConferenceService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IRoomService, RoomService>();
 
             return services;
         }
