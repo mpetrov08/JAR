@@ -28,6 +28,8 @@ namespace JAR.Core.Models.JobOffer
 
         public string CreatedOn { get; set; } = string.Empty;
 
+        public string CompanyOwnerId {  get; set; } = string.Empty;
+
         public string CompanyLogo {  get; set; } = string.Empty;
     }
 }

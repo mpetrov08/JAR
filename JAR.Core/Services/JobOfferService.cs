@@ -76,6 +76,7 @@ namespace JAR.Core.Services
                     RequiredSkills = jo.RequiredSkills,
                     Salary = jo.Salary,
                     CreatedOn = jo.CreatedOn.Date.ToString(),
+                    CompanyOwnerId = jo.Company.OwnerId,
                     CompanyLogo = jo.Company.Logo
                 })
                 .ToListAsync();
