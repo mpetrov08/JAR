@@ -42,6 +42,12 @@ namespace JAR.Infrastructure.Data.Seed
 
         public JobApplication ProgrammerJobApplication { get; set; }
 
+        public Room Room { get; set; }
+
+        public RoomUser RoomUser1 { get; set; }
+
+        public RoomUser RoomUser2 { get; set; }
+
         public SeedData()
         {
             SeedUsers();
@@ -50,6 +56,8 @@ namespace JAR.Infrastructure.Data.Seed
             SeedCompany();
             SeedJobOffers();
             SeedJobApplication();
+            SeedRoom();
+            SeedRoomsUsers();
         }
 
         private void SeedUsers()
@@ -235,6 +243,32 @@ namespace JAR.Infrastructure.Data.Seed
                 UserId = "2656a468-b215-4b17-865d-240a63b0d5cf",
                 IsApproved = false,
                 AppliedOn = DateTime.UtcNow,
+            };
+        }
+
+        private void SeedRoom()
+        {
+            Room = new Room()
+            {
+                Id = 1,
+                Name = "Chat Room",
+                AdminId = AdminUser.Id,
+                IsDeleted = false
+            };
+        }
+
+        private void SeedRoomsUsers()
+        {
+            RoomUser1 = new RoomUser()
+            {
+                RoomId = Room.Id,
+                UserId = AdminUser.Id
+            };
+
+            RoomUser2 = new RoomUser()
+            {
+                RoomId = Room.Id,
+                UserId = GuestUser.Id
             };
         }
     }

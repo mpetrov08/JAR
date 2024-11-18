@@ -30,8 +30,6 @@ namespace JAR.Infrastructure.Data
                 .HasForeignKey(ja => ja.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
             builder.Entity<ConferenceUser>()
                 .HasKey(cu => new { cu.ConferenceId, cu.UserId });
 
@@ -47,12 +45,30 @@ namespace JAR.Infrastructure.Data
                 .HasForeignKey(cu => cu.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<RoomUser>()
+                .HasKey(ru => new { ru.RoomId, ru.UserId });
+
+            builder.Entity<RoomUser>()
+                .HasOne(ru => ru.Room)
+                .WithMany(r => r.Users)
+                .HasForeignKey(ru => ru.RoomId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<RoomUser>()
+                .HasOne(ru => ru.User)
+                .WithMany()
+                .HasForeignKey(ru => ru.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new JobTypeConfiguration());
             builder.ApplyConfiguration(new CompanyConfiguration());
             builder.ApplyConfiguration(new JobOfferConfiguration());
             builder.ApplyConfiguration(new JobApplicationConfiguration());
+            builder.ApplyConfiguration(new RoomConfiguration());
+            builder.ApplyConfiguration(new RoomUserConfiguration());
 
             base.OnModelCreating(builder); 
         }
@@ -78,5 +94,11 @@ namespace JAR.Infrastructure.Data
         public DbSet<Conference> Conferences { get; set; }
 
         public DbSet<ConferenceUser> ConferencesUsers { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Room> Rooms { get; set; }
+
+        public DbSet<RoomUser> RoomsUsers { get; set; }
     }
 }

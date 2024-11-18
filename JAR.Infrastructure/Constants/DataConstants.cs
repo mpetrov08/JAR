@@ -90,6 +90,10 @@ namespace JAR.Infrastructure.Constants
 
         public const string ConferenceDateTimeFormat = "dd/MM/yyyy HH:mm";
 
+        public const int RoomNameMinLength = 5;
+
+        public const int RoomNameMaxLength = 100;
+
         public const int CountryMinLength = 2;
 
         public const int CountryMaxLength = 30;

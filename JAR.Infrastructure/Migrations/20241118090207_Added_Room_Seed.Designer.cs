@@ -4,6 +4,7 @@ using JAR.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JAR.Infrastructure.Migrations
 {
     [DbContext(typeof(JarDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241118090207_Added_Room_Seed")]
+    partial class Added_Room_Seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -427,7 +430,7 @@ namespace JAR.Infrastructure.Migrations
                         {
                             JobOfferId = 1,
                             UserId = "2656a468-b215-4b17-865d-240a63b0d5cf",
-                            AppliedOn = new DateTime(2024, 11, 18, 22, 19, 52, 781, DateTimeKind.Utc).AddTicks(5610),
+                            AppliedOn = new DateTime(2024, 11, 18, 9, 2, 6, 990, DateTimeKind.Utc).AddTicks(5329),
                             IsApproved = false,
                             Message = ""
                         });
@@ -528,7 +531,7 @@ namespace JAR.Infrastructure.Migrations
                             Address = "Redmond, Washington, USA",
                             CategoryId = 1,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 11, 18, 22, 19, 52, 633, DateTimeKind.Utc).AddTicks(3350),
+                            CreatedOn = new DateTime(2024, 11, 18, 9, 2, 6, 855, DateTimeKind.Utc).AddTicks(7887),
                             Description = "A C# junior programmer should know OOP, Design Patterns, .NET, debugging and SQL.",
                             IsDeleted = false,
                             JobTypeId = 1,
@@ -545,7 +548,7 @@ namespace JAR.Infrastructure.Migrations
                             Address = "Reading, Thames Valley Park, UK",
                             CategoryId = 1,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 11, 18, 22, 19, 52, 633, DateTimeKind.Utc).AddTicks(3354),
+                            CreatedOn = new DateTime(2024, 11, 18, 9, 2, 6, 855, DateTimeKind.Utc).AddTicks(7893),
                             Description = "C# Senior Developer must have excellent knowledge of .NET, architecture, code optimization.",
                             IsDeleted = false,
                             JobTypeId = 2,
@@ -562,7 +565,7 @@ namespace JAR.Infrastructure.Migrations
                             Address = "Reading, Thames Valley Park, UK",
                             CategoryId = 3,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 11, 18, 22, 19, 52, 633, DateTimeKind.Utc).AddTicks(3357),
+                            CreatedOn = new DateTime(2024, 11, 18, 9, 2, 6, 855, DateTimeKind.Utc).AddTicks(7998),
                             Description = "Dynamic manager needed at Microsoft to lead teams and drive innovation.",
                             IsDeleted = false,
                             JobTypeId = 2,
@@ -766,8 +769,7 @@ namespace JAR.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("Room`s Name");
 
                     b.HasKey("Id");
@@ -896,7 +898,7 @@ namespace JAR.Infrastructure.Migrations
                         {
                             Id = "2656a468-b215-4b17-865d-240a63b0d5cf",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "57ffe073-83ba-4da4-a06a-11c7db12865a",
+                            ConcurrencyStamp = "0a191d3f-8d21-47d4-83e7-b7b94794b53c",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Guest",
@@ -904,9 +906,9 @@ namespace JAR.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@GMAIL.COM",
                             NormalizedUserName = "GUEST@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECp0p47vvvzAycDq5ySi1rW2Z3nLYcl3tAp4XtJNb7TlXPpziLqMO47561LF44XIPg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFlYIbgYibMiK6/CMJXmRiJfiOvQmMtw+6WRlVCdJ2XbIAq/I+/UHpkJbR5OcKTzCw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ddf726b4-0699-4807-98cf-15474856ec43",
+                            SecurityStamp = "347bd194-05e5-401c-8c3a-6b6a7e763fd8",
                             TwoFactorEnabled = false,
                             UserName = "guest@gmail.com"
                         },
@@ -914,7 +916,7 @@ namespace JAR.Infrastructure.Migrations
                         {
                             Id = "71811921-1918-4043-90b9-20f2522f315b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e41df477-142e-4ba8-8438-88c7f11d225c",
+                            ConcurrencyStamp = "06e225f0-1377-4530-9338-2272bf50f233",
                             Email = "owner@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Owner",
@@ -922,9 +924,9 @@ namespace JAR.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "OWNER@GMAIL.COM",
                             NormalizedUserName = "OWNER@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOU5sJ5JEAbi+dIc9LkdypxJymzpFLyAqmUN9USp/blAJOS4vTvMErbKOu0hkWEk5Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGHRdh53AzUIEN3kbT36iWO986eBVz7X2HwnYzVd4kIs6VCljvGSuHBRtLm9AM9Njg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5a4cef03-7994-43e6-9a55-da472d924d94",
+                            SecurityStamp = "35672ea4-2067-4fc3-b7de-71ee1bb683d5",
                             TwoFactorEnabled = false,
                             UserName = "owner@gmail.com"
                         },
@@ -932,7 +934,7 @@ namespace JAR.Infrastructure.Migrations
                         {
                             Id = "80277b99-4cab-4ff1-8084-6d0a5df3e787",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b50ed9c1-d089-4269-bcdc-d8b89943fbd5",
+                            ConcurrencyStamp = "5ba090ac-368d-47df-bfe3-82f72151870a",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -940,9 +942,9 @@ namespace JAR.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFKNfQR6nGSuHHk8ukNJefX0/oxE5dkFmSIrZ+1kku4cHWSYgpdUAqGf0I4txgJasw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELPdrUoMy60j+hf3z29J7FTYZv3ZFdYcvtY3CwAyG4bQRCHyTZui4eXkifV6ovPJhw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "118e45f2-4e54-46ee-b528-867de460a8db",
+                            SecurityStamp = "ce2124ab-f46d-4ca6-938f-0f1ead95e655",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
