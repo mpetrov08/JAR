@@ -57,7 +57,6 @@ namespace JAR.Core.Services
                                    .Include(m => m.Sender)
                                    .Include(m => m.Room)
                                    .OrderByDescending(m => m.Timestamp)
-                                   .Take(20)
                                    .Reverse()
                                    .Select(m => new MessageViewModel()
                                    {

@@ -1,7 +1,9 @@
 ﻿using JAR.Core.Contracts;
+using JAR.Core.Hubs;
 using JAR.Core.Models.Chat;
 using JAR.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
 
 namespace JAR.Controllers
@@ -10,10 +12,13 @@ namespace JAR.Controllers
     public class MessagesController : Controller
     {
         private readonly IMessageService messageService;
+        private readonly IHubContext<ChatHub> chatHub;
 
-        public MessagesController(IMessageService _messageService)
+        public MessagesController(IMessageService _messageService,
+            IHubContext<ChatHub> _chatHub)
         {
             messageService = _messageService;
+            chatHub = _chatHub;
         }
 
         [HttpGet("Get/{Id}")]
@@ -56,11 +61,15 @@ namespace JAR.Controllers
         [HttpGet("Delete/{Id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            bool res = await messageService.Delete(id, User.Id());
-            if (!res)
+            var userId = User.Id();
+            var result = await messageService.Delete(id, userId);
+
+            if (!result)
             {
-                return NotFound();
+                return NotFound(new { error = "Message not found or you don't have permission to delete it." });
             }
+
+            await chatHub.Clients.All.SendAsync("deleteMessage", id);
             return Ok();
         }
     }

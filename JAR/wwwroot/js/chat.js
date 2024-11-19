@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             input.focus();
         }
     });
-e
+    e
     document.getElementById("btn-show-emojis").addEventListener('click', function () {
         document.getElementById("emojis-container").classList.toggle("d-none");
     });
@@ -124,14 +124,11 @@ connection.on("newMessage", function (messageView) {
 });
 
 connection.on("deleteMessage", function (msgId) {
-    chatMessages = chatMessages.filter(function (message) {
-        return message.id !== msgId;
-    });
-
     var messageElement = document.querySelector(`[data-message-id="${msgId}"]`);
     if (messageElement) {
         messageElement.remove();
     }
+    console.log(`Message ${msgId} deleted via SignalR.`);
 });
 
 connection.on("onError", function (message) {
@@ -231,26 +228,40 @@ function mineMessage(content, timestampFull, id) {
             <div class="mb-0 mr-3 pr-4">
                 <div class="d-flex flex-row">
                     <div class="pr-2">${content}</div>
-                    <div class="pr-4"></div>
                 </div>
             </div>
             <div class="message-options dark">
                 <div class="message-time">
-                    <div class="d-flex flex-row">
+                    <div class="d-flex flex-row align-items-center">
                         <div class="mr-2 message-text-tooltip">${timestampFull}</div>
                         <div class="svg15 double-check"></div>
                     </div>
                 </div>
-                <div class="message-arrow">
-                    <i class="fa-regular fa-trash-can fs-17" style="color: white;" onclick="deleteMessage(this, '${id}')"></i>
-                </div>
+                <button 
+                    class="btn btn-icon delete-btn"
+                    onclick="deleteMessage('${id}')"
+                    title="Delete this message">
+                    <i class="fas fa-trash delete-icon" style="font-size: 16px; color: red;"></i>
+                </button>
             </div>
         </div>
     `;
 }
 
-function deleteMessage(e, id) {
-    fetch('/Messages/Delete/' + id);
+function deleteMessage(id) {
+    fetch(`/Messages/Delete/${id}`)
+        .then(response => {
+            if (response.ok) {
+                var messageElement = document.querySelector(`[data-message-id="${id}"]`);
+                if (messageElement) {
+                    messageElement.remove();
+                }
+                console.log(`Message ${id} deleted successfully.`);
+            } else {
+                console.error(`Failed to delete message ${id}.`);
+            }
+        })
+        .catch(error => console.error('Error deleting message:', error));
 }
 
 function ChatMessage(id, content, timestamp, fromUserName, isMine) {
