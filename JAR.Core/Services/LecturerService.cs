@@ -24,6 +24,7 @@ namespace JAR.Core.Services
         {
             return await repository
                 .AllReadOnly<Lecturer>()
+                .Where(l => l.IsDeleted == false)
                 .Select(l => new LecturerViewModel()
                 {
                     Id = l.Id,
@@ -35,12 +36,16 @@ namespace JAR.Core.Services
 
         public async Task<bool> Exists(int id)
         {
-            return await repository.GetByIdAsync<Lecturer>(id) != null;
+            return await repository
+                .AllReadOnly<Lecturer>()
+                .FirstOrDefaultAsync(l => l.Id == id && l.IsDeleted == false) != null;
         }
 
         public async Task<int> GetLecturerId(string userId)
         {
-            var lecturer = await repository.AllReadOnly<Lecturer>().FirstOrDefaultAsync(l => l.UserId == userId);
+            var lecturer = await repository
+                .AllReadOnly<Lecturer>()
+                .FirstOrDefaultAsync(l => l.UserId == userId && l.IsDeleted == false);
 
             if (lecturer == null)
             {
@@ -78,7 +83,7 @@ namespace JAR.Core.Services
         {
             return await repository
                 .AllReadOnly<Lecturer>()
-                .FirstOrDefaultAsync(l => l.UserId == userId) != null;
+                .FirstOrDefaultAsync(l => l.UserId == userId && l.IsDeleted == false) != null;
         }
 
         public async Task<bool> PromoteToLecturer(LecturerFormModel model)
@@ -96,6 +101,23 @@ namespace JAR.Core.Services
                 };
 
                 await repository.AddAsync(lecturer);
+                await repository.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DemoteFromLecturerAsync(string userId)
+        {
+            var lecturerId = await GetLecturerId(userId);
+
+            var lecturer = await repository.GetByIdAsync<Lecturer>(lecturerId);
+
+            if (lecturer != null)
+            {
+                lecturer.IsDeleted = true;
                 await repository.SaveChangesAsync();
 
                 return true;
