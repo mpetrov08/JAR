@@ -199,6 +199,7 @@ function messageHistory() {
 }
 
 function appendMessages() {
+    messagesContainer.innerHTML = "";
     chatMessages.forEach(function (message) {
         appendMessage(message);
     });
