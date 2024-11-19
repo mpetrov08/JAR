@@ -33,7 +33,12 @@
                 }
                 else
                 {
-                    <td><label>Admin</label></td>
+                    <td>
+                        <form asp-area="Admin" asp-controller="User" asp-action="RemoveAdminRole" method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" class="btn btn-primary btn-lg">Remove Admin Role</button>
+                        </form>
+                    </td>
                 }
 
                 @if (!user.IsLecturer)
@@ -44,7 +49,12 @@
                 }
                 else
                 {
-                    <td><label>Lecturer</label></td>
+                    <td>
+                        <form asp-area="Admin" asp-controller="User" asp-action="DemoteFromLecturer" method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" class="btn btn-primary btn-lg">Remove From Lecturers</button>
+                        </form>
+                    </td>
                 }
             </tr>
         }

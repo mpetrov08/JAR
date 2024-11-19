@@ -70,5 +70,19 @@ namespace JAR.Core.Services
 
             return result.Succeeded;
         }
+
+        public async Task<bool> RemoveAdminRoleAsync(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            var result = await userManager.RemoveFromRoleAsync(user, AdminRole);
+
+            return result.Succeeded;
+        }
     }
 }

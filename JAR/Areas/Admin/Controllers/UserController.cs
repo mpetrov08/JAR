@@ -42,6 +42,24 @@ namespace JAR.Areas.Admin.Controllers
             return RedirectToAction(nameof(All));   
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RemoveAdminRole(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest();
+            }
+
+            bool IsSucceeded = await userService.RemoveAdminRoleAsync(id);
+
+            if (!IsSucceeded)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
         [HttpGet]
         public async Task<IActionResult> PromoteUserToLecturer(string id)
         {
@@ -72,6 +90,19 @@ namespace JAR.Areas.Admin.Controllers
             {
                 return BadRequest();
             }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DemoteFromLecturer(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest();
+            }
+
+            bool isSucceeded = await lecturerService.DemoteFromLecturerAsync(id);
 
             return RedirectToAction(nameof(All));
         }
