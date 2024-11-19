@@ -32,16 +32,29 @@ namespace JAR.Core.Services
         {
             var users = await repository
                 .All<User>()
-                .Select(u => new UserViewModel()
+                .Select(u => new
                 {
-                    Id = u.Id,
-                    Email = u.Email,
+                    u.Id,
+                    u.Email,
                     FullName = $"{u.FirstName} {u.LastName}",
-                    IsLecturer = lecturerService.IsLecturer(u.Id).Result,
                 })
-                .ToListAsync(); 
+                .ToListAsync();
 
-            return users;
+            var userViewModels = new List<UserViewModel>();
+
+            foreach (var user in users)
+            {
+                var isLecturer = await lecturerService.IsLecturer(user.Id);
+                userViewModels.Add(new UserViewModel
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FullName = user.FullName,
+                    IsLecturer = isLecturer
+                });
+            }
+
+            return userViewModels;
         }
 
         public async Task<bool> PromoteUserToAdminAsync(string userId)
