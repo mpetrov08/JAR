@@ -13,5 +13,7 @@ namespace JAR.Core.Contracts
         Task<IEnumerable<UserViewModel>> AllAsync();
 
         Task<bool> PromoteUserToAdminAsync(string userId);
+
+        Task<bool> RemoveAdminRoleAsync(string userId);
     }
 }

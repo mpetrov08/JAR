@@ -84,6 +84,18 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
+
             var model = new JobOfferFormModel()
             {
                 Categories = await jobOfferService.AllCategoriesAsync(),
@@ -96,6 +108,18 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(JobOfferFormModel model)
         {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
+
             if (!await jobOfferService.CategoryExistsAsync(model.CategoryId))
             {
                 ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists");
@@ -113,8 +137,7 @@ namespace JAR.Controllers
                 return View(model);
             }
 
-            int? companyId = await companyService.GetCompanyIdAsync(User.Id());
-            int houseId = await jobOfferService.CreateAsync(model, companyId ?? 0, DateTime.Now);
+            int houseId = await jobOfferService.CreateAsync(model, companyId, DateTime.Now);
 
             return RedirectToAction(nameof(Details), new { id = houseId });
         }
@@ -122,6 +145,18 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
+
             if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
@@ -140,7 +175,19 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, JobOfferFormModel model)
         {
-            if(!await jobOfferService.ExistsAsync(id))
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
             }
@@ -174,6 +221,18 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
+
             if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();
@@ -200,6 +259,18 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(JobOfferDetailsViewModel model)
         {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
+
             if (!await jobOfferService.ExistsAsync(model.Id))
             {
                 return BadRequest();
@@ -218,6 +289,18 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewApplicants(int id)
         {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
+
             if (!await jobOfferService.ExistsAsync(id))
             {
                 return BadRequest();

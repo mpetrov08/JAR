@@ -5,6 +5,7 @@ using JAR.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JAR.Controllers
 {
@@ -85,6 +86,18 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Approve(int jobId, string userId)
         {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
+
             if (!await jobOfferService.ExistsAsync(jobId))
             {
                 return BadRequest();
@@ -122,6 +135,17 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Approve(JobApplicationApproveViewModel model)
         {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest();
+            }
 
             if (!await jobOfferService.ExistsAsync(model.JobId))
             {

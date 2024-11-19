@@ -37,5 +37,23 @@ namespace JAR.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UnapproveCompany(int id)
+        {
+            if (!await companyService.CompanyExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            bool IsSucceeded = await companyService.UnapproveCompanyAsync(id);
+
+            if (!IsSucceeded)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

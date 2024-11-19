@@ -37,7 +37,12 @@
 
                 @if (company.IsApproved)
                 {
-                    <td><label>@company.IsApproved</label></td>
+                    <td>
+                        <form asp-area="Admin" asp-controller="Company" asp-action="UnapproveCompany" method="post">
+                            <input type="hidden" name="id" value="@company.Id" />
+                            <button type="submit" class="btn btn-primary btn-lg">Unapprove Company</button>
+                        </form>
+                    </td>
                 }
                 else
                 {

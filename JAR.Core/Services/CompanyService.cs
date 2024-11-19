@@ -30,6 +30,7 @@ namespace JAR.Core.Services
             }
 
             company.IsApproved = true;
+
             await repository.SaveChangesAsync();
 
             return true;
@@ -91,11 +92,32 @@ namespace JAR.Core.Services
             return companies;
         }
 
-        public async Task<int?> GetCompanyIdAsync(string userId)
+        public async Task<int> GetCompanyIdAsync(string userId)
         {
-            return (await repository
+            var company = await repository
                 .AllReadOnly<Company>()
-                .FirstOrDefaultAsync(c => c.OwnerId == userId && c.IsDeleted == false))?.Id;
+                .FirstOrDefaultAsync(c => c.OwnerId == userId && c.IsDeleted == false);
+
+            if (company == null)
+            {
+                return -1;
+            }
+
+            return company.Id;
+        }
+
+        public async Task<bool> IsApproved(int companyId)
+        {
+            var company = await repository
+                .AllReadOnly<Company>()
+                .FirstOrDefaultAsync(c => c.Id == companyId && c.IsDeleted == false);
+
+            if (company == null)
+            {
+                return false;
+            }
+
+            return company.IsApproved;
         }
 
         public async Task<bool> OwnerCompanyExistsAsync(string userId)
@@ -103,6 +125,30 @@ namespace JAR.Core.Services
             return await repository
                 .AllReadOnly<Company>()
                 .FirstOrDefaultAsync(c => c.OwnerId == userId && c.IsDeleted == false) != null;
+        }
+
+        public async Task<bool> UnapproveCompanyAsync(int companyId)
+        {
+            var company = await repository
+                .All<Company>()
+                .Include(c => c.JobOffers)
+                .FirstOrDefaultAsync(c => c.Id == companyId);
+
+            if (company == null || company.IsDeleted == true || company.IsApproved == false)
+            {
+                return false;
+            }
+
+            company.IsApproved = false;
+
+            foreach (var jobOffer in company.JobOffers)
+            {
+                jobOffer.IsDeleted = true;
+            }
+
+            await repository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

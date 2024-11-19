@@ -9,7 +9,7 @@ namespace JAR.Core.Contracts
 {
     public interface ICompanyService
     {
-        Task<int?> GetCompanyIdAsync(string userId);
+        Task<int> GetCompanyIdAsync(string userId);
 
         Task<bool> CompanyExistsAsync(int companyId);
 
@@ -22,5 +22,9 @@ namespace JAR.Core.Contracts
         Task<IEnumerable<CompanyApproveViewModel>> GetAllCompaniesAsync();
 
         Task<bool> ApproveCompanyAsync(int companyId);
+
+        Task<bool> UnapproveCompanyAsync(int companyId);
+
+        Task<bool> IsApproved(int companyId);   
     }
 }
