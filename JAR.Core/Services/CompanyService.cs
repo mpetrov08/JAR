@@ -1,4 +1,5 @@
-﻿using JAR.Core.Contracts;
+﻿using Ganss.Xss;
+using JAR.Core.Contracts;
 using JAR.Core.Models.Company;
 using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
@@ -52,6 +53,7 @@ namespace JAR.Core.Services
 
         public async Task CreateCompanyAsync(CompanyRegisterModel model, string userId)
         {
+            var sanitizer = new HtmlSanitizer();
             var company = new Company()
             {
                 Name = model.Name,
@@ -61,7 +63,7 @@ namespace JAR.Core.Services
                 Address = model.Address,
                 PhoneNumber = model.PhoneNumber,
                 Email = model.Email,
-                Description = model.Description,
+                Description = sanitizer.Sanitize(model.Description),
                 OwnerId = userId
             };
 

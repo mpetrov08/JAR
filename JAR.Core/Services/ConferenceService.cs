@@ -1,4 +1,5 @@
-﻿using JAR.Core.Contracts;
+﻿using Ganss.Xss;
+using JAR.Core.Contracts;
 using JAR.Core.Models.Conference;
 using JAR.Core.Models.Lecturer;
 using JAR.Infrastructure.Data.Models;
@@ -115,6 +116,7 @@ namespace JAR.Core.Services
                 throw new KeyNotFoundException("Lecturer does not exist.");
             }
 
+            var sanitizer = new HtmlSanitizer();
 
             var conference = new Conference()
             {
@@ -122,7 +124,7 @@ namespace JAR.Core.Services
                 Topic = model.Topic,
                 Start = start,
                 End = end,
-                Description = model.Description,
+                Description = sanitizer.Sanitize(model.Description),
                 ConferenceUrl = model.ConferenceUrl
             };
 
@@ -164,11 +166,13 @@ namespace JAR.Core.Services
 
             if (conference != null && conference.IsDeleted == false)
             {
+                var sanitizer = new HtmlSanitizer();
+
                 conference.LecturerId = model.LecturerId;
                 conference.Topic = model.Topic;
                 conference.Start = start;
                 conference.End = end;
-                conference.Description = model.Description;
+                conference.Description = sanitizer.Sanitize(model.Description);
                 conference.ConferenceUrl = model.ConferenceUrl;
 
                 await repository.SaveChangesAsync();

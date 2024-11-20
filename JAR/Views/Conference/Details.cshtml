@@ -15,7 +15,7 @@
                     <h4 class="text-muted">Conference Details</h4>
                     <p><strong>Start:</strong> @Model.Start</p>
                     <p><strong>End:</strong> @Model.End</p>
-                    <p><strong>Description:</strong> @Model.Description</p>
+                    <p><strong>Description:</strong> @Html.Raw(Model.Description)</p>
                     <a href="@Model.ConferenceUrl" class="btn btn-secondary" target="_blank">
                         Join Conference
                     </a>
