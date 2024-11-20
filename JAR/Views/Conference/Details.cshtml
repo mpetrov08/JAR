@@ -28,7 +28,7 @@
                             <p class="card-text">
                                 <strong>@Model.Lecturer.FirstName @Model.Lecturer.LastName</strong>
                             </p>
-                            <p>@Model.Lecturer.Description</p>
+                            <p>@Html.Raw(Model.Lecturer.Description)</p>
                         </div>
                     </div>
                 </div>

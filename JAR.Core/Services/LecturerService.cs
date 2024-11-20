@@ -1,4 +1,5 @@
-﻿using JAR.Core.Contracts;
+﻿using Ganss.Xss;
+using JAR.Core.Contracts;
 using JAR.Core.Models.Lecturer;
 using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
@@ -94,10 +95,12 @@ namespace JAR.Core.Services
 
             if (user != null)
             {
+                var sanitizer = new HtmlSanitizer();
+
                 var lecturer = new Lecturer()
                 {
                     UserId = model.UserId,
-                    Description = model.Description
+                    Description = sanitizer.Sanitize(model.Description)
                 };
 
                 await repository.AddAsync(lecturer);

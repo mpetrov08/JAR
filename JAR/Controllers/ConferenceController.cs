@@ -149,7 +149,7 @@ namespace JAR.Controllers
 
         [HttpPost]
         [Authorize(Roles = AdminRole)]
-        public async Task<IActionResult> Delete(ConferenceViewModel model)
+        public async Task<IActionResult> Delete(ConferenceDetailsViewModel model)
         {
             if (!await conferenceService.ExistsAsync(model.Id))
             {
@@ -158,7 +158,7 @@ namespace JAR.Controllers
 
             await conferenceService.DeleteConferenceAsync(model.Id);
 
-            return View();
+            return RedirectToAction(nameof(All));
         }
 
         [HttpPost]
