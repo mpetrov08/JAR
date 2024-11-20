@@ -11,7 +11,7 @@
     <div class="row">
         <div class="card col-12 border-3">
             <h3 class="text-center">@Model.Title</h3>
-            <p>Description: @Model.Description</p>
+            <div>@Html.Raw(Model.Description)</div>
             <p>Address: @Model.Address</p>
             <p>Category: @Model.Category</p>
             <p>Job Type: @Model.JobType</p>

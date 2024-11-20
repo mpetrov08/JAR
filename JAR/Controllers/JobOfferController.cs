@@ -133,6 +133,7 @@ namespace JAR.Controllers
             if (!ModelState.IsValid)
             {
                 model.Categories = await jobOfferService.AllCategoriesAsync();
+                model.JobTypes = await jobOfferService.AllJobTypesAsync();
 
                 return View(model);
             }

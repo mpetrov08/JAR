@@ -1,4 +1,5 @@
-﻿using JAR.Core.Contracts;
+﻿using Ganss.Xss;
+using JAR.Core.Contracts;
 using JAR.Core.Enumerations;
 using JAR.Core.Models.Category;
 using JAR.Core.Models.Company;
@@ -171,10 +172,12 @@ namespace JAR.Core.Services
 
         public async Task<int> CreateAsync(JobOfferFormModel model, int companyId, DateTime createdOn)
         {
+            var sanitizer = new HtmlSanitizer();
+
             JobOffer jobOffer = new JobOffer()
             {
                Title = model.Title,
-               Description = model.Description,
+               Description = sanitizer.Sanitize(model.Description),
                Address = model.Address,
                Salary = model.Salary,
                RequiredLanguage = model.RequiredLanguage,
@@ -249,8 +252,10 @@ namespace JAR.Core.Services
 
             if (jobOffer != null) 
             {
+                var sanitizer = new HtmlSanitizer();
+
                 jobOffer.Title = model.Title;
-                jobOffer.Description = model.Description;
+                jobOffer.Description = sanitizer.Sanitize(model.Description);
                 jobOffer.Address = model.Address;
                 jobOffer.Salary = model.Salary;
                 jobOffer.RequiredLanguage = model.RequiredLanguage;
