@@ -7,7 +7,7 @@
 <h3 class="text-center">@ViewBag.Title</h3>
 <hr />
 
-<form method="post">
+<form method="post" id="form">
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" placeholder="Company Name"/>
@@ -52,7 +52,14 @@
 
     <div class="form-group">
         <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" placeholder="Title" />
+        <div class="main-container">
+            <div class="editor-container editor-container_classic-editor" id="editor-container">
+                <div class="editor-container__editor">
+                    <textarea id="editor">@Model.Description</textarea>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="Description" id="hiddenDescription" />
         <span asp-validation-for="Description" class="small text-danger"></span>
     </div>
 
@@ -61,6 +68,22 @@
     </div>
 </form>
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/ckeditor.css">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5-premium-features/43.3.1/ckeditor5-premium-features.css">
+}
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial"></partial>
+    <script type="importmap">
+        {
+            "imports": {
+                "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.js",
+                "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.3.1/"
+            }
+        }
+    </script>
+    <script src="https://cdn.ckbox.io/ckbox/latest/ckbox.js"></script>
+    <script type="module" src="~/js/ckeditor.js"></script>
 }

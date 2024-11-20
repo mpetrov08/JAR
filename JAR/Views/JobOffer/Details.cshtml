@@ -37,7 +37,7 @@
 
             <h3 text>Company Details:</h3>
             <h3 class="text-center">@Model.Company.Name</h3>
-            <p>Description: @Model.Company.Description</p>
+            <div>Description: @Html.Raw(Model.Company.Description)</div>
             <p>Address: @Model.Company.Address</p>
             <p>Phone Number: @Model.Company.PhoneNumber</p>
             <p>Email: @Model.Company.Email</p>

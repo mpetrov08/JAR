@@ -218,12 +218,9 @@ const editorConfig = {
     }
 };
 
-// Initialize CKEditor
 ClassicEditor.create(document.querySelector('#editor'), editorConfig)
     .then(editor => {
-        // Ensure CKEditor content syncs with the hidden input before form submission
-        document.getElementById("jobOfferForm").addEventListener("submit", function (event) {
-            // Sync the CKEditor content to the hidden field
+        document.getElementById("form").addEventListener("submit", function (event) {
             document.getElementById("hiddenDescription").value = editor.getData();
         });
     })
