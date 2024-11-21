@@ -1,0 +1,97 @@
+﻿:root {
+    --primary-color: #364F6B;
+    --secondary-color: #EA5455;
+    --light-color: #F4F4F9;
+    --neutral-color: #D3D3D3;
+}
+
+.hero-section {
+    padding: 60px 20px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.hero-logo {
+    width: 120px;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.hero-title {
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+}
+
+.hero-btn {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--light-color);
+    padding: 10px 30px;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.hero-btn:hover {
+    background-color: var(--light-color);
+    color: var(--secondary-color);
+}
+
+.hero-btn-secondary {
+    padding: 10px 30px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    background: none;
+    text-decoration: none;
+}
+
+.hero-btn-secondary:hover {
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+.features-section {
+    padding: 40px 20px;
+    background: var(--light-color);
+}
+
+.features-title {
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.feature {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.feature-icon {
+    color: var(--secondary-color);
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.feature-title {
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+.feature-text {
+    font-size: 1em;
+    color: var(--primary-color);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
