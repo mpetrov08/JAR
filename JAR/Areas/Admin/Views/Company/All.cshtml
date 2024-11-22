@@ -4,56 +4,84 @@
     ViewBag.Title = "All Companies";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th><label>Company Name</label></th>
-            <th><label>UIC</label></th>
-            <th><label>Country</label></th>
-            <th><label>Address</label></th>
-            <th><label>Phone Number</label></th>
-            <th><label>Email</label></th>
-            <th><label>Description</label></th>
-            <th><label>OwnerName</label></th>
-            <th><label>IsDeleted</label></th>
-            <th><label>IsApproved</label></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var company in Model)
-        {
-            <tr>
-                <td><label>@company.Name</label></td>
-                <td><label>@company.UIC</label></td>
-                <td><label>@company.Country</label></td>
-                <td><label>@company.Address</label></td>
-                <td><label>@company.PhoneNumber</label></td>
-                <td><label>@company.Email</label></td>
-                <td><label>@Html.Raw(company.Description)</label></td>
-                <td><label>@company.OwnerName</label></td>
-                <td><label>@company.IsDeleted</label></td>
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th>Company Name</th>
+                        <th>UIC</th>
+                        <th>Country</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Description</th>
+                        <th>Owner Name</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var company in Model)
 
-                @if (company.IsApproved)
-                {
-                    <td>
-                        <form asp-area="Admin" asp-controller="Company" asp-action="UnapproveCompany" method="post">
-                            <input type="hidden" name="id" value="@company.Id" />
-                            <button type="submit" class="btn btn-primary btn-lg">Unapprove Company</button>
-                        </form>
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <form asp-area="Admin" asp-controller="Company" asp-action="ApproveCompany" method="post">
-                            <input type="hidden" name="id" value="@company.Id" />
-                            <button type="submit" class="btn btn-primary btn-lg">Approve Company</button>
-                        </form>
-                    </td>   
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+                    {
+                        <tr class="text-center">
+                            <td>@company.Name</td>
+                            <td>@company.UIC</td>
+                            <td>@company.Country</td>
+                            <td>@company.Address</td>
+                            <td>@company.PhoneNumber</td>
+                            <td>@company.Email</td>
+                            <td>@Html.Raw(company.Description)</td>
+                            <td>@company.OwnerName</td>
+                            <td>
+                                @if (company.IsDeleted)
+
+                                {
+                                    <span class="badge bg-danger">Deleted</span>
+                                }
+
+                                else
+
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                            </td>
+                            <td>
+                                @if (company.IsApproved)
+
+                                {
+                                    <form asp-area="Admin" asp-controller="Company" asp-action="UnapproveCompany" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@company.Id" />
+                                        <button type="submit" class="btn btn-outline-warning btn-sm">
+                                            <i class="bi bi-x-circle-fill"></i> Unapprove
+                                        </button>
+                                    </form>
+                                }
+
+                                else
+
+                                {
+                                    <form asp-area="Admin" asp-controller="Company" asp-action="ApproveCompany" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@company.Id" />
+                                        <button type="submit" class="btn btn-outline-success btn-sm">
+                                            <i class="bi bi-check-circle-fill"></i> Approve
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" />
+}

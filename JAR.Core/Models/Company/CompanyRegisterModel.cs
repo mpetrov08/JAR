@@ -22,6 +22,7 @@ namespace JAR.Core.Models.Company
         [Required]
         [StringLength(CompanyUICMaxLength,
             MinimumLength = CompanyUICMinLength)]
+        [Display(Name = "Unique Identification Code")]
         public string UIC { get; set; } = null!;
 
         [Required]
@@ -37,6 +38,7 @@ namespace JAR.Core.Models.Company
         [Required]
         [StringLength(PhoneNumberMaxLength,
             MinimumLength = PhoneNumberMinLength)]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; } = null!;
 
         [Required]

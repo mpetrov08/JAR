@@ -25,14 +25,14 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (!await companyService.CompanyExistsAsync(id))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             bool IsSucceeded = await companyService.ApproveCompanyAsync(id);
 
             if (!IsSucceeded)
             {
-                return BadRequest();
+                return BadRequest("Cannot approve company");
             }
 
             return RedirectToAction(nameof(All));
@@ -43,14 +43,13 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (!await companyService.CompanyExistsAsync(id))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
-
             bool IsSucceeded = await companyService.UnapproveCompanyAsync(id);
 
             if (!IsSucceeded)
             {
-                return BadRequest();
+                return BadRequest("Cannot approve company");
             }
 
             return RedirectToAction(nameof(All));
