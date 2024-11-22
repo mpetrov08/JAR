@@ -1,0 +1,80 @@
+﻿@model JobOfferFormModel
+
+<form method="post" id="form">
+    <div class="form-group mb-3">
+        <label asp-for="Title" class="form-label text-dark"></label>
+        <input asp-for="Title" class="form-control" placeholder="Job Title" />
+        <span asp-validation-for="Title" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Description" class="form-label text-dark"></label>
+        <textarea id="editor" class="form-control">@Model.Description</textarea>
+        <input type="hidden" asp-for="Description" id="hiddenDescription" />
+        <span asp-validation-for="Description" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Address" class="form-label text-dark"></label>
+        <input asp-for="Address" class="form-control" placeholder="Job Address" />
+        <span asp-validation-for="Address" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Salary" class="form-label text-dark"></label>
+        <input asp-for="Salary" class="form-control" placeholder="Expected Salary" />
+        <span asp-validation-for="Salary" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="RequiredLanguage" class="form-label text-dark"></label>
+        <input asp-for="RequiredLanguage" class="form-control" placeholder="Language Requirements" />
+        <span asp-validation-for="RequiredLanguage" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="RequiredDegree" class="form-label text-dark"></label>
+        <input asp-for="RequiredDegree" class="form-control" placeholder="Degree Requirements" />
+        <span asp-validation-for="RequiredDegree" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="RequiredExperience" class="form-label text-dark"></label>
+        <input asp-for="RequiredExperience" class="form-control" placeholder="Years of Experience" />
+        <span asp-validation-for="RequiredExperience" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="RequiredSkills" class="form-label text-dark"></label>
+        <input asp-for="RequiredSkills" class="form-control" placeholder="Key Skills" />
+        <span asp-validation-for="RequiredSkills" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="CategoryId" class="form-label text-dark"></label>
+        <select asp-for="CategoryId" class="form-select">
+            @foreach (var category in Model.Categories)
+
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+        <span asp-validation-for="CategoryId" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="JobTypeId" class="form-label text-dark"></label>
+        <select asp-for="JobTypeId" class="form-select">
+            @foreach (var jobType in Model.JobTypes)
+
+            {
+                <option value="@jobType.Id">@jobType.Name</option>
+            }
+        </select>
+        <span asp-validation-for="JobTypeId" class="small text-danger"></span>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary mt-3 px-5">Save</button>
+    </div>
+</form>

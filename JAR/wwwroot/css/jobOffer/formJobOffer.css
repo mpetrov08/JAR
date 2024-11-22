@@ -1,0 +1,48 @@
+﻿:root {
+    --primary-color: #364F6B;
+    --secondary-color: #EA5455;
+    --light-color: #F4F4F9;
+    --neutral-color: #D3D3D3;
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    font-family: 'Arial', sans-serif;
+}
+
+.job-offer-form {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h3.text-primary {
+    color: var(--primary-color) !important;
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea#editor {
+    min-height: 150px;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: var(--light-color);
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+}
+
+.text-danger {
+    font-size: 0.9em;
+    color: var(--secondary-color);
+}

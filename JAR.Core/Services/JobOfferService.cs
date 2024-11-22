@@ -163,7 +163,8 @@ namespace JAR.Core.Services
                        Address = jo.Company.Address,
                        PhoneNumber = jo.Company.PhoneNumber,
                        Email = jo.Company.Email,
-                       OwnerName = jo.Company.Owner.UserName
+                       OwnerName = jo.Company.Owner.UserName,
+                       LogoUrl = jo.Company.Logo
                     },
                     CreatedOn = jo.CreatedOn.Date.ToString()
                 })
@@ -298,7 +299,9 @@ namespace JAR.Core.Services
                         RequiredExperience = jo.RequiredExperience,
                         RequiredSkills = jo.RequiredSkills,
                         Salary = jo.Salary,
-                        CreatedOn = jo.CreatedOn.Date.ToString()
+                        CreatedOn = jo.CreatedOn.Date.ToString(),
+                        CompanyLogo = jo.Company.Logo,
+                        CompanyOwnerId = jo.Company.OwnerId
                     })
                     .ToListAsync();
         }
@@ -319,7 +322,9 @@ namespace JAR.Core.Services
                         RequiredExperience = jo.RequiredExperience,
                         RequiredSkills = jo.RequiredSkills,
                         Salary = jo.Salary,
-                        CreatedOn = jo.CreatedOn.Date.ToString()
+                        CreatedOn = jo.CreatedOn.Date.ToString(),
+                        CompanyLogo = jo.Company.Logo,
+                        CompanyOwnerId = jo.Company.OwnerId
                     })
                     .ToListAsync();
         }

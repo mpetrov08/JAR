@@ -4,100 +4,18 @@
     ViewBag.Title = "Edit Job Offer";
 }
 
-<h3>@ViewBag.Title</h3>
-<hr />
+<div class="job-offer-form container mt-5 p-4 rounded shadow-lg bg-light">
+    <h3 class="text-center text-primary mb-4">@ViewBag.Title</h3>
+    <hr />
 
-<div class="row">
-    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form method="post" id="jobOfferForm">
-            <div class="form-group">
-                <label asp-for="Title"></label>
-                <input asp-for="Title" class="form-control" placeholder="Title" />
-                <span asp-validation-for="Title" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Description"></label>
-                <div class="main-container">
-                    <div class="editor-container editor-container_classic-editor" id="editor-container">
-                        <div class="editor-container__editor">
-                            <textarea id="editor">@Model.Description</textarea>
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" asp-for="Description" id="hiddenDescription" />
-                <span asp-validation-for="Description" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Address"></label>
-                <input asp-for="Address" class="form-control" placeholder="Address" />
-                <span asp-validation-for="Address" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Salary"></label>
-                <input asp-for="Salary" class="form-control" placeholder="Salary" />
-                <span asp-validation-for="Salary" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="RequiredLanguage"></label>
-                <input asp-for="RequiredLanguage" class="form-control" placeholder="Required Language" />
-                <span asp-validation-for="RequiredLanguage" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="RequiredDegree"></label>
-                <input asp-for="RequiredDegree" class="form-control" placeholder="Required Degree" />
-                <span asp-validation-for="RequiredDegree" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="RequiredExperience"></label>
-                <input asp-for="RequiredExperience" class="form-control" placeholder="Required Experience" />
-                <span asp-validation-for="RequiredExperience" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="RequiredSkills"></label>
-                <input asp-for="RequiredSkills" class="form-control" placeholder="Required Skills" />
-                <span asp-validation-for="RequiredSkills" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="CategoryId"></label>
-                <select asp-for="CategoryId" class="form-control">
-                    @foreach (var category in Model.Categories)
-                    {
-                        <option value="@category.Id">@category.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="CategoryId" class="small text-danger"></span>
-            </div>
-
-            <div>
-                <label asp-for="JobTypeId"></label>
-                <select asp-for="JobTypeId" class="form-control">
-                    @foreach (var jobType in Model.JobTypes)
-                    {
-                        <option value="@jobType.Id">@jobType.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="JobTypeId" class="small text-danger"></span>
-            </div>
-
-            <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="Save" />
-            </div>
-        </form>
-    </div>
+    <partial name="_JobOfferFormPartial" />
 </div>
 
 @section Styles {
     <link rel="stylesheet" href="~/css/ckeditor.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5-premium-features/43.3.1/ckeditor5-premium-features.css">
+    <link rel="stylesheet" href="~/css/jobOffer/formJobOffer.css">
 }
 
 @section Scripts {
