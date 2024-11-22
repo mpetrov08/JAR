@@ -1,0 +1,24 @@
+﻿img {
+    width: 100px;
+    height: auto;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-body i {
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
