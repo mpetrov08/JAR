@@ -1,0 +1,55 @@
+﻿@model ConferenceFormModel
+
+<form method="post" id="form" class="conference-form">
+    <div class="form-group mb-4">
+        <label asp-for="LecturerId" class="form-label fw-bold text-primary">Lecturer</label>
+        <select asp-for="LecturerId" class="form-control rounded shadow-sm">
+            @foreach (var lecturer in Model.Lecturers)
+            {
+                <option value="@lecturer.Id">@lecturer.FirstName @lecturer.LastName</option>
+            }
+        </select>
+        <span asp-validation-for="LecturerId" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <label asp-for="Topic" class="form-label fw-bold text-primary">Topic</label>
+        <input asp-for="Topic" class="form-control rounded shadow-sm" placeholder="Topic" />
+        <span asp-validation-for="Topic" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <label asp-for="Description" class="form-label fw-bold text-primary">Description</label>
+        <div class="main-container">
+            <div class="editor-container editor-container_classic-editor" id="editor-container">
+                <div class="editor-container__editor">
+                    <textarea id="editor">@Model.Description</textarea>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="Description" id="hiddenDescription" />
+        <span asp-validation-for="Description" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <label asp-for="Start" class="form-label fw-bold text-primary">Start Date</label>
+        <input asp-for="Start" class="form-control rounded shadow-sm" placeholder="Start" />
+        <span asp-validation-for="Start" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <label asp-for="End" class="form-label fw-bold text-primary">End Date</label>
+        <input asp-for="End" class="form-control rounded shadow-sm" placeholder="End" />
+        <span asp-validation-for="End" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <label asp-for="ConferenceUrl" class="form-label fw-bold text-primary">Conference URL</label>
+        <input asp-for="ConferenceUrl" class="form-control rounded shadow-sm" placeholder="Conference URL" />
+        <span asp-validation-for="ConferenceUrl" class="small text-danger"></span>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary mt-3 px-5 py-2 rounded-pill shadow" type="submit">Save</button>
+    </div>
+</form>

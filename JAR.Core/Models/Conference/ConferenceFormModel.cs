@@ -33,6 +33,7 @@ namespace JAR.Core.Models.Conference
         public string Description { get; set; } = null!;
 
         [Required]
+        [Display(Name = "Conference Link (e.g., Zoom, Google Meets, etc.)")]
         public string ConferenceUrl { get; set; } = null!;
     }
 }

@@ -7,68 +7,17 @@
 <h3>@ViewBag.Title</h3>
 <hr />
 
-<div class="row">
-    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form method="post" id="form">
-            <div class="form-group">
-                <label asp-for="LecturerId"></label>
-                <select asp-for="LecturerId" class="form-control">
-                    @foreach (var lecturer in Model.Lecturers)
-                    {
-                        <option value="@lecturer.Id">@lecturer.FirstName @lecturer.LastName</option>
-                    }
-                </select>
-                <span asp-validation-for="LecturerId" class="small text-danger"></span>
-            </div>
+<div class="conference-form container mt-5 p-4 rounded shadow-lg">
+    <h3 class="text-center text-primary mb-4">@ViewBag.Title</h3>
+    <hr />
 
-            <div class="form-group">
-                <label asp-for="Topic"></label>
-                <input asp-for="Topic" class="form-control" placeholder="Topic" />
-                <span asp-validation-for="Topic" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Description"></label>
-                <div class="main-container">
-                    <div class="editor-container editor-container_classic-editor" id="editor-container">
-                        <div class="editor-container__editor">
-                            <textarea id="editor">@Model.Description</textarea>
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" asp-for="Description" id="hiddenDescription" />
-                <span asp-validation-for="Description" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Start"></label>
-                <input asp-for="Start" class="form-control" placeholder="Start" />
-                <span asp-validation-for="Start" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="End"></label>
-                <input asp-for="End" class="form-control" placeholder="Required Language" />
-                <span asp-validation-for="End" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ConferenceUrl"></label>
-                <input asp-for="ConferenceUrl" class="form-control" placeholder="Required Language" />
-                <span asp-validation-for="ConferenceUrl" class="small text-danger"></span>
-            </div>
-
-            <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="Save" />
-            </div>
-        </form>
-    </div>
+    <partial name="_ConferenceFormPartial" />
 </div>
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/ckeditor.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5-premium-features/43.3.1/ckeditor5-premium-features.css">
+    <link rel="stylesheet" href="~/css/conference/conferenceForm.css">
 }
 
 @section Scripts {

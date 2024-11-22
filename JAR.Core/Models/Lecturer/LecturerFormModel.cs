@@ -11,6 +11,7 @@ namespace JAR.Core.Models.Lecturer
     public class LecturerFormModel
     {
         [Required]
+        [Display(Name = "Lecturer")]
         public string UserId { get; set; } = null!;
 
         [Required]
