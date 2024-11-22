@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using System.Security.Claims;
+using static Dropbox.Api.Files.ListRevisionsMode;
 
 namespace JAR.Controllers
 {
@@ -74,7 +75,7 @@ namespace JAR.Controllers
         {
             if (!await jobOfferService.ExistsAsync(id))
             {
-                return BadRequest();
+                return BadRequest("Job Offers does not exists");
             }
 
             var jobOfferDetailsModel = await jobOfferService.JobOfferDetailsAsync(id);
@@ -88,12 +89,12 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return Unauthorized("Company is not approved");
             }
 
             var model = new JobOfferFormModel()
@@ -112,12 +113,12 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return Unauthorized("Company is not approved");
             }
 
             if (!await jobOfferService.CategoryExistsAsync(model.CategoryId))
@@ -150,22 +151,22 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return Unauthorized("Company is not approved");
             }
 
             if (!await jobOfferService.ExistsAsync(id))
             {
-                return BadRequest();
+                return BadRequest("Job offer does not exists");
             }
 
             if (!await jobOfferService.HasCompanyWithIdAsync(id, User.Id()))
             {
-                return Unauthorized();
+                return Unauthorized("This company is not owner of the job offer");
             }
 
             var model = await jobOfferService.GetJobOfferFormModelByIdAsync(id);
@@ -180,24 +181,24 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return Unauthorized("Company is not approved");
             }
 
             if (!await jobOfferService.ExistsAsync(id))
             {
-                return BadRequest();
+                return BadRequest("Job offer does not exists");
             }
 
             if (!await jobOfferService.HasCompanyWithIdAsync(id, User.Id()))
             {
-                return Unauthorized();
+                return Unauthorized("This company is not owner of the job offer");
             }
-            
+
             if (!await jobOfferService.CategoryExistsAsync(model.CategoryId))
             {
                 ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists");
@@ -226,22 +227,22 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return Unauthorized("Company is not approved");
             }
 
             if (!await jobOfferService.ExistsAsync(id))
             {
-                return BadRequest();
+                return BadRequest("Job Offer does not exists");
             }
 
             if (!await jobOfferService.HasCompanyWithIdAsync(id, User.Id()))
             {
-                return Unauthorized();
+                return Unauthorized("This company is not the owner of the job offer");
             }
 
             var jobOffer = await jobOfferService.JobOfferDetailsAsync(id);
@@ -264,22 +265,22 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return Unauthorized("Company is not approved");
             }
 
             if (!await jobOfferService.ExistsAsync(model.Id))
             {
-                return BadRequest();
+                return BadRequest("Job Offer does not exists");
             }
 
             if (!await jobOfferService.HasCompanyWithIdAsync(model.Id, User.Id()))
             {
-                return Unauthorized();
+                return Unauthorized("This company is not the owner of the job offer");
             }
 
             await jobOfferService.DeleteAsync(model.Id);
@@ -294,22 +295,22 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return Unauthorized("Company is not approved");
             }
 
             if (!await jobOfferService.ExistsAsync(id))
             {
-                return BadRequest();
+                return BadRequest("Job Offer does not exists");
             }
 
             if (!await jobOfferService.HasCompanyWithIdAsync(id, User.Id()))
             {
-                return Unauthorized();
+                return Unauthorized("This company is not the owner of the job offer");
             }
 
             var jobApplicants = await jobApplicationService.GetApplicantsAsync(id);

@@ -5,6 +5,7 @@ using JAR.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static Dropbox.Api.Files.ListRevisionsMode;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JAR.Controllers
@@ -30,17 +31,17 @@ namespace JAR.Controllers
         {
             if (!await jobOfferService.ExistsAsync(id))
             {
-                return BadRequest();
+                return BadRequest("Job Offer does not exists");
             }
 
             if (await jobApplicationService.HasUserAlreadyAppliedAsync(id, User.Id()))
             {
-                return BadRequest();
+                return BadRequest("You already applied for this job");
             }
 
             if (await companyService.OwnerCompanyExistsAsync(User.Id()))
             {
-                return BadRequest();
+                return BadRequest("You are the owner of the job offer");
             }
 
             var jobOffer = await jobOfferService.JobOfferDetailsAsync(id);
@@ -65,17 +66,17 @@ namespace JAR.Controllers
         {
             if (!await jobOfferService.ExistsAsync(model.Id))
             {
-                return BadRequest();
+                return BadRequest("Job Offer does not exists");
             }
 
             if (await jobApplicationService.HasUserAlreadyAppliedAsync(model.Id, User.Id()))
             {
-                return BadRequest();
+                return BadRequest("You already applied for this job");
             }
 
             if (await companyService.OwnerCompanyExistsAsync(User.Id()))
             {
-                return BadRequest();
+                return BadRequest("You are the owner of the job offer");
             }
 
             await jobApplicationService.ApplyAsync(model.Id, User.Id(), DateTime.Now);
@@ -90,32 +91,32 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company is not approved");
             }
 
             if (!await jobOfferService.ExistsAsync(jobId))
             {
-                return BadRequest();
+                return BadRequest("Job offer does not exists");
             }
 
             if (!await jobOfferService.HasCompanyWithIdAsync(jobId, User.Id()))
             {
-                return Unauthorized();
+                return Unauthorized("You are not the owner of this company");
             }
 
             if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, userId))
             {
-                return BadRequest();
+                return BadRequest("This used has not applied for this job offer.");
             }
 
-            if (!await jobApplicationService.IsUserAlreadyApprovedAsync(jobId, userId))
+            if (await jobApplicationService.IsUserAlreadyApprovedAsync(jobId, userId))
             {
-                return BadRequest();
+                return BadRequest("User is already approved");
             }
 
             var applicant = await jobApplicationService.GetApplicantByIdAsync(jobId, userId);
@@ -139,33 +140,34 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company does not exists");
             }
 
             if (!await companyService.IsApproved(companyId))
             {
-                return BadRequest();
+                return BadRequest("Company is not approved");
             }
 
             if (!await jobOfferService.ExistsAsync(model.JobId))
             {
-                return BadRequest();
+                return BadRequest("Job offer does not exists");
             }
 
             if (!await jobOfferService.HasCompanyWithIdAsync(model.JobId, User.Id()))
             {
-                return Unauthorized();
+                return Unauthorized("You are not the owner of this company");
             }
 
-            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(model.JobId, model.UserId))
+            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(model.JobId, User.Id()))
             {
-                return BadRequest();
+                return BadRequest("This used has not applied for this job offer.");
             }
 
-            if (!await jobApplicationService.IsUserAlreadyApprovedAsync(model.JobId, model.UserId))
+            if (await jobApplicationService.IsUserAlreadyApprovedAsync(model.JobId, User.Id()))
             {
-                return BadRequest();
+                return BadRequest("User is already approved");
             }
+
 
             await jobApplicationService.ApproveAsync(model.JobId, model.UserId, model.Message);
             return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = model.JobId });
@@ -178,12 +180,12 @@ namespace JAR.Controllers
 
             if (!await jobOfferService.ExistsAsync(jobId))
             {
-                return BadRequest();
+                return BadRequest("Job Offer does not exists");
             }
 
             if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, userId))
             {
-                return BadRequest();
+                return BadRequest("You havent applied for this job");
             }
 
             var model = await jobApplicationService.GetJobApplicationStatusViewModelAsync(jobId, userId);

@@ -2,66 +2,63 @@
     --primary-color: #364F6B;
     --secondary-color: #EA5455;
     --light-color: #F4F4F9;
+    --neutral-color: #D3D3D3;
 }
 
-.card-body {
-    display: flex;
-    padding: 20px;
-}
-
-.card-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-.card-text {
-    font-size: 1rem;
-    margin-bottom: 5px;
-}
-
-.card-text.text-muted {
-    color: var(--neutral-color);
-}
-
-.card-text.text-secondary {
-    color: var(--secondary-color); 
-}
-
-.btn-outline-primary,
-.btn-outline-secondary,
-.btn-outline-danger,
-.btn-outline-info,
-.btn-outline-success {
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-weight: bold;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.btn-outline-primary:hover,
-.btn-outline-secondary:hover,
-.btn-outline-danger:hover,
-.btn-outline-info:hover,
-.btn-outline-success:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-img.img-fluid {
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-img.img-fluid:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-}
-
-.card-body .btn-group a {
+.btn-group .btn {
     margin-right: 5px;
+    border-width: 2px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+     background-color: var(--primary-color);
+}
+
+.btn-outline-secondary {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+}
+
+.btn-outline-info {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+    background-color: #17a2b8;
+}
+
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745;
+}
+
+.btn-group .btn:hover {
+    text-decoration: none;
+    transition: all 0.3s ease-in-out; 
 }

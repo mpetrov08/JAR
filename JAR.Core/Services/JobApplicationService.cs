@@ -124,7 +124,7 @@ namespace JAR.Core.Services
                 .Where(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId)
                 .FirstOrDefaultAsync();
 
-            return jobApplication != null;
+            return jobApplication.IsApproved;
         }
     }
 }

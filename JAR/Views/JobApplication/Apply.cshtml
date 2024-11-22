@@ -4,50 +4,61 @@
     ViewBag.Title = "Apply For Job Offer";
 }
 
-<h3>@ViewBag.Title</h3>
-<hr />
+<h3 class="text-center text-primary mb-5">@ViewBag.Title</h3>
+<hr class="mb-4" />
 
-<form method="post">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" disabled="disabled" />
-            </div>
+<div class="container">
+    <form method="post" class="shadow-lg p-4 rounded">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group mb-4">
+                    <label asp-for="Title" class="form-label text-primary fw-bold">Job Title</label>
+                    <input asp-for="Title" class="form-control rounded" disabled="disabled" />
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" disabled="disabled" />
-            </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Description" class="form-label text-primary fw-bold">Job Description</label>
+                    <div class="form-control rounded" disabled="disabled" style="padding: 10px; border: 1px solid #ced4da;">
+                        @Html.Raw(Model.Description)
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" disabled="disabled" />
-            </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Address" class="form-label text-primary fw-bold">Address</label>
+                    <input asp-for="Address" class="form-control rounded" disabled="disabled" />
+                </div>
 
-            <div class="form-group">
-                <label asp-for="RequiredLanguage" class="control-label"></label>
-                <input asp-for="RequiredLanguage" class="form-control" disabled="disabled" />
-            </div>
+                @if (!string.IsNullOrEmpty(Model.RequiredLanguage))
+                {
+                    <div class="form-group mb-4">
+                        <label asp-for="RequiredLanguage" class="form-label text-primary fw-bold">Required Language</label>
+                        <input asp-for="RequiredLanguage" class="form-control rounded" disabled="disabled" />
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(Model.RequiredDegree))
+                {
+                    <div class="form-group mb-4">
+                        <label asp-for="RequiredDegree" class="form-label text-primary fw-bold">Required Degree</label>
+                        <input asp-for="RequiredDegree" class="form-control rounded" disabled="disabled" />
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(Model.RequiredExperience))
+                {
+                    <div class="form-group mb-4">
+                        <label asp-for="RequiredExperience" class="form-label text-primary fw-bold">Required Experience</label>
+                        <input asp-for="RequiredExperience" class="form-control rounded" disabled="disabled" />
+                    </div>
+                }
 
-            <div class="form-group">
-                <label asp-for="RequiredDegree" class="control-label"></label>
-                <input asp-for="RequiredDegree" class="form-control" disabled="disabled" />
-            </div>
+                <div class="form-group mb-4">
+                    <label asp-for="RequiredSkills" class="form-label text-primary fw-bold">Required Skills</label>
+                    <textarea asp-for="RequiredSkills" class="form-control rounded" rows="3" disabled="disabled"></textarea>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="RequiredExperience" class="control-label"></label>
-                <input asp-for="RequiredExperience" class="form-control" disabled="disabled" />
-            </div>
-
-            <div class="form-group">
-                <label asp-for="RequiredSkills" class="control-label"></label>
-                <input asp-for="RequiredSkills" class="form-control" disabled="disabled" />
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Apply" class="btn btn-primary" />
+                <div class="text-center mt-5">
+                    <input type="submit" value="Apply" class="btn btn-outline-primary btn-lg px-5 py-2" />
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

@@ -1,49 +1,72 @@
 ﻿@model List<JobOfferViewModel>
+@inject IJobOfferService jobOffers;
+@inject ICompanyService company;
+@inject IJobApplicationService jobApplication;
 
-@foreach (var jobOffer in Model)
-
+@if (Model.Count > 0)
 {
-    <div class="card mb-4 shadow-sm border-0 rounded">
-        <div class="card-body d-flex align-items-center">
-            <div class="col-md-8">
-                <h5 class="card-title text-primary">@jobOffer.Title</h5>
-                <p class="card-text text-muted">@jobOffer.Address</p>
-                <p class="card-text text-secondary"><strong>@jobOffer.Salary$</strong></p>
-                <p class="card-text">@jobOffer.RequiredSkills</p>
+    @foreach (var jobOffer in Model)
+    {
+        <div class="card mb-4 shadow-sm border-0 rounded">
+            <div class="card-body d-flex align-items-center">
+                <div class="col-md-8">
+                    <h5 class="card-title text-primary">@jobOffer.Title</h5>
+                    <p class="card-text text-muted">@jobOffer.Address</p>
+                    <p class="card-text text-secondary"><strong>@jobOffer.Salary$</strong></p>
+                    <p class="card-text">@jobOffer.RequiredSkills</p>
 
-                @if (!string.IsNullOrEmpty(jobOffer.RequiredLanguage))
+                    @if (!string.IsNullOrEmpty(jobOffer.RequiredLanguage))
+                    {
+                        <p class="card-text"><strong>Language:</strong> @jobOffer.RequiredLanguage</p>
+                    }
 
-                {
-                    <p class="card-text"><strong>Language:</strong> @jobOffer.RequiredLanguage</p>
-                }
+                    @if (!string.IsNullOrEmpty(jobOffer.RequiredDegree))
+                    {
+                        <p class="card-text"><strong>Degree:</strong> @jobOffer.RequiredDegree</p>
+                    }
 
-                @if (!string.IsNullOrEmpty(jobOffer.RequiredDegree))
+                    @if (!string.IsNullOrEmpty(jobOffer.RequiredExperience))
+                    {
+                        <p class="card-text"><strong>Experience:</strong> @jobOffer.RequiredExperience</p>
+                    }
 
-                {
-                    <p class="card-text"><strong>Degree:</strong> @jobOffer.RequiredDegree</p>
-                }
+                    <p class="card-text text-muted"><small>@jobOffer.CreatedOn</small></p>
 
-                @if (!string.IsNullOrEmpty(jobOffer.RequiredExperience))
+                    <div class="btn-group jobOfferButtons" role="group">
+                        <a class="btn btn-outline-primary" asp-area="" asp-controller="JobOffer" asp-action="Details" asp-route-id="@jobOffer.Id">Details</a>
 
-                {
-                    <p class="card-text"><strong>Experience:</strong> @jobOffer.RequiredExperience</p>
-                }
+                        @if (await jobOffers.HasCompanyWithIdAsync(jobOffer.Id, User.Id()))
+                        {
+                            <a class="btn btn-outline-secondary" asp-area="" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@jobOffer.Id">Edit</a>
+                            <a class="btn btn-outline-danger" asp-area="" asp-controller="JobOffer" asp-action="Delete" asp-route-id="@jobOffer.Id">Delete</a>
+                            <a class="btn btn-outline-info" asp-area="" asp-controller="JobOffer" asp-action="ViewApplicants" asp-route-id="@jobOffer.Id">View Applicants</a>
+                        }
 
-                <p class="card-text text-muted"><small>@jobOffer.CreatedOn</small></p>
+                        @if (!await company.OwnerCompanyExistsAsync(User.Id())
+                        && User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-outline-success" asp-area="" asp-controller="Rooms" asp-action="Create" asp-route-name="@jobOffer.Title" asp-route-companyOwnerId="@jobOffer.CompanyOwnerId">Start Chat</a>
 
-                <div class="btn-group jobOfferButtons" role="group">
-                    <a class="btn btn-outline-primary" asp-area="" asp-controller="JobOffer" asp-action="Details" asp-route-id="@jobOffer.Id">Details</a>
-                    <a class="btn btn-outline-secondary" asp-area="" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@jobOffer.Id">Edit</a>
-                    <a class="btn btn-outline-danger" asp-area="" asp-controller="JobOffer" asp-action="Delete" asp-route-id="@jobOffer.Id">Delete</a>
-                    <a class="btn btn-outline-info" asp-area="" asp-controller="JobOffer" asp-action="ViewApplicants" asp-route-id="@jobOffer.Id">View Applicants</a>
-                    <a class="btn btn-outline-success" asp-area="" asp-controller="Rooms" asp-action="Create" asp-route-name="@jobOffer.Title" asp-route-companyOwnerId="@jobOffer.CompanyOwnerId">Start Chat</a>
-                    <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="Apply" asp-route-id="@jobOffer.Id">Apply for Job</a>
+                            @if (await jobApplication.HasUserAlreadyAppliedAsync(jobOffer.Id, User.Id()))
+                            {
+                                <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="CheckStatus" asp-route-jobId="@jobOffer.Id">Check Status</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="Apply" asp-route-id="@jobOffer.Id">Apply for Job</a>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-4 text-end">
+                    <img class="img-fluid" src="@jobOffer.CompanyLogo" alt="Company Logo">
                 </div>
             </div>
-
-            <div class="col-md-4 text-end">
-                <img class="img-fluid" src="@jobOffer.CompanyLogo" alt="Company Logo">
-            </div>
         </div>
-    </div>
+    }
+}
+else
+{
+    <h3>Not Job Offers</h3>
 }

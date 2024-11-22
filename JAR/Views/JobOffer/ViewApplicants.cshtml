@@ -1,4 +1,5 @@
 ﻿@model List<JobOfferApplicantViewModel>
+@inject IJobApplicationService jobApplication;
 
 @{
     ViewBag.Title = "View Job Applicants";
@@ -9,37 +10,48 @@
 <hr class="my-4" />
 
 <div class="row justify-content-center">
-    @foreach (var applicant in Model)
-
+    @if (Model.Count == 0)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-lg border-0 rounded">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title text-primary">@applicant.Email</h5>
-                        <p class="text-muted small">@applicant.AppliedOn</p>
-                    </div>
+        <div class="alert alert-info text-center py-3 mt-4" role="alert">
+            <h4 class="text-primary mb-0">There are no applicants</h4>
+        </div>
+    }
+    else
+    {
+        @foreach (var applicant in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg border-0 rounded">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title text-primary">@applicant.Email</h5>
+                            <p class="text-muted small">@applicant.AppliedOn</p>
+                        </div>
 
-                    <div class="mb-3">
-                        <h5 class="card-text">
-                            <strong>Is Approved: </strong>
-                            <span class="badge @(applicant.IsApproved ? "bg-success" : "bg-warning")">
-                                @(applicant.IsApproved ? "Approved" : "Pending")
-                            </span>
-                        </h5>
-                    </div>
+                        <div class="mb-3">
+                            <h5 class="card-text">
+                                <strong>Is Approved: </strong>
+                                <span class="badge @(applicant.IsApproved ? "bg-success" : "bg-warning")">
+                                    @(applicant.IsApproved ? "Approved" : "Pending")
+                                </span>
+                            </h5>
+                        </div>
 
-                    <div class="d-flex justify-content-between align-items-center mt-4">
-                        <a class="btn btn-outline-success w-48 rounded-pill shadow-sm"
-                           asp-area="" asp-controller="JobApplication"
-                           asp-action="Approve"
-                           asp-route-jobId="@applicant.JobId"
-                           asp-route-userId="@applicant.UserId">
-                            Approve
-                        </a>
+                        @if(!await jobApplication.IsUserAlreadyApprovedAsync(applicant.JobId, applicant.UserId))
+                        {
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <a class="btn btn-outline-success w-48 rounded-pill shadow-sm"
+                                   asp-area="" asp-controller="JobApplication"
+                                   asp-action="Approve"
+                                   asp-route-jobId="@applicant.JobId"
+                                   asp-route-userId="@applicant.UserId">
+                                    Approve
+                                </a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
-        </div>
+        }
     }
 </div>

@@ -1,4 +1,7 @@
 ﻿@model JobOfferDetailsViewModel
+@inject IJobOfferService jobOffer;
+@inject ICompanyService company;
+@inject IJobApplicationService jobApplication;
 
 @{
     ViewBag.Title = "Job Offer Details";
@@ -13,7 +16,6 @@
             <div class="card-body">
                 <div class="text-center mb-4">
                     @if (!string.IsNullOrEmpty(Model.Company.LogoUrl))
-
                     {
                         <img src="@Model.Company.LogoUrl" alt="@Model.Company.Name Logo" class="img-fluid rounded-circle" style="max-width: 250px; height: auto; transition: transform 0.3s ease;" />
                     }
@@ -35,17 +37,14 @@
                         <li><strong>Category:</strong> @Model.Category</li>
                         <li><strong>Job Type:</strong> @Model.JobType</li>
                         @if (!string.IsNullOrEmpty(Model.RequiredLanguage))
-
                         {
                             <li><strong>Required Language:</strong> @Model.RequiredLanguage</li>
                         }
                         @if (!string.IsNullOrEmpty(Model.RequiredDegree))
-
                         {
                             <li><strong>Required Degree:</strong> @Model.RequiredDegree</li>
                         }
                         @if (!string.IsNullOrEmpty(Model.RequiredExperience))
-
                         {
                             <li><strong>Required Experience:</strong> @Model.RequiredExperience</li>
                         }
@@ -67,15 +66,32 @@
                 </div>
 
                 <div class="form-group d-flex justify-content-between">
-                    <a class="btn btn-outline-primary btn-lg shadow-sm hover-scale-up" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@Model.Id">
-                        <i class="fas fa-edit"></i> Edit
-                    </a>
-                    <a class="btn btn-outline-danger btn-lg shadow-sm hover-scale-up" asp-controller="JobOffer" asp-action="Delete" asp-route-id="@Model.Id">
-                        <i class="fas fa-trash-alt"></i> Delete
-                    </a>
-                    <a class="btn btn-outline-success btn-lg shadow-sm hover-scale-up" asp-controller="JobApplication" asp-action="Apply" asp-route-id="@Model.Id">
-                        <i class="fas fa-paper-plane"></i> Apply
-                    </a>
+
+                    @if(await jobOffer.HasCompanyWithIdAsync(Model.Id, User.Id()))
+                    {
+                        <a class="btn btn-outline-primary btn-lg shadow-sm hover-scale-up" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@Model.Id">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a class="btn btn-outline-danger btn-lg shadow-sm hover-scale-up" asp-controller="JobOffer" asp-action="Delete" asp-route-id="@Model.Id">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    }
+
+                    
+                    @if (!await company.OwnerCompanyExistsAsync(User.Id())
+                    && User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-outline-success" asp-area="" asp-controller="Rooms" asp-action="Create" asp-route-name="@Model.Title" asp-route-companyOwnerId="Model.CompanyOwnerId">Start Chat</a>
+
+                        @if (await jobApplication.HasUserAlreadyAppliedAsync(Model.Id, User.Id()))
+                        {
+                            <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="CheckStatus" asp-route-jobId="@Model.Id">Check Status</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="Apply" asp-route-id="@Model.Id">Apply for Job</a>
+                        }
+                    }
                 </div>
             </div>
         </div>
