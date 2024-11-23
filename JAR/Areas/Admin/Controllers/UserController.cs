@@ -29,14 +29,14 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest();
+                return BadRequest("Id is null");
             }
 
             bool IsSucceeded = await userService.PromoteUserToAdminAsync(id);
 
             if (!IsSucceeded)
             {
-                return BadRequest(); 
+                return BadRequest("Id is invalid"); 
             }
 
             return RedirectToAction(nameof(All));   
@@ -47,14 +47,14 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest();
+                return BadRequest("Id is null");
             }
 
-            bool IsSucceeded = await userService.RemoveAdminRoleAsync(id);
+            bool isSucceeded = await userService.RemoveAdminRoleAsync(id);
 
-            if (!IsSucceeded)
+            if (!isSucceeded)
             {
-                return BadRequest();
+                return BadRequest("Id is invalid");
             }
 
             return RedirectToAction(nameof(All));
@@ -65,7 +65,7 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest();
+                return BadRequest("Id is null");
             }
 
             var lecturer = new LecturerFormModel()
@@ -88,7 +88,7 @@ namespace JAR.Areas.Admin.Controllers
 
             if (!isSucceeded)
             {
-                return BadRequest();
+                return BadRequest("Invalid data! Cannot promote user to lecturer.");
             }
 
             return RedirectToAction(nameof(All));
@@ -99,10 +99,15 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest();
+                return BadRequest("Id is null or empty");
             }
 
             bool isSucceeded = await lecturerService.DemoteFromLecturerAsync(id);
+
+            if (!isSucceeded)
+            {
+                return BadRequest("Id is invalid");
+            }
 
             return RedirectToAction(nameof(All));
         }

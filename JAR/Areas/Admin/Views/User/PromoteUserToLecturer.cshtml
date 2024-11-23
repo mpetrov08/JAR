@@ -4,36 +4,40 @@
     ViewBag.Title = "Promote to Lecturer";
 }
 
-<h3>@ViewBag.Title</h3>
-<hr />
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h3 class="fw-bold text-primary display-4">@ViewBag.Title</h3>
+        <p class="lead text-muted">Provide the necessary description to promote the user to lecturer status.</p>
+    </div>
 
-<div class="row">
-    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form method="post" id="form">
-            <input type="hidden" asp-for="UserId" />
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12">
+            <form method="post" id="form" class="shadow-lg p-4 rounded bg-light">
+                <input type="hidden" asp-for="UserId" />
 
-            <div class="form-group">
-                <label asp-for="Description"></label>
-                <div class="main-container">
-                    <div class="editor-container editor-container_classic-editor" id="editor-container">
-                        <div class="editor-container__editor">
-                            <textarea id="editor">@Model.Description</textarea>
+                <div class="form-group mb-4">
+                    <label for="editor" class="form-label fs-5">Description</label>
+                    <div class="main-container">
+                        <div class="editor-container editor-container_classic-editor" id="editor-container">
+                            <div class="editor-container__editor">
+                                <textarea id="editor">@Model.Description</textarea>
+                            </div>
                         </div>
                     </div>
+                    <input type="hidden" asp-for="Description" id="hiddenDescription" />
+                    <span asp-validation-for="Description" class="small text-danger"></span>
                 </div>
-                <input type="hidden" asp-for="Description" id="hiddenDescription" />
-                <span asp-validation-for="Description" class="small text-danger"></span>
-            </div>
 
-            <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="Save" />
-            </div>
-        </form>
+                <div class="text-center">
+                    <input class="btn btn-primary btn-lg px-4 py-3 mt-3 shadow-sm hover-effect" type="submit" value="Save" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/ckeditor.css">
+    <link rel="stylesheet" href="~/css/promoteUserToLecturer.css" />
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5-premium-features/43.3.1/ckeditor5-premium-features.css">
 }
