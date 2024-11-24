@@ -13,26 +13,45 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8">
-                    <h4 class="text-muted mb-3">Conference Details</h4>
-                    <p class="mb-2"><strong>Start:</strong> @Model.Start</p>
-                    <p class="mb-2"><strong>End:</strong> @Model.End</p>
+                    <h4 class="text-muted mb-3">
+                        <i class="fas fa-info-circle"></i> Conference Details
+                    </h4>
+                    <p class="mb-2">
+                        <strong><i class="fas fa-calendar-day"></i> Start:</strong> @Model.Start
+                    </p>
+                    <p class="mb-2">
+                        <strong><i class="fas fa-calendar-day"></i> End:</strong> @Model.End
+                    </p>
                     <div class="mb-4">
-                        <strong>Description:</strong>
+                        <strong><i class="fas fa-align-left"></i> Description:</strong>
                         <div class="description-container mt-2">@Html.Raw(Model.Description)</div>
                     </div>
-                    <a href="@Model.ConferenceUrl" class="btn btn-secondary btn-lg" target="_blank">
-                        <i class="bi bi-door-open"></i> Join Conference
-                    </a>
+
+                    @if (DateTime.Parse(Model.Start) <= DateTime.Now && 
+                         DateTime.Parse(Model.End) <= DateTime.Now)
+                    {
+                        <a href="@Model.ConferenceUrl" class="btn btn-secondary btn-lg" target="_blank">
+                            <i class="bi bi-door-open"></i> Join Conference
+                        </a>
+                    }
+                    else
+                    {
+                        <p class="text-muted">The conference has not started yet.</p>
+                    }
                 </div>
 
                 <div class="col-md-4">
                     <div class="card border-0 rounded-lg shadow-sm">
                         <div class="card-body text-center">
-                            <h5 class="card-title mb-2">Lecturer</h5>
+                            <h5 class="card-title mb-2">
+                                <i class="fas fa-chalkboard-teacher"></i> Lecturer
+                            </h5>
                             <p class="card-text mb-3">
                                 <strong>@Model.Lecturer.FirstName @Model.Lecturer.LastName</strong>
                             </p>
-                            <p class="mb-3">@Html.Raw(Model.Lecturer.Description)</p>
+                            <p class="mb-3">
+                                <i class="fas fa-align-left"></i> @Html.Raw(Model.Lecturer.Description)
+                            </p>
                         </div>
                     </div>
                 </div>

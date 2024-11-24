@@ -7,37 +7,44 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="form-group mb-3">
-                            <label asp-for="FirstName" class="fw-bold text-dark">First Name</label>
+                            <label asp-for="FirstName" class="fw-bold text-dark">
+                                <i class="fas fa-user"></i> First Name
+                            </label>
                             <input asp-for="FirstName" class="form-control form-control-lg shadow-sm" placeholder="First Name" />
                             <span asp-validation-for="FirstName" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="BirthDate" class="fw-bold text-dark">Birth Date</label>
+                            <label asp-for="BirthDate" class="fw-bold text-dark">
+                                <i class="fas fa-calendar"></i> Birth Date
+                            </label>
                             <input asp-for="BirthDate" class="form-control form-control-lg shadow-sm" placeholder="Birth Date (Format: dd/MM/yyyy)" />
                             <span asp-validation-for="BirthDate" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="Email" class="fw-bold text-dark">Email</label>
+                            <label asp-for="Email" class="fw-bold text-dark">
+                                <i class="fas fa-envelope"></i> Email
+                            </label>
                             <input asp-for="Email" class="form-control form-control-lg shadow-sm" placeholder="Email" />
                             <span asp-validation-for="Email" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="LinkedInProfile" class="fw-bold text-dark">LinkedIn Profile</label>
+                            <label asp-for="LinkedInProfile" class="fw-bold text-dark">
+                                <i class="fab fa-linkedin"></i> LinkedIn Profile
+                            </label>
                             <input asp-for="LinkedInProfile" class="form-control form-control-lg shadow-sm" placeholder="LinkedIn Profile Link" />
                             <span asp-validation-for="LinkedInProfile" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="PhoneNumber" class="fw-bold text-dark">Phone Number</label>
+                            <label asp-for="PhoneNumber" class="fw-bold text-dark">
+                                <i class="fas fa-phone"></i> Phone Number
+                            </label>
                             <input asp-for="PhoneNumber" class="form-control form-control-lg shadow-sm" placeholder="Phone Number" />
                             <span asp-validation-for="PhoneNumber" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="Address" class="fw-bold text-dark">Address</label>
+                            <label asp-for="Address" class="fw-bold text-dark">
+                                <i class="fas fa-map-marker-alt"></i> Address
+                            </label>
                             <input asp-for="Address" class="form-control form-control-lg shadow-sm" placeholder="Address" />
                             <span asp-validation-for="Address" class="small text-danger"></span>
                         </div>
@@ -45,45 +52,54 @@
 
                     <div class="col-md-6 col-12">
                         <div class="form-group mb-3">
-                            <label asp-for="LastName" class="fw-bold text-dark">Last Name</label>
+                            <label asp-for="LastName" class="fw-bold text-dark">
+                                <i class="fas fa-user-tag"></i> Last Name
+                            </label>
                             <input asp-for="LastName" class="form-control form-control-lg shadow-sm" placeholder="Last Name" />
                             <span asp-validation-for="LastName" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="Citizenship" class="fw-bold text-dark">Citizenship</label>
+                            <label asp-for="Citizenship" class="fw-bold text-dark">
+                                <i class="fas fa-globe"></i> Citizenship
+                            </label>
                             <input asp-for="Citizenship" class="form-control form-control-lg shadow-sm" placeholder="Citizenship" />
                             <span asp-validation-for="Citizenship" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="Languages" class="fw-bold text-dark">Languages</label>
+                            <label asp-for="Languages" class="fw-bold text-dark">
+                                <i class="fas fa-language"></i> Languages
+                            </label>
                             <input asp-for="Languages" class="form-control form-control-lg shadow-sm" placeholder="Languages" />
                             <span asp-validation-for="Languages" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="Skills" class="fw-bold text-dark">Skills</label>
+                            <label asp-for="Skills" class="fw-bold text-dark">
+                                <i class="fas fa-cogs"></i> Skills
+                            </label>
                             <input asp-for="Skills" id="skills" class="form-control form-control-lg shadow-sm" placeholder="Skills" />
                             <span asp-validation-for="Skills" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="DrivingLicense" class="fw-bold text-dark">Driving License</label>
+                            <label asp-for="DrivingLicense" class="fw-bold text-dark">
+                                <i class="fas fa-id-card"></i> Driving License
+                            </label>
                             <input asp-for="DrivingLicense" class="form-control form-control-lg shadow-sm" placeholder="Driving License" />
                             <span asp-validation-for="DrivingLicense" class="small text-danger"></span>
                         </div>
-
                         <div class="form-group mb-3">
-                            <label asp-for="Gender" class="fw-bold text-dark">Gender</label>
+                            <label asp-for="Gender" class="fw-bold text-dark">
+                                <i class="fas fa-venus-mars"></i> Gender
+                            </label>
                             <input asp-for="Gender" class="form-control form-control-lg shadow-sm" placeholder="Gender" />
                             <span asp-validation-for="Gender" class="small text-danger"></span>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="Photo" class="fw-bold text-dark">Photo</label>
+                <div class="form-group mb-3">
+                    <label asp-for="Photo" class="fw-bold text-dark">
+                        <i class="fas fa-camera"></i> Photo
+                    </label>
                     <input asp-for="Photo" class="form-control form-control-lg shadow-sm" placeholder="Photo" />
                     <span asp-validation-for="Photo" class="small text-danger"></span>
                 </div>
@@ -92,60 +108,62 @@
 
                 <div class="degree">
                     <div class="form-group">
-                        <div class="form-group">
-                            <label>Degrees</label>
+                        <label>
+                            <i class="fas fa-graduation-cap"></i> Degrees
+                        </label>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#degreeModal">
+                            <i class="fas fa-plus"></i> Add Degree
+                        </button>
 
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#degreeModal">
-                                Add Degree
-                            </button>
+                        <div id="degreeList">
+                            @foreach (var degree in Model.Degrees)
 
-                            <div id="degreeList">
-                                @foreach (var degree in Model.Degrees)
-                                {
-                                    <div class="degree-item">
-                                        <p>@degree.EducationalInstitution - @degree.Major (@degree.StartDate - @degree.EndDate)</p>
-                                        <button type="button" class="btn btn-sm btn-warning editDegreeButton">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-danger deleteDegreeButton">Delete</button>
-                                    </div>
-                                }
-                            </div>
-
-                            <input type="hidden" id="initialDegrees" value='@Model.DegreesJson' />
-                        </div>
-                    </div>
-                </div>
-
-                    <div class="professionalExperience">
-                        <div class="form-group">
-                            <label>Professional Experience</label>
-
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#professionalExperienceModal">
-                                Add Professional Experience
-                            </button>
-
-                            <div id="professionalExperienceList">
-                                <div id="professionalExperienceList">
-                                    @foreach (var professionalExperience in Model.ProfessionalExperiences)
-                                    {
-                                        <div class="experience-item" data-company-name="@professionalExperience.CompanyName" data-city="@professionalExperience.City">
-                                            <p>@professionalExperience.CompanyName - @professionalExperience.City (@professionalExperience.StartDate - @professionalExperience.EndDate)</p>
-                                            <button type="button" class="btn btn-sm btn-warning editExperienceButton">Edit</button>
-                                            <button type="button" class="btn btn-sm btn-danger deleteExperienceButton">Delete</button>
-                                        </div>
-                                    }
-
-                                    <input type="hidden" id="initialProfessionalExperiences" value='@Model.ProfessionalExperiencesJson' />
+                            {
+                                <div class="degree-item">
+                                    <p>
+                                        <i class="fas fa-university"></i> @degree.EducationalInstitution -
+                                        @degree.Major (@degree.StartDate - @degree.EndDate)
+                                    </p>
+                                    <button type="button" class="btn btn-sm btn-warning editDegreeButton">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger deleteDegreeButton">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
-
-                <div class="form-group mb-3">
-                    <input asp-for="DegreesJson" id="degreesJson" type="hidden" value="" />
                 </div>
 
-                <div class="form-group mb-3">
-                    <input asp-for="ProfessionalExperiencesJson" id="professionalExperiencesJson" type="hidden" value="" />
+                <div class="professionalExperience">
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-briefcase"></i> Professional Experience
+                        </label>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#professionalExperienceModal">
+                            <i class="fas fa-plus"></i> Add Professional Experience
+                        </button>
+
+                        <div id="professionalExperienceList">
+                            @foreach (var professionalExperience in Model.ProfessionalExperiences)
+
+                            {
+                                <div class="experience-item" data-company-name="@professionalExperience.CompanyName" data-city="@professionalExperience.City">
+                                    <p>
+                                        <i class="fas fa-building"></i> @professionalExperience.CompanyName -
+                                        @professionalExperience.City (@professionalExperience.StartDate - @professionalExperience.EndDate)
+                                    </p>
+                                    <button type="button" class="btn btn-sm btn-warning editExperienceButton">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger deleteExperienceButton">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
 
                 <div class="text-center">
@@ -160,7 +178,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="degreeModalLabel">Add Degree</h5>
+                <h5 class="modal-title" id="degreeModalLabel"><i class="fas fa-graduation-cap"></i> Add Degree</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -195,7 +213,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addDegreeButton">Add Degree</button>
+                <button type="button" class="btn btn-primary" id="addDegreeButton">
+                    <i class="fas fa-plus"></i> Add Degree
+                </button>
             </div>
         </div>
     </div>
@@ -205,7 +225,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="professionalExperienceModalLabel">Add Professional Experience</h5>
+                <h5 class="modal-title" id="professionalExperienceModalLabel">
+                    <i class="fas fa-briefcase"></i> Add Professional Experience
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -232,7 +254,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addProfessionalExperienceButton">Add Experience</button>
+                <button type="button" class="btn btn-primary" id="addProfessionalExperienceButton">
+                    <i class="fas fa-plus"></i> Add Experience
+                </button>
             </div>
         </div>
     </div>

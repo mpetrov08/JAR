@@ -6,6 +6,7 @@
 {
     <p class="text-center">No conferences available.</p>
 }
+
 else
 {
     <div class="row">
@@ -14,21 +15,32 @@ else
             <div class="col-md-4 mb-4">
                 <div class="card shadow-lg border-0 rounded-lg">
                     <div class="card-body p-4">
-                        <h5 class="card-title text-primary">@conference.Topic</h5>
+                        <h5 class="card-title text-primary">
+                            <i class="fas fa-book-open"></i> @conference.Topic
+                        </h5>
                         <h6 class="card-subtitle mb-3 text-muted">
-                            @conference.Start - @conference.End
+                            <i class="fas fa-calendar-alt"></i> @conference.Start - @conference.End
                         </h6>
-                        <p class="card-text"><strong>Lecturer:</strong> @conference.Lecturer.FirstName @conference.Lecturer.LastName</p>
+                        <p class="card-text">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <strong>Lecturer:</strong> @conference.Lecturer.FirstName @conference.Lecturer.LastName
+                        </p>
 
                         <div class="d-flex flex-column gap-2">
-                            @if(await lecturer.HasLecturerConference(User.Id(), conference.Id) || 
+                            @if (await lecturer.HasLecturerConference(User.Id(), conference.Id) ||
                                 User.IsInRole(AdminRole))
                             {
-                                <a class="btn btn-outline-primary" asp-area="" asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id">Edit</a>
-                                <a class="btn btn-outline-danger" asp-area="" asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id">Delete</a>
+                                <a class="btn btn-outline-primary" asp-area="" asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-outline-danger" asp-area="" asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
                             }
 
-                            <a class="btn btn-outline-info" asp-area="" asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id">Details</a>
+                            <a class="btn btn-outline-info" asp-area="" asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
 
                             @{
                                 DateTime.TryParse(conference.Start, out var startTime);
@@ -40,7 +52,9 @@ else
 
                             @if (hasEnded)
                             {
-                                <p class="text-muted">This conference has ended. Registration is closed.</p>
+                                <p class="text-muted">
+                                    <i class="fas fa-hourglass-end"></i> This conference has ended. Registration is closed.
+                                </p>
                             }
                             else
                             {
@@ -48,27 +62,34 @@ else
                                 {
                                     <form asp-area="" asp-controller="Conference" asp-action="Unregister" method="post">
                                         <input type="hidden" name="conferenceId" value="@conference.Id" />
-                                        <button type="submit" class="btn btn-warning">Unregister</button>
+                                        <button type="submit" class="btn btn-warning">
+                                            <i class="fas fa-sign-out-alt"></i> Unregister
+                                        </button>
                                     </form>
                                 }
                                 else
                                 {
                                     <form asp-area="" asp-controller="Conference" asp-action="SignUp" method="post">
                                         <input type="hidden" name="conferenceId" value="@conference.Id" />
-                                        <button type="submit" class="btn btn-success">Sign Up</button>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-user-plus"></i> Sign Up
+                                        </button>
                                     </form>
                                 }
-                            }
 
-                            @if (isOngoing)
-                            {
-                                <a class="btn btn-secondary mt-2" href="@conference.ConferenceUrl" target="_blank">Join</a>
-                            }
-                            else if (hasNotStarted)
-                            {
-                                <p class="text-warning">Conference has not started yet.</p>
-                            }
-
+                                @if (isOngoing)
+                                {
+                                    <a class="btn btn-secondary mt-2" href="@conference.ConferenceUrl" target="_blank">
+                                        <i class="fas fa-video"></i> Join
+                                    </a>
+                                }
+                                else if (hasNotStarted)
+                                {
+                                    <p class="text-warning">
+                                        <i class="fas fa-clock"></i> Conference has not started yet.
+                                    </p>
+                                }
+                            }            
                         </div>
                     </div>
                 </div>

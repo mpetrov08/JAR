@@ -1,4 +1,4 @@
-﻿:root {
+﻿root {
     --primary-color: #364F6B;
     --secondary-color: #EA5455;
     --light-color: #F4F4F9;
@@ -15,7 +15,6 @@ h3.text-center {
     color: var(--primary-color);
 }
 
-
 .card {
     border: none;
     border-radius: 15px;
@@ -23,10 +22,10 @@ h3.text-center {
     transition: all 0.3s ease;
 }
 
-    .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
 
 .card-body {
     padding: 1.5rem;
@@ -36,11 +35,13 @@ h3.text-center {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--primary-color);
+    margin-bottom: 1rem;
 }
 
 .card-subtitle {
     font-size: 1.1rem;
     color: var(--secondary-color);
+    margin-top: 0.5rem;
 }
 
 .card-text {

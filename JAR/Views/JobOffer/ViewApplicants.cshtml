@@ -31,13 +31,22 @@
                         <div class="mb-3">
                             <h5 class="card-text">
                                 <strong>Is Approved: </strong>
-                                <span class="badge @(applicant.IsApproved ? "bg-success" : "bg-warning")">
-                                    @(applicant.IsApproved ? "Approved" : "Pending")
-                                </span>
+                                @if (applicant.IsApproved)
+                                {
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-check-circle"></i> Approved
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning">
+                                        <i class="fas fa-hourglass-half"></i> Pending
+                                    </span>
+                                }
                             </h5>
                         </div>
 
-                        @if(!await jobApplication.IsUserAlreadyApprovedAsync(applicant.JobId, applicant.UserId))
+                        @if (!await jobApplication.IsUserAlreadyApprovedAsync(applicant.JobId, applicant.UserId))
                         {
                             <div class="d-flex justify-content-between align-items-center mt-4">
                                 <a class="btn btn-outline-success w-48 rounded-pill shadow-sm"
@@ -45,7 +54,7 @@
                                    asp-action="Approve"
                                    asp-route-jobId="@applicant.JobId"
                                    asp-route-userId="@applicant.UserId">
-                                    Approve
+                                    <i class="fas fa-thumbs-up"></i> Approve
                                 </a>
                             </div>
                         }

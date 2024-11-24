@@ -10,50 +10,65 @@
         <div class="card mb-4 shadow-sm border-0 rounded">
             <div class="card-body d-flex align-items-center">
                 <div class="col-md-8">
-                    <h5 class="card-title text-primary">@jobOffer.Title</h5>
+                    <h5 class="card-title text-primary">
+                        <i class="fas fa-briefcase"></i> @jobOffer.Title
+                    </h5>
                     <p class="card-text text-muted">@jobOffer.Address</p>
                     <p class="card-text text-secondary"><strong>@jobOffer.Salary$</strong></p>
                     <p class="card-text">@jobOffer.RequiredSkills</p>
 
                     @if (!string.IsNullOrEmpty(jobOffer.RequiredLanguage))
                     {
-                        <p class="card-text"><strong>Language:</strong> @jobOffer.RequiredLanguage</p>
+                        <p class="card-text"><strong><i class="fas fa-language"></i> Language:</strong> @jobOffer.RequiredLanguage</p>
                     }
 
                     @if (!string.IsNullOrEmpty(jobOffer.RequiredDegree))
                     {
-                        <p class="card-text"><strong>Degree:</strong> @jobOffer.RequiredDegree</p>
+                        <p class="card-text"><strong><i class="fas fa-graduation-cap"></i> Degree:</strong> @jobOffer.RequiredDegree</p>
                     }
 
                     @if (!string.IsNullOrEmpty(jobOffer.RequiredExperience))
                     {
-                        <p class="card-text"><strong>Experience:</strong> @jobOffer.RequiredExperience</p>
+                        <p class="card-text"><strong><i class="fas fa-briefcase"></i> Experience:</strong> @jobOffer.RequiredExperience</p>
                     }
 
-                    <p class="card-text text-muted"><small>@jobOffer.CreatedOn</small></p>
+                    <p class="card-text text-muted"><small><i class="fas fa-calendar-day"></i> @jobOffer.CreatedOn</small></p>
 
                     <div class="btn-group jobOfferButtons" role="group">
-                        <a class="btn btn-outline-primary" asp-area="" asp-controller="JobOffer" asp-action="Details" asp-route-id="@jobOffer.Id">Details</a>
+                        <a class="btn btn-outline-primary" asp-area="" asp-controller="JobOffer" asp-action="Details" asp-route-id="@jobOffer.Id">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
 
                         @if (await jobOffers.HasCompanyWithIdAsync(jobOffer.Id, User.Id()))
                         {
-                            <a class="btn btn-outline-secondary" asp-area="" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@jobOffer.Id">Edit</a>
-                            <a class="btn btn-outline-danger" asp-area="" asp-controller="JobOffer" asp-action="Delete" asp-route-id="@jobOffer.Id">Delete</a>
-                            <a class="btn btn-outline-info" asp-area="" asp-controller="JobOffer" asp-action="ViewApplicants" asp-route-id="@jobOffer.Id">View Applicants</a>
+                            <a class="btn btn-outline-secondary" asp-area="" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@jobOffer.Id">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a class="btn btn-outline-danger" asp-area="" asp-controller="JobOffer" asp-action="Delete" asp-route-id="@jobOffer.Id">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                            <a class="btn btn-outline-info" asp-area="" asp-controller="JobOffer" asp-action="ViewApplicants" asp-route-id="@jobOffer.Id">
+                                <i class="fas fa-users"></i> View Applicants
+                            </a>
                         }
 
-                        @if (!await company.OwnerCompanyExistsAsync(User.Id())
-                        && User.Identity.IsAuthenticated)
+                        @if (!await company.OwnerCompanyExistsAsync(User.Id()) && User.Identity.IsAuthenticated)
                         {
-                            <a class="btn btn-outline-success" asp-area="" asp-controller="Rooms" asp-action="Create" asp-route-name="@jobOffer.Title" asp-route-companyOwnerId="@jobOffer.CompanyOwnerId">Start Chat</a>
+                            <a class="btn btn-outline-success" asp-area="" asp-controller="Rooms" asp-action="Create" asp-route-name="@jobOffer.Title" asp-route-companyOwnerId="@jobOffer.CompanyOwnerId">
+                                <i class="fas fa-comments"></i> Start Chat
+                            </a>
 
                             @if (await jobApplication.HasUserAlreadyAppliedAsync(jobOffer.Id, User.Id()))
                             {
-                                <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="CheckStatus" asp-route-jobId="@jobOffer.Id">Check Status</a>
+                                <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="CheckStatus" asp-route-jobId="@jobOffer.Id">
+                                    <i class="fas fa-check-circle"></i> Check Status
+                                </a>
                             }
                             else
                             {
-                                <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="Apply" asp-route-id="@jobOffer.Id">Apply for Job</a>
+                                <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="Apply" asp-route-id="@jobOffer.Id">
+                                    <i class="fas fa-paper-plane"></i> Apply for Job
+                                </a>
                             }
                         }
                     </div>

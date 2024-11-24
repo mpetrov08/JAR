@@ -2,7 +2,9 @@
 
 <form method="post" id="form" class="conference-form">
     <div class="form-group mb-4">
-        <label asp-for="LecturerId" class="form-label fw-bold text-primary">Lecturer</label>
+        <label asp-for="LecturerId" class="form-label fw-bold text-primary">
+            <i class="fas fa-chalkboard-teacher"></i> Lecturer
+        </label>
         <select asp-for="LecturerId" class="form-control rounded shadow-sm">
             @foreach (var lecturer in Model.Lecturers)
             {
@@ -13,13 +15,17 @@
     </div>
 
     <div class="form-group mb-4">
-        <label asp-for="Topic" class="form-label fw-bold text-primary">Topic</label>
+        <label asp-for="Topic" class="form-label fw-bold text-primary">
+            <i class="fas fa-book-open"></i> Topic
+        </label>
         <input asp-for="Topic" class="form-control rounded shadow-sm" placeholder="Topic" />
         <span asp-validation-for="Topic" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-4">
-        <label asp-for="Description" class="form-label fw-bold text-primary">Description</label>
+        <label asp-for="Description" class="form-label fw-bold text-primary">
+            <i class="fas fa-align-left"></i> Description
+        </label>
         <div class="main-container">
             <div class="editor-container editor-container_classic-editor" id="editor-container">
                 <div class="editor-container__editor">
@@ -32,24 +38,32 @@
     </div>
 
     <div class="form-group mb-4">
-        <label asp-for="Start" class="form-label fw-bold text-primary">Start Date</label>
+        <label asp-for="Start" class="form-label fw-bold text-primary">
+            <i class="fas fa-calendar-alt"></i> Start Date
+        </label>
         <input asp-for="Start" class="form-control rounded shadow-sm" placeholder="Start" />
         <span asp-validation-for="Start" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-4">
-        <label asp-for="End" class="form-label fw-bold text-primary">End Date</label>
+        <label asp-for="End" class="form-label fw-bold text-primary">
+            <i class="fas fa-calendar-check"></i> End Date
+        </label>
         <input asp-for="End" class="form-control rounded shadow-sm" placeholder="End" />
         <span asp-validation-for="End" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-4">
-        <label asp-for="ConferenceUrl" class="form-label fw-bold text-primary">Conference URL</label>
+        <label asp-for="ConferenceUrl" class="form-label fw-bold text-primary">
+            <i class="fas fa-link"></i> Conference URL
+        </label>
         <input asp-for="ConferenceUrl" class="form-control rounded shadow-sm" placeholder="Conference URL" />
         <span asp-validation-for="ConferenceUrl" class="small text-danger"></span>
     </div>
 
     <div class="text-center">
-        <button class="btn btn-primary mt-3 px-5 py-2 rounded-pill shadow" type="submit">Save</button>
+        <button class="btn btn-primary mt-3 px-5 py-2 rounded-pill shadow" type="submit">
+            <i class="fas fa-save"></i> Save
+        </button>
     </div>
 </form>

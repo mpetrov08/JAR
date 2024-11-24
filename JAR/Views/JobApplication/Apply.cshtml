@@ -12,46 +12,60 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group mb-4">
-                    <label asp-for="Title" class="form-label text-primary fw-bold">Job Title</label>
+                    <label asp-for="Title" class="form-label text-primary fw-bold">
+                        <i class="fas fa-briefcase"></i> Job Title
+                    </label>
                     <input asp-for="Title" class="form-control rounded" disabled="disabled" />
                 </div>
 
                 <div class="form-group mb-4">
-                    <label asp-for="Description" class="form-label text-primary fw-bold">Job Description</label>
+                    <label asp-for="Description" class="form-label text-primary fw-bold">
+                        <i class="fas fa-file-alt"></i> Job Description
+                    </label>
                     <div class="form-control rounded" disabled="disabled" style="padding: 10px; border: 1px solid #ced4da;">
                         @Html.Raw(Model.Description)
                     </div>
                 </div>
 
                 <div class="form-group mb-4">
-                    <label asp-for="Address" class="form-label text-primary fw-bold">Address</label>
+                    <label asp-for="Address" class="form-label text-primary fw-bold">
+                        <i class="fas fa-map-marker-alt"></i> Address
+                    </label>
                     <input asp-for="Address" class="form-control rounded" disabled="disabled" />
                 </div>
 
                 @if (!string.IsNullOrEmpty(Model.RequiredLanguage))
                 {
                     <div class="form-group mb-4">
-                        <label asp-for="RequiredLanguage" class="form-label text-primary fw-bold">Required Language</label>
+                        <label asp-for="RequiredLanguage" class="form-label text-primary fw-bold">
+                            <i class="fas fa-language"></i> Required Language
+                        </label>
                         <input asp-for="RequiredLanguage" class="form-control rounded" disabled="disabled" />
                     </div>
                 }
                 @if (!string.IsNullOrEmpty(Model.RequiredDegree))
                 {
                     <div class="form-group mb-4">
-                        <label asp-for="RequiredDegree" class="form-label text-primary fw-bold">Required Degree</label>
+                        <label asp-for="RequiredDegree" class="form-label text-primary fw-bold">
+                            <i class="fas fa-graduation-cap"></i> Required Degree
+                        </label>
                         <input asp-for="RequiredDegree" class="form-control rounded" disabled="disabled" />
                     </div>
                 }
                 @if (!string.IsNullOrEmpty(Model.RequiredExperience))
                 {
                     <div class="form-group mb-4">
-                        <label asp-for="RequiredExperience" class="form-label text-primary fw-bold">Required Experience</label>
+                        <label asp-for="RequiredExperience" class="form-label text-primary fw-bold">
+                            <i class="fas fa-briefcase"></i> Required Experience
+                        </label>
                         <input asp-for="RequiredExperience" class="form-control rounded" disabled="disabled" />
                     </div>
                 }
 
                 <div class="form-group mb-4">
-                    <label asp-for="RequiredSkills" class="form-label text-primary fw-bold">Required Skills</label>
+                    <label asp-for="RequiredSkills" class="form-label text-primary fw-bold">
+                        <i class="fas fa-cogs"></i> Required Skills
+                    </label>
                     <textarea asp-for="RequiredSkills" class="form-control rounded" rows="3" disabled="disabled"></textarea>
                 </div>
 

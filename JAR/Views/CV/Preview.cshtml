@@ -14,17 +14,17 @@
         </div>
         <div class="col-md-9">
             <h2 class="display-4 font-weight-bold text-dark">@Model.FirstName @Model.LastName</h2>
-            <p class="text-muted"><strong>Phone:</strong> @Model.PhoneNumber</p>
-            <p class="text-muted"><strong>Email:</strong> <a href="mailto:@Model.Email" class="text-primary">@Model.Email</a></p>
-            <p class="text-muted"><strong>LinkedIn:</strong> <a href="@Model.LinkedInProfile" class="text-primary" target="_blank">@Model.LinkedInProfile</a></p>
-            <p class="text-muted"><strong>Address:</strong> @Model.Address</p>
-            <p class="text-muted"><strong>Gender:</strong> @Model.Gender</p>
-            <p class="text-muted"><strong>Date of Birth:</strong> @Model.BirthDate</p>
-            <p class="text-muted"><strong>Citizenship:</strong> @Model.Citizenship</p>
-            <p class="text-muted"><strong>Languages:</strong> @Model.Languages</p>
+            <p class="text-muted"><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> @Model.PhoneNumber</p>
+            <p class="text-muted"><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:@Model.Email" class="text-primary">@Model.Email</a></p>
+            <p class="text-muted"><i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong> <a href="@Model.LinkedInProfile" class="text-primary" target="_blank">@Model.LinkedInProfile</a></p>
+            <p class="text-muted"><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> @Model.Address</p>
+            <p class="text-muted"><i class="fas fa-venus-mars"></i> <strong>Gender:</strong> @Model.Gender</p>
+            <p class="text-muted"><i class="fas fa-birthday-cake"></i> <strong>Date of Birth:</strong> @Model.BirthDate</p>
+            <p class="text-muted"><i class="fas fa-passport"></i> <strong>Citizenship:</strong> @Model.Citizenship</p>
+            <p class="text-muted"><i class="fas fa-language"></i> <strong>Languages:</strong> @Model.Languages</p>
             @if (!string.IsNullOrEmpty(Model.DrivingLicenseCategory))
             {
-                <p class="text-muted"><strong>Driving License:</strong> @Model.DrivingLicenseCategory</p>
+                <p class="text-muted"><i class="fas fa-car"></i> <strong>Driving License:</strong> @Model.DrivingLicenseCategory</p>
             }
         </div>
     </div>
@@ -33,14 +33,14 @@
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4 class="font-weight-bold text-primary mb-3">Skills</h4>
+            <h4 class="font-weight-bold text-primary mb-3"><i class="fas fa-cogs"></i> Skills</h4>
             <p class="lead text-muted">@Model.Skills</p>
         </div>
     </div>
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4 class="font-weight-bold text-primary mb-3">Education</h4>
+            <h4 class="font-weight-bold text-primary mb-3"><i class="fas fa-graduation-cap"></i> Education</h4>
             @foreach (var degree in Model.Degrees)
             {
                 <div class="card mb-4 shadow-lg hover-shadow-lg border-light">
@@ -59,7 +59,7 @@
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4 class="font-weight-bold text-primary mb-3">Professional Experience</h4>
+            <h4 class="font-weight-bold text-primary mb-3"><i class="fas fa-briefcase"></i> Professional Experience</h4>
             @foreach (var experience in Model.ProfessionalExperiences)
             {
                 <div class="card mb-4 shadow-lg hover-shadow-lg border-light">
@@ -87,5 +87,4 @@
 @section Styles
 {
     <link href="~/css/cv/previewCV.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 }
