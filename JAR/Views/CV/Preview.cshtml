@@ -4,27 +4,27 @@
     ViewBag.Title = "Preview Your CV";
 }
 
-<h3>@ViewBag.Title</h3>
+<h3 class="text-center mb-5 text-primary">@ViewBag.Title</h3>
 <hr />
 
 <div class="container my-5">
-    <div class="row">
+    <div class="row mb-5 align-items-center">
         <div class="col-md-3 text-center">
-            <img src="@Model.PhotoUrl" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+            <img src="@Model.PhotoUrl" alt="Profile Photo" class="img-fluid profile-img mb-3">
         </div>
         <div class="col-md-9">
-            <h2>@Model.FirstName @Model.LastName</h2>
-            <p><strong>Phone:</strong> @Model.PhoneNumber</p>
-            <p><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></p>
-            <p><strong>LinkedIn:</strong> <a href="@Model.LinkedInProfile">@Model.LinkedInProfile</a></p>
-            <p><strong>Address:</strong> @Model.Address</p>
-            <p><strong>Gender:</strong> @Model.Gender</p>
-            <p><strong>Date of Birth:</strong> @Model.BirthDate</p>
-            <p><strong>Citizenship:</strong> @Model.Citizenship</p>
-            <p><strong>Languages:</strong> @Model.Languages</p>
+            <h2 class="display-4 font-weight-bold text-dark">@Model.FirstName @Model.LastName</h2>
+            <p class="text-muted"><strong>Phone:</strong> @Model.PhoneNumber</p>
+            <p class="text-muted"><strong>Email:</strong> <a href="mailto:@Model.Email" class="text-primary">@Model.Email</a></p>
+            <p class="text-muted"><strong>LinkedIn:</strong> <a href="@Model.LinkedInProfile" class="text-primary" target="_blank">@Model.LinkedInProfile</a></p>
+            <p class="text-muted"><strong>Address:</strong> @Model.Address</p>
+            <p class="text-muted"><strong>Gender:</strong> @Model.Gender</p>
+            <p class="text-muted"><strong>Date of Birth:</strong> @Model.BirthDate</p>
+            <p class="text-muted"><strong>Citizenship:</strong> @Model.Citizenship</p>
+            <p class="text-muted"><strong>Languages:</strong> @Model.Languages</p>
             @if (!string.IsNullOrEmpty(Model.DrivingLicenseCategory))
             {
-                <p><strong>Driving License:</strong> @Model.DrivingLicenseCategory</p>
+                <p class="text-muted"><strong>Driving License:</strong> @Model.DrivingLicenseCategory</p>
             }
         </div>
     </div>
@@ -33,24 +33,24 @@
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4>Skills</h4>
-            <p>@Model.Skills</p>
+            <h4 class="font-weight-bold text-primary mb-3">Skills</h4>
+            <p class="lead text-muted">@Model.Skills</p>
         </div>
     </div>
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4>Education</h4>
+            <h4 class="font-weight-bold text-primary mb-3">Education</h4>
             @foreach (var degree in Model.Degrees)
             {
-                <div class="card mb-3">
+                <div class="card mb-4 shadow-lg hover-shadow-lg border-light">
                     <div class="card-body">
-                        <h5>@degree.EducationalInstitution</h5>
+                        <h5 class="card-title">@degree.EducationalInstitution</h5>
                         <p><strong>Degree:</strong> @degree.EducationalLevel</p>
                         <p><strong>Major:</strong> @degree.Major</p>
                         <p><strong>Location:</strong> @degree.City</p>
                         <p><strong>Period:</strong> @degree.StartDate - @degree.EndDate</p>
-                        <p>@degree.Description</p>
+                        <p class="card-text text-muted">@degree.Description</p>
                     </div>
                 </div>
             }
@@ -59,21 +59,33 @@
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4>Professional Experience</h4>
+            <h4 class="font-weight-bold text-primary mb-3">Professional Experience</h4>
             @foreach (var experience in Model.ProfessionalExperiences)
             {
-                <div class="card mb-3">
+                <div class="card mb-4 shadow-lg hover-shadow-lg border-light">
                     <div class="card-body">
-                        <h5>@experience.CompanyName</h5>
+                        <h5 class="card-title">@experience.CompanyName</h5>
                         <p><strong>Location:</strong> @experience.City</p>
                         <p><strong>Period:</strong> @experience.StartDate - @experience.EndDate</p>
-                        <p>@experience.Description</p>
+                        <p class="card-text text-muted">@experience.Description</p>
                     </div>
                 </div>
             }
         </div>
     </div>
 
-    <a class="btn btn-primary" asp-area="" asp-controller="CV" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    <a class="btn btn-primary" asp-area="" asp-controller="CV" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    <div class="text-center mb-5">
+        <a class="btn btn-lg btn-outline-primary mx-3 shadow-sm rounded-pill transform-on-hover" asp-area="" asp-controller="CV" asp-action="Edit" asp-route-id="@Model.Id">
+            <i class="fas fa-edit"></i> <span class="ml-2">Edit CV</span>
+        </a>
+        <a class="btn btn-lg btn-outline-danger mx-3 shadow-sm rounded-pill transform-on-hover" asp-area="" asp-controller="CV" asp-action="Delete" asp-route-id="@Model.Id">
+            <i class="fas fa-trash"></i> <span class="ml-2">Delete CV</span>
+        </a>
+    </div>
 </div>
+
+@section Styles
+{
+    <link href="~/css/cv/previewCV.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+}
