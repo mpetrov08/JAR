@@ -1,9 +1,17 @@
 ﻿@inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@inject ICompanyService company;
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    @if (!await company.OwnerCompanyExistsAsync(User.Id()))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Register">Register Company</a>
+        </li>
+    }
+
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
