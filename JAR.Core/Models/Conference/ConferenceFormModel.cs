@@ -14,7 +14,7 @@ namespace JAR.Core.Models.Conference
         [Required]
         public int LecturerId { get; set; }
 
-        public IEnumerable<LecturerViewModel> Lecturers { get; set; } = new List<LecturerViewModel>();
+        public IEnumerable<LecturerOptionViewModel> Lecturers { get; set; } = new List<LecturerOptionViewModel>();
 
         [Required]
         [StringLength(ConferenceTopicMaxLength,

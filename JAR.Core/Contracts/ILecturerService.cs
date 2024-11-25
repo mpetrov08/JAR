@@ -16,14 +16,16 @@ namespace JAR.Core.Contracts
 
         Task<bool> PromoteToLecturer(LecturerFormModel model);
 
-        Task<bool> DemoteFromLecturerAsync(string userId);
+        Task<bool> DemoteFromLecturerAsync(int id);
 
         Task<bool> HasLecturerConference(string userId, int conferenceId);
 
         Task<int> GetLecturerId(string userId);
 
-        Task<LecturerViewModel> GetLecturerViewModel(int id);
+        Task<LecturerOptionViewModel> GetLecturerViewModel(int id);
 
-        Task<IEnumerable<LecturerViewModel>> AllAsync();
+        Task<IEnumerable<LecturerOptionViewModel>> AllOptionsAsync();
+
+        Task<IEnumerable<LecturerDetailsViewModel>> AllAsync();
     }
 }

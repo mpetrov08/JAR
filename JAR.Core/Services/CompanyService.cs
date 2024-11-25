@@ -160,7 +160,7 @@ namespace JAR.Core.Services
                 .FirstOrDefaultAsync(c => c.OwnerId == userId && c.IsDeleted == false) != null;
         }
 
-        public async Task<bool> UnapproveCompanyAsync(int companyId)
+        public async Task<bool> DisapproveCompanyAsync(int companyId)
         {
             var company = await repository
                 .All<Company>()

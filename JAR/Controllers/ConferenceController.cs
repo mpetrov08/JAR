@@ -62,7 +62,7 @@ namespace JAR.Controllers
         public async Task<IActionResult> Add()
         {
             var model = new ConferenceFormModel();
-            model.Lecturers = await lecturerService.AllAsync();
+            model.Lecturers = await lecturerService.AllOptionsAsync();
 
             return View(model);
         }
@@ -73,7 +73,7 @@ namespace JAR.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Lecturers = await lecturerService.AllAsync();
+                model.Lecturers = await lecturerService.AllOptionsAsync();
                 return View(model);
             }
 
@@ -119,7 +119,7 @@ namespace JAR.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Lecturers = await lecturerService.AllAsync();
+                model.Lecturers = await lecturerService.AllOptionsAsync();
                 return View(model);
             }
 

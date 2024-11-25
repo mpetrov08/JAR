@@ -54,7 +54,7 @@
                                     <span class="badge bg-info"><i class="fas fa-chalkboard-teacher"></i> Lecturer</span>
                                 </div>
 
-                                <form asp-area="Admin" asp-controller="User" asp-action="DemoteFromLecturer" method="post" class="d-inline-block mt-2">
+                                <form asp-area="Admin" asp-controller="Lecturer" asp-action="DemoteFromLecturer" method="post" class="d-inline-block mt-2">
                                     <input type="hidden" name="id" value="@user.Id" />
                                     <button type="submit" class="btn btn-warning btn-sm"><i class="fas fa-user-times"></i> Remove from Lecturers</button>
                                 </form>
@@ -62,7 +62,7 @@
                             else
 
                             {
-                                <a class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="PromoteUserToLecturer" asp-route-id="@user.Id"><i class="fas fa-graduation-cap"></i> Promote To Lecturer</a>
+                                <a class="btn btn-primary" asp-area="Admin" asp-controller="Lecturer" asp-action="PromoteUserToLecturer" asp-route-id="@user.Id"><i class="fas fa-graduation-cap"></i> Promote To Lecturer</a>
                             }
                         </td>
                     </tr>

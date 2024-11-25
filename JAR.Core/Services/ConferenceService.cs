@@ -39,7 +39,7 @@ namespace JAR.Core.Services
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     ConferenceUrl = c.ConferenceUrl,
-                    Lecturer = new LecturerViewModel()
+                    Lecturer = new LecturerOptionViewModel()
                     {
                         Id = c.LecturerId,
                         FirstName = c.Lecturer.User.FirstName,
@@ -65,7 +65,7 @@ namespace JAR.Core.Services
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     ConferenceUrl = c.ConferenceUrl,
-                    Lecturer = new LecturerViewModel()
+                    Lecturer = new LecturerOptionViewModel()
                     {
                         Id= c.LecturerId,
                         FirstName = c.Lecturer.User.FirstName,
@@ -87,7 +87,7 @@ namespace JAR.Core.Services
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     ConferenceUrl = c.ConferenceUrl,
-                    Lecturer = new LecturerViewModel()
+                    Lecturer = new LecturerOptionViewModel()
                     {
                         Id = c.LecturerId,
                         FirstName = c.Lecturer.User.FirstName,
@@ -230,7 +230,7 @@ namespace JAR.Core.Services
 
             if (conference != null)
             {
-                conference.Lecturers = await lecturerService.AllAsync();
+                conference.Lecturers = await lecturerService.AllOptionsAsync();
             }
 
             return conference;
@@ -248,7 +248,7 @@ namespace JAR.Core.Services
                     Start = c.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     End = c.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
                     ConferenceUrl = c.ConferenceUrl,
-                    Lecturer = new LecturerViewModel()
+                    Lecturer = new LecturerOptionViewModel()
                     {
                         Id = c.Id,
                         FirstName = c.Lecturer.User.FirstName,

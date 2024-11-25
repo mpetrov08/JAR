@@ -1,0 +1,44 @@
+﻿@model List<LecturerDetailsViewModel>
+
+@{
+    ViewBag.Title = "All Lecturers";
+}
+
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th><i class="fas fa-id-badge"></i> ID</th>
+                        <th><i class="fas fa-user"></i> First Name</th>
+                        <th><i class="fas fa-user"></i> Last Name</th>
+                        <th><i class="fas fa-align-left"></i> Description</th>
+                        <th><i class="fas fa-cogs"></i> Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lecturer in Model)
+
+                    {
+                        <tr class="text-center">
+                            <td>@lecturer.Id</td>
+                            <td>@lecturer.FirstName</td>
+                            <td>@lecturer.LastName</td>
+                            <td>@Html.Raw(lecturer.Description)</td>
+                            <td>
+                                <form asp-area="Admin" asp-controller="Lecturer" asp-action="DemoteFromLecturer" method="post" class="d-inline-block mt-2">
+                                    <input type="hidden" name="id" value="@lecturer.Id" />
+                                    <button type="submit" class="btn btn-warning btn-sm"><i class="fas fa-user-times"></i> Remove from Lecturers</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

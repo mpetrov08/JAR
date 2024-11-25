@@ -21,16 +21,16 @@ namespace JAR.Core.Services
             repository = _repository;
         }
 
-        public async Task<IEnumerable<LecturerViewModel>> AllAsync()
+        public async Task<IEnumerable<LecturerOptionViewModel>> AllOptionsAsync()
         {
             return await repository
                 .AllReadOnly<Lecturer>()
                 .Where(l => l.IsDeleted == false)
-                .Select(l => new LecturerViewModel()
+                .Select(l => new LecturerOptionViewModel()
                 {
                     Id = l.Id,
                     FirstName = l.User.FirstName,
-                    LastName = l.User.LastName
+                    LastName = l.User.LastName,
                 })
                 .ToListAsync();
         }
@@ -50,18 +50,18 @@ namespace JAR.Core.Services
 
             if (lecturer == null)
             {
-                return 0;
+                return -1;
             }
 
             return lecturer.Id;
         }
 
-        public async Task<LecturerViewModel> GetLecturerViewModel(int id)
+        public async Task<LecturerOptionViewModel> GetLecturerViewModel(int id)
         {
             var lecturer = await repository
                 .AllReadOnly<Lecturer>()
                 .Where(l => l.Id == id && l.IsDeleted == false)
-                .Select(l => new LecturerViewModel()
+                .Select(l => new LecturerOptionViewModel()
                 {
                     Id = l.Id,
                     FirstName = l.User.FirstName,
@@ -112,11 +112,9 @@ namespace JAR.Core.Services
             return false;
         }
 
-        public async Task<bool> DemoteFromLecturerAsync(string userId)
+        public async Task<bool> DemoteFromLecturerAsync(int id)
         {
-            var lecturerId = await GetLecturerId(userId);
-
-            var lecturer = await repository.GetByIdAsync<Lecturer>(lecturerId);
+            var lecturer = await repository.GetByIdAsync<Lecturer>(id);
 
             if (lecturer != null)
             {
@@ -127,6 +125,21 @@ namespace JAR.Core.Services
             }
 
             return false;
+        }
+
+        public async Task<IEnumerable<LecturerDetailsViewModel>> AllAsync()
+        {
+            return await repository
+                .AllReadOnly<Lecturer>()
+                .Where(l => l.IsDeleted == false)
+                .Select(l => new LecturerDetailsViewModel()
+                {
+                    Id = l.Id,
+                    FirstName = l.User.FirstName,
+                    LastName = l.User.LastName,
+                    Description = l.Description,
+                })
+                .ToListAsync();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JAR.Core.Models.Lecturer
 {
-    public class LecturerViewModel
+    public class LecturerOptionViewModel
     {
         public int Id { get; set; }
 
