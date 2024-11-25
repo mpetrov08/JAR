@@ -39,13 +39,13 @@ namespace JAR.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UnapproveCompany(int id)
+        public async Task<IActionResult> DisapproveCompany(int id)
         {
             if (!await companyService.CompanyExistsAsync(id))
             {
                 return BadRequest("Company does not exists");
             }
-            bool IsSucceeded = await companyService.UnapproveCompanyAsync(id);
+            bool IsSucceeded = await companyService.DisapproveCompanyAsync(id);
 
             if (!IsSucceeded)
             {

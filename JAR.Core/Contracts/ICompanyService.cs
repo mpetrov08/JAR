@@ -23,7 +23,7 @@ namespace JAR.Core.Contracts
 
         Task<bool> ApproveCompanyAsync(int companyId);
 
-        Task<bool> UnapproveCompanyAsync(int companyId);
+        Task<bool> DisapproveCompanyAsync(int companyId);
 
         Task<bool> IsApproved(int companyId);   
 
