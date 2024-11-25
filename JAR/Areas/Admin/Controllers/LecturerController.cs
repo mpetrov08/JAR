@@ -81,5 +81,34 @@ namespace JAR.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!await lecturerService.Exists(id))
+            {
+                return BadRequest("This lecturer does not exists");
+            }
+
+            var model =  await lecturerService.GetLecturerFormModel(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(LecturerFormModel model, int id)
+        {
+            if (!await lecturerService.Exists(id))
+            {
+                return BadRequest("This lecturer does not exists");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await lecturerService.Edit(model, id);
+            return RedirectToAction(nameof(All));
+        }
     }
 }

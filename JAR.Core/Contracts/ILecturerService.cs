@@ -22,10 +22,14 @@ namespace JAR.Core.Contracts
 
         Task<int> GetLecturerId(string userId);
 
-        Task<LecturerOptionViewModel> GetLecturerViewModel(int id);
+        Task<LecturerOptionViewModel> GetLecturerOptionViewModel(int id);
+
+        Task<LecturerFormModel> GetLecturerFormModel(int id);
 
         Task<IEnumerable<LecturerOptionViewModel>> AllOptionsAsync();
 
         Task<IEnumerable<LecturerDetailsViewModel>> AllAsync();
+
+        Task Edit(LecturerFormModel model, int id);
     }
 }

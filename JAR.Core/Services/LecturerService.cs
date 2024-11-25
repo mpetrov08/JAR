@@ -56,7 +56,7 @@ namespace JAR.Core.Services
             return lecturer.Id;
         }
 
-        public async Task<LecturerOptionViewModel> GetLecturerViewModel(int id)
+        public async Task<LecturerOptionViewModel> GetLecturerOptionViewModel(int id)
         {
             var lecturer = await repository
                 .AllReadOnly<Lecturer>()
@@ -140,6 +140,32 @@ namespace JAR.Core.Services
                     Description = l.Description,
                 })
                 .ToListAsync();
+        }
+
+        public async Task Edit(LecturerFormModel model, int id)
+        {
+            var lecturer = await repository.GetByIdAsync<Lecturer>(id);
+
+            if (lecturer != null)
+            {
+                lecturer.Description = model.Description;
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<LecturerFormModel> GetLecturerFormModel(int id)
+        {
+            var lecturer = await repository
+                .AllReadOnly<Lecturer>()
+                .Where(l => l.Id == id && l.IsDeleted == false)
+                .Select(l => new LecturerFormModel()
+                {
+                    Description = l.Description,
+                    UserId = l.UserId
+                })
+                .FirstOrDefaultAsync();
+
+            return lecturer;
         }
     }
 }

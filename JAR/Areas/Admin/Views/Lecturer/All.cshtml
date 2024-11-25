@@ -29,10 +29,16 @@
                             <td>@lecturer.FirstName</td>
                             <td>@lecturer.LastName</td>
                             <td>@Html.Raw(lecturer.Description)</td>
-                            <td>
-                                <form asp-area="Admin" asp-controller="Lecturer" asp-action="DemoteFromLecturer" method="post" class="d-inline-block mt-2">
+                            <td class="d-flex justify-content-center align-items-center">
+                                <a asp-area="Admin" asp-controller="Lecturer" asp-action="Edit" asp-route-id="@lecturer.Id" class="btn btn-primary btn-sm me-2">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+
+                                <form asp-area="Admin" asp-controller="Lecturer" asp-action="DemoteFromLecturer" method="post" class="mb-0">
                                     <input type="hidden" name="id" value="@lecturer.Id" />
-                                    <button type="submit" class="btn btn-warning btn-sm"><i class="fas fa-user-times"></i> Remove from Lecturers</button>
+                                    <button type="submit" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-user-times"></i> Remove from Lecturers
+                                    </button>
                                 </form>
                             </td>
                         </tr>
