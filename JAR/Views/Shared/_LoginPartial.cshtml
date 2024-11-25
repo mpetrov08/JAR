@@ -11,6 +11,12 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Register">Register Company</a>
         </li>
     }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Delete">Delete Your Company</a>
+        </li>
+    }
 
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>

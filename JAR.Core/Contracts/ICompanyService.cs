@@ -26,5 +26,9 @@ namespace JAR.Core.Contracts
         Task<bool> UnapproveCompanyAsync(int companyId);
 
         Task<bool> IsApproved(int companyId);   
+
+        Task DeleteAsync(int companyId);
+
+        Task<CompanyViewModel> GetCompanyViewModelByIdAsync(int companyId);
     }
 }

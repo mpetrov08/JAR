@@ -71,10 +71,22 @@ namespace JAR.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int companyId)
+        {
+            var company = await repository.GetByIdAsync<Company>(companyId);
+
+            if(company != null)
+            {
+                company.IsDeleted = true;
+                await repository.SaveChangesAsync();
+            }
+        }
+
         public async Task<IEnumerable<CompanyApproveViewModel>> GetAllCompaniesAsync()
         {
             var companies = await repository
                 .All<Company>()
+                .Where(c => c.IsDeleted == false)
                 .Select(c => new CompanyApproveViewModel()
                 {
                     Id = c.Id,
@@ -106,6 +118,25 @@ namespace JAR.Core.Services
             }
 
             return company.Id;
+        }
+
+        public async Task<CompanyViewModel> GetCompanyViewModelByIdAsync(int companyId)
+        {
+            return await repository
+                .AllReadOnly<Company>()
+                .Where(c => c.Id == companyId && c.IsDeleted == false)
+                .Select(c => new CompanyViewModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Address = c.Address,
+                    PhoneNumber = c.PhoneNumber,
+                    Email = c.Email,
+                    Description = c.Description,
+                    OwnerName = c.Owner.FirstName + " " + c.Owner.LastName,
+                    LogoUrl = c.Logo
+                })
+                .FirstOrDefaultAsync();
         }
 
         public async Task<bool> IsApproved(int companyId)
