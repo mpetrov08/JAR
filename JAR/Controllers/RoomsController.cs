@@ -14,7 +14,6 @@ namespace JAR.Controllers
         public RoomsController(IRoomService _roomService)
         {
             roomService = _roomService;
-
         }
 
         [HttpGet("Get")]

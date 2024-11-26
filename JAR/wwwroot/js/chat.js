@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
             input.focus();
         }
     });
-    e
     document.getElementById("btn-show-emojis").addEventListener('click', function () {
         document.getElementById("emojis-container").classList.toggle("d-none");
     });
@@ -181,6 +180,8 @@ function viewRoomAndMessages() {
     noJoinedRoomPanel.style.display = "none";
     roomContainer.style.display = "block";
     joinedRoomNameElement.textContent = joinedRoomName;
+
+    setTimeout(() => scrollToBottom(), 100);
 }
 
 function messageHistory() {
@@ -200,6 +201,7 @@ function appendMessages() {
     chatMessages.forEach(function (message) {
         appendMessage(message);
     });
+    scrollToBottom();
 }
 
 function appendMessage(message) {
@@ -210,6 +212,13 @@ function appendMessage(message) {
         messageElement = createElementFromHTML(notMineMessage(message.content, message.timestampRelative, message.id));
     }
     messagesContainer.appendChild(messageElement);
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
 }
 
 function notMineMessage(content, timestampFull) {

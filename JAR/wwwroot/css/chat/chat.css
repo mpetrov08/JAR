@@ -2,6 +2,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&;display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@50&;display=swap');
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.container-fluid {
+    height: 100%;
+}
+
+.chat-user-panel {
+    max-height: 100%;
+}
+
+.chat-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-panel-scroll {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.chat-search {
+    border-top: 1px solid #ddd;
+}
 
 .card-stacked {
     display: flex;
