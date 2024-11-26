@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using static Dropbox.Api.Files.ListRevisionsMode;
 
 namespace JAR.Controllers
 {
@@ -79,11 +80,10 @@ namespace JAR.Controllers
 
             await conferenceService.CreateConferenceAsync(model);
 
-            return View(model);
+            return RedirectToAction(nameof(All));
         }
 
         [HttpGet]
-        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Edit(int id)
         {
             if (!User.IsInRole(AdminRole) &&
@@ -103,7 +103,6 @@ namespace JAR.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Edit(ConferenceFormModel model, int id)
         {
             if (!User.IsInRole(AdminRole) &&
@@ -125,13 +124,18 @@ namespace JAR.Controllers
 
             await conferenceService.EditConferenceAsync(model, id);
 
-            return View(model);
+            return RedirectToAction(nameof(Details), new { id });
         }
 
         [HttpGet]
-        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!User.IsInRole(AdminRole) &&
+                !await lecturerService.HasLecturerConference(User.Id(), id))
+            {
+                return BadRequest("You do not have permission to edit Conference");
+            }
+
             if (!await conferenceService.ExistsAsync(id))
             {
                 return BadRequest("Conference does not exists");
@@ -143,9 +147,14 @@ namespace JAR.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = AdminRole)]
         public async Task<IActionResult> Delete(ConferenceDetailsViewModel model)
         {
+            if (!User.IsInRole(AdminRole) &&
+                !await lecturerService.HasLecturerConference(User.Id(), model.Id))
+            {
+                return BadRequest("You do not have permission to edit Conference");
+            }
+
             if (!await conferenceService.ExistsAsync(model.Id))
             {
                 return BadRequest("Conference does not exists");

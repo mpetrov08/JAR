@@ -28,16 +28,12 @@
                     </div>
 
                     @if (DateTime.Parse(Model.Start) <= DateTime.Now && 
-                         DateTime.Parse(Model.End) <= DateTime.Now)
+                         DateTime.Parse(Model.End) >= DateTime.Now)
                     {
                         <a href="@Model.ConferenceUrl" class="btn btn-secondary btn-lg" target="_blank">
                             <i class="bi bi-door-open"></i> Join Conference
                         </a>
-                    }
-                    else
-                    {
-                        <p class="text-muted">The conference has not started yet.</p>
-                    }
+                    }     
                 </div>
 
                 <div class="col-md-4">
