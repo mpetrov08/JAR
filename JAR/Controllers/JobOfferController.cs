@@ -89,7 +89,7 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(companyId))
             {
-                return BadRequest("Company does not exists");
+                return BadRequest();
             }
 
             if (!await companyService.IsApproved(companyId))

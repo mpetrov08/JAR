@@ -1,22 +1,16 @@
-﻿@model ErrorViewModel
-@{
-    ViewData["Title"] = "Error";
+﻿@{
+    ViewBag.Title = "Error 500";
 }
 
 <div class="container d-flex justify-content-center align-items-center">
     <div class="text-center">
         <div class="mb-4">
-            <span class="display-1 text-danger">&#128533;</span>
+            <span class="display-1 text-danger">&#128565;</span>
         </div>
-        <h1 class="display-3 text-danger">Error</h1>
-        <h2 class="h4 text-muted">Oops! Something went wrong.</h2>
-        <p class="lead text-muted">
-            The error you encountered is not recognized, or there was an unexpected issue. Please try again later or contact support if the problem persists.
-        </p>
-
-        <p>
-            <a href="/" class="btn btn-danger btn-lg">Back to Home</a>
-        </p>
+        <h1 class="display-3 text-danger">500</h1>
+        <h2 class="h4 text-muted">Oops! Something Went Wrong</h2>
+        <p class="lead text-muted">An internal server error occurred. We're working on fixing it.</p>
+        <a href="/" class="btn btn-danger btn-lg">Back to Home</a>
     </div>
 </div>
 
