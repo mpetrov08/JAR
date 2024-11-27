@@ -1,0 +1,15 @@
+﻿.badge {
+    font-size: 0.85rem;
+    padding: 0.5em 0.75em;
+    text-transform: uppercase;
+}
+
+button, .btn {
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #343a40;
+}

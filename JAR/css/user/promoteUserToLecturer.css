@@ -1,0 +1,45 @@
+﻿.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-group .form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.main-container {
+    margin-top: 1rem;
+}
+
+.editor-container__editor:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+    transform: scale(1.05);
+}
+
+.hover-effect:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.small.text-danger {
+    font-size: 0.875rem;
+}

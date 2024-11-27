@@ -112,7 +112,7 @@ namespace JAR.Infrastructure.Constants
 
         public const int DescriptionMinLength = 20;
 
-        public const int DescriptionMaxLength = 300;
+        public const int DescriptionMaxLength = int.MaxValue;
 
         public const int NameMinLength = 2;
 
