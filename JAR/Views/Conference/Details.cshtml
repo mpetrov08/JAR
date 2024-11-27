@@ -24,7 +24,7 @@
                     </p>
                     <div class="mb-4">
                         <strong><i class="fas fa-align-left"></i> Description:</strong>
-                        <div class="description-container mt-2">@Html.Raw(Model.Description)</div>
+                        <div class="description-container mt-2">@Html.Raw(Model.Description.RemoveHtmlXss())</div>
                     </div>
 
                     @if (DateTime.Parse(Model.Start) <= DateTime.Now && 
@@ -46,7 +46,7 @@
                                 <strong>@Model.Lecturer.FirstName @Model.Lecturer.LastName</strong>
                             </p>
                             <p class="mb-3">
-                                <i class="fas fa-align-left"></i> @Html.Raw(Model.Lecturer.Description)
+                                <i class="fas fa-align-left"></i> @Html.Raw(Model.Lecturer.Description.RemoveHtmlXss())
                             </p>
                         </div>
                     </div>

@@ -27,7 +27,7 @@
 
                 <div class="mb-4">
                     <h4 class="text-secondary"><i class="fas fa-clipboard-list"></i> Job Description</h4>
-                    <div>@Html.Raw(Model.Description)</div>
+                    <div>@Html.Raw(Model.Description.RemoveHtmlXss())</div>
                 </div>
 
                 <div class="mb-4">

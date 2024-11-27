@@ -39,7 +39,7 @@
                                 <i class="fas fa-align-left"></i> Description
                             </label>
                             <div class="description-container">
-                                @Html.Raw(Model.Description)
+                                @Html.Raw(Model.Description.RemoveHtmlXss())
                             </div>
                         </div>
 

@@ -35,7 +35,7 @@
                             <td>@company.Address</td>
                             <td>@company.PhoneNumber</td>
                             <td>@company.Email</td>
-                            <td>@Html.Raw(company.Description)</td>
+                            <td>@Html.Raw(company.Description.RemoveHtmlXss())</td>
                             <td>@company.OwnerName</td>
                             <td>
                                 @if (company.IsDeleted)

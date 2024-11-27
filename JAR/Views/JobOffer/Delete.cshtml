@@ -25,7 +25,7 @@
                         <div class="mb-3">
                             <label class="form-label"><i class="fas fa-file-alt"></i> Description</label>
                             <div class="form-text bg-light p-3 rounded" style="white-space: pre-wrap;">
-                                @Html.Raw(Model.Description)
+                                @Html.Raw(Model.Description.RemoveHtmlXss())
                             </div>
                         </div>
 

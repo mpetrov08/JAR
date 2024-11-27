@@ -30,7 +30,7 @@
                         <strong><i class="fas fa-envelope"></i> Email:</strong> @Model.Email
                     </li>
                     <li class="list-group-item">
-                        <strong><i class="fas fa-info-circle"></i> Description:</strong> @Model.Description
+                        <strong><i class="fas fa-info-circle"></i> Description:</strong> @Html.Raw(Model.Description.RemoveHtmlXss())
                     </li>
                     <li class="list-group-item">
                         <strong><i class="fas fa-user"></i> Owner Name:</strong> @Model.OwnerName

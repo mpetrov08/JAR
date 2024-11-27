@@ -1,5 +1,6 @@
 using JAR.Core.Hubs;
 using JAR.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("JarDbContextConnection") ?? throw new InvalidOperationException("Connection string 'JarDbContextConnection' not found.");
@@ -8,6 +9,12 @@ builder.Services.AddApplicationDbContext(builder.Configuration);
 builder.Services.AddApplicationIdentity(builder.Configuration);
 builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationServices();
+builder.Services.AddCors();
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+});
+
 
 var app = builder.Build();
 

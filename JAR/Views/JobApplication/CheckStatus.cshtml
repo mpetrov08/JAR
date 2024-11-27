@@ -14,7 +14,7 @@
 
     <div class="card-body">
         <h5 class="card-title text-primary fw-bold"><i class="fas fa-map-marker-alt"></i> @Model.Address</h5>
-        <h6 class="text-muted">@Html.Raw(Model.Description)</h6>
+        <h6 class="text-muted">@Html.Raw(Model.Description.RemoveHtmlXss())</h6>
 
         <hr class="my-3" />
 
