@@ -57,7 +57,7 @@ namespace JAR.Core.Services
             var company = new Company()
             {
                 Name = model.Name,
-                Logo = model.Logo,
+                Logo = model.LogoUrl,
                 UIC = model.UIC,
                 Country = model.Country,
                 Address = model.Address,

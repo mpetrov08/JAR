@@ -10,7 +10,7 @@
             <h2>@ViewBag.Title</h2>
         </div>
         <div class="card-body">
-            <form method="post" id="form">
+            <form method="post" id="form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label fw-bold text-primary">
                         <i class="fas fa-building"></i> Company Name
@@ -20,11 +20,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Logo" class="form-label fw-bold text-primary">
-                        <i class="fas fa-image"></i> Company Logo URL
+                    <label asp-for="Image" class="form-label fw-bold text-primary">
+                        <i class="fas fa-image"></i> Company Logo
                     </label>
-                    <input asp-for="Logo" class="form-control" placeholder="Enter the logo URL" />
-                    <span asp-validation-for="Logo" class="text-danger small"></span>
+                    <input asp-for="Image" type="file" class="form-control" accept="image/*" />
+                    <span asp-validation-for="Image" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-3">
@@ -91,6 +91,7 @@
         </div>
     </div>
 </div>
+
 @section Styles {
     <link rel="stylesheet" href="~/css/ckeditor.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css">

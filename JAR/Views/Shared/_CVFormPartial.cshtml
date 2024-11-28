@@ -2,7 +2,7 @@
 
 <div class="row justify-content-center">
     <div class="col-lg-10 col-xl-8">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="card p-4 shadow-lg">
                 <div class="row">
                     <div class="col-md-6 col-12">
@@ -97,12 +97,22 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="Photo" class="fw-bold text-dark">
+                    <label asp-for="Image" class="fw-bold text-dark">
                         <i class="fas fa-camera"></i> Photo
                     </label>
-                    <input asp-for="Photo" class="form-control form-control-lg shadow-sm" placeholder="Photo" />
-                    <span asp-validation-for="Photo" class="small text-danger"></span>
+
+                    @if (!string.IsNullOrEmpty(Model.PhotoUrl))
+                    {
+                        <div class="mb-3">
+                            <img src="@Model.PhotoUrl" alt="Current Photo" class="img-thumbnail" style="max-width: 200px;" />
+                        </div>
+                    }
+>
+                    <input asp-for="Image" type="file" class="form-control form-control-lg shadow-sm" accept="image/*" placeholder="Choose a photo" />
+                    <span asp-validation-for="Image" class="small text-danger"></span>
                 </div>
+
+                <input asp-for="PhotoUrl" type="hidden"/>
 
                 <br />
 
@@ -117,7 +127,6 @@
 
                         <div id="degreeList">
                             @foreach (var degree in Model.Degrees)
-
                             {
                                 <div class="degree-item">
                                     <p>
@@ -147,7 +156,6 @@
 
                         <div id="professionalExperienceList">
                             @foreach (var professionalExperience in Model.ProfessionalExperiences)
-
                             {
                                 <div class="experience-item" data-company-name="@professionalExperience.CompanyName" data-city="@professionalExperience.City">
                                     <p>

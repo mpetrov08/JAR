@@ -44,6 +44,30 @@ namespace JAR.Controllers
                 model.ProfessionalExperiences = JsonConvert.DeserializeObject<List<ProfessionalExperienceFormModel>>(model.ProfessionalExperiencesJson);
             }
 
+            if (model.Image != null && model.Image.Length > 0)
+            {
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+                if (!Directory.Exists(uploadPath))
+                {
+                    Directory.CreateDirectory(uploadPath);
+                }
+
+                var fileName = Path.GetFileNameWithoutExtension(model.Image.FileName) + "_" + Guid.NewGuid() + Path.GetExtension(model.Image.FileName);
+                var filePath = Path.Combine(uploadPath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.Image.CopyToAsync(stream);
+                }
+
+                model.PhotoUrl = "/images/" + fileName;
+            }
+            else
+            {
+                ModelState.AddModelError(nameof(model.Image), "Image is required.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -98,6 +122,33 @@ namespace JAR.Controllers
             if (!string.IsNullOrEmpty(model.ProfessionalExperiencesJson))
             {
                 model.ProfessionalExperiences = JsonConvert.DeserializeObject<List<ProfessionalExperienceFormModel>>(model.ProfessionalExperiencesJson);
+            }
+
+            if (model.Image != null && model.Image.Length > 0)
+            {
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+                if (!Directory.Exists(uploadPath))
+                {
+                    Directory.CreateDirectory(uploadPath);
+                }
+
+                var fileName = Path.GetFileNameWithoutExtension(model.Image.FileName) + "_" + Guid.NewGuid() + Path.GetExtension(model.Image.FileName);
+                var filePath = Path.Combine(uploadPath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.Image.CopyToAsync(stream);
+                }
+
+                model.PhotoUrl = "/images/" + fileName;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(model.PhotoUrl))
+                {
+                    ModelState.AddModelError(nameof(model.Image), "Image is required.");
+                }
             }
 
 

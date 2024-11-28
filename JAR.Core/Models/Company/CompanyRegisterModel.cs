@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,7 +18,9 @@ namespace JAR.Core.Models.Company
         public string Name { get; set; } = null!;
 
         [Required]
-        public string Logo { get; set; } = null!;
+        public IFormFile Image { get; set; } = null!;
+
+        public string? LogoUrl { get; set; }
 
         [Required]
         [StringLength(CompanyUICMaxLength,

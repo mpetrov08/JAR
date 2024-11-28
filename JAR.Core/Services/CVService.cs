@@ -42,7 +42,7 @@ namespace JAR.Core.Services
                 Gender = model.Gender,
                 BirthDate = birthDate,
                 Citizenship = model.Citizenship,
-                Photo = model.Photo,
+                Photo = model.PhotoUrl,
                 Languages = model.Languages,
                 Skills = model.Skills,
                 DrivingLicenseCategory = model.DrivingLicense,
@@ -189,7 +189,7 @@ namespace JAR.Core.Services
                 cv.Gender = model.Gender;
                 cv.BirthDate = birthDate;
                 cv.Citizenship = model.Citizenship;
-                cv.Photo = model.Photo;
+                cv.Photo = model.PhotoUrl;
                 cv.Languages = model.Languages;
                 cv.Skills = model.Skills;
                 cv.DrivingLicenseCategory = model.DrivingLicense;
@@ -265,7 +265,7 @@ namespace JAR.Core.Services
                     Gender = c.Gender,
                     BirthDate = c.BirthDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     Citizenship = c.Citizenship,
-                    Photo = c.Photo,
+                    PhotoUrl = c.Photo,
                     Languages = c.Languages,
                     Skills = c.Skills,
                     DrivingLicense = c.DrivingLicenseCategory,

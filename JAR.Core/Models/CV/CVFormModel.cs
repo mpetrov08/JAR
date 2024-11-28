@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -53,8 +54,9 @@ namespace JAR.Core.Models.CV
             MinimumLength = CVCitizenshipMinLength)]
         public string Citizenship { get; set; } = null!;
 
-        [Required]
-        public string Photo { get; set; } = null!;
+        public IFormFile? Image { get; set; }
+
+        public string? PhotoUrl { get; set; }
 
         [Required]
         [StringLength(CVLanguagesMaxLength,
