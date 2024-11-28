@@ -8,9 +8,21 @@ namespace JAR.Infrastructure.Data
 {
     public class JarDbContext : IdentityDbContext<User>
     {
-        public JarDbContext(DbContextOptions<JarDbContext> options)
+        private bool seedDb;
+
+        public JarDbContext(DbContextOptions<JarDbContext> options, bool _seedDb = true)
             : base(options)
         {
+            if (Database.IsRelational())
+            {
+                Database.Migrate();
+            }
+            else
+            {
+                Database.EnsureCreated();
+            }
+
+            seedDb = _seedDb;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -60,16 +72,18 @@ namespace JAR.Infrastructure.Data
                 .HasForeignKey(ru => ru.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
-            builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new CategoryConfiguration());
-            builder.ApplyConfiguration(new JobTypeConfiguration());
-            builder.ApplyConfiguration(new CompanyConfiguration());
-            builder.ApplyConfiguration(new JobOfferConfiguration());
-            builder.ApplyConfiguration(new JobApplicationConfiguration());
-            builder.ApplyConfiguration(new RoomConfiguration());
-            builder.ApplyConfiguration(new RoomUserConfiguration());
-
+            if (seedDb)
+            {
+                builder.ApplyConfiguration(new UserConfiguration());
+                builder.ApplyConfiguration(new CategoryConfiguration());
+                builder.ApplyConfiguration(new JobTypeConfiguration());
+                builder.ApplyConfiguration(new CompanyConfiguration());
+                builder.ApplyConfiguration(new JobOfferConfiguration());
+                builder.ApplyConfiguration(new JobApplicationConfiguration());
+                builder.ApplyConfiguration(new RoomConfiguration());
+                builder.ApplyConfiguration(new RoomUserConfiguration());
+            }
+            
             base.OnModelCreating(builder); 
         }
 
