@@ -30,6 +30,7 @@ namespace JAR.Tests.UnitTests
         public ProfessionalExperience CVProfessionalExperience { get; private set; }
         public Lecturer Lecturer { get; private set; }
         public Conference Conference { get; private set; }
+        public ConferenceUser ConferenceUser { get; private set; }
         public Room ChatRoom { get; private set; }
         public RoomUser RoomUser1 { get; private set; }
         public RoomUser RoomUser2 { get; private set; }
@@ -231,6 +232,14 @@ namespace JAR.Tests.UnitTests
             };
 
             data.Conferences.Add(Conference);
+
+            ConferenceUser = new ConferenceUser()
+            {
+                Conference = Conference,
+                User = GuestUser
+            };
+
+            data.ConferencesUsers.Add(ConferenceUser);
 
             ChatRoom = new Room()
             {
