@@ -19,7 +19,8 @@ namespace JAR.Tests.UnitTests
         public User GuestUser { get; private set; }
         public User OwnerUser { get; private set; }
         public User LecturerUser { get; private set; }
-        public Company Company { get; private set; } 
+        public Company ApprovedCompany { get; private set; } 
+        public Company UnapprovedCompany { get; private set; }
         public JobType JobType { get; private set; }
         public Category Category { get; private set; }
         public JobOffer JobOffer { get; private set; }
@@ -81,11 +82,12 @@ namespace JAR.Tests.UnitTests
 
             data.Users.Add(LecturerUser);
 
-            Company = new Company()
+            ApprovedCompany = new Company()
             {
+                Id = 1,
                 Name = "CompanyName",
                 Address = "CompanyAddress 22",
-                PhoneNumber = "0882883923",
+                PhoneNumber = "0888888923",
                 Email = "company@gmail.com",
                 Description = "This is company Description. Very interesting description.",
                 Country = "Bulgaria",
@@ -95,7 +97,24 @@ namespace JAR.Tests.UnitTests
                 Owner = OwnerUser,
             };
 
-            data.Companies.Add(Company);
+            data.Companies.Add(ApprovedCompany);
+
+            UnapprovedCompany = new Company()
+            {
+                Id = 2,
+                Name = "Unapproved Company",
+                Address = "Unapproved Company Address",
+                PhoneNumber = "0888888888",
+                Email = "unapprovedcompany@gmail.com",
+                Description = "This is unapproved company Description. Very interesting description.",
+                Country = "Bulgaria",
+                UIC = "11-1212121",
+                IsApproved = false,
+                Logo = "",
+                Owner = LecturerUser,
+            };
+
+            data.Companies.Add(UnapprovedCompany);
 
             JobType = new JobType()
             {
@@ -127,7 +146,7 @@ namespace JAR.Tests.UnitTests
                 CreatedOn = DateTime.Now,
                 Category = Category,
                 JobType = JobType,
-                Company = Company
+                Company = ApprovedCompany
             };
 
             data.JobOffers.Add(JobOffer);

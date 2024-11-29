@@ -48,7 +48,7 @@ namespace JAR.Core.Services
         {
             return await repository
                 .AllReadOnly<Company>()
-                .FirstOrDefaultAsync(c => c.UIC == uic && c.IsDeleted == false) != null;
+                .FirstOrDefaultAsync(c => c.UIC == uic && c.IsDeleted == false && c.IsApproved == true) != null;
         }
 
         public async Task CreateCompanyAsync(CompanyRegisterModel model, string userId)
