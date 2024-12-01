@@ -3,10 +3,13 @@ using JAR.Core.Models.JobApplication;
 using JAR.Core.Models.JobOffer;
 using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
+using JAR.Infrastructure.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,7 +73,7 @@ namespace JAR.Core.Services
                     JobId = jobOfferId,
                     Email = ja.User.Email,
                     IsApproved = ja.IsApproved,
-                    AppliedOn = ja.AppliedOn.Date.ToString()
+                    AppliedOn = ja.AppliedOn.Date.ToString(DataConstants.DateFormat, CultureInfo.InvariantCulture)
                 })
                 .FirstOrDefaultAsync() ?? new JobOfferApplicantViewModel();
         }
@@ -86,7 +89,7 @@ namespace JAR.Core.Services
                         JobId = jobOfferId,
                         Email = ja.User.Email,
                         IsApproved = ja.IsApproved,
-                        AppliedOn = ja.AppliedOn.Date.ToString()
+                        AppliedOn = ja.AppliedOn.Date.ToString(DataConstants.DateFormat, CultureInfo.InvariantCulture)
                     })
                     .ToListAsync();
                                 
