@@ -15,8 +15,8 @@ namespace JAR.Tests.UnitTests
     public class CompanyServiceTests : UnitTestsBase
     {
         private ICompanyService companyService;
-        private int InvalidCompanyId = 3;
-        private string InvalidUserId = "InvalidUserId";
+        private int invalidCompanyId = 3;
+        private string invalidUserId = "InvalidUserId";
 
         [OneTimeSetUp]
         public void SetUp()
@@ -52,7 +52,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task CompanyExistsAsync_ShouldReturnFalse()
         {
-            var result = await companyService.CompanyExistsAsync(InvalidCompanyId);
+            var result = await companyService.CompanyExistsAsync(invalidCompanyId);
 
             Assert.That(result, Is.False);
         }
@@ -153,7 +153,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task GetCompanyIdAsync_ShouldWorkCorrectlyIfWrongIdIsPassed()
         {
-            var result = await companyService.GetCompanyIdAsync(InvalidUserId);
+            var result = await companyService.GetCompanyIdAsync(invalidUserId);
 
             Assert.That(result, Is.EqualTo(-1));
         }
@@ -182,7 +182,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task IsApprovedAsync_ShouldReturnFalse()
         {
-            var result = await companyService.IsApproved(InvalidCompanyId);
+            var result = await companyService.IsApproved(invalidCompanyId);
             Assert.That(result, Is.False);
         }
 
@@ -196,7 +196,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task OwnerCompanyExistsAsync_ShouldReturnFalse()
         {
-            var result = await companyService.OwnerCompanyExistsAsync(InvalidUserId);
+            var result = await companyService.OwnerCompanyExistsAsync(invalidUserId);
             Assert.That(result, Is.False);
         }
 
