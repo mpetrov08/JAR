@@ -36,11 +36,11 @@ namespace JAR.Tests.UnitTests
 
             Assert.IsNotNull(result);
 
-            var allConferences = repository
+            var allUsers = repository
                 .AllReadOnly<User>()
                 .ToList();
 
-            Assert.That(result.Count(), Is.EqualTo(allConferences.Count()));
+            Assert.That(result.Count(), Is.EqualTo(allUsers.Count()));
 
             var resultUser = result.FirstOrDefault(rc => rc.Id == OwnerUser.Id);
             var isLecturer = await lecturerService.IsLecturer(OwnerUser.Id);
