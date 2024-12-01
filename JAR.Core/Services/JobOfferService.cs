@@ -7,12 +7,14 @@ using JAR.Core.Models.JobOffer;
 using JAR.Core.Models.JobType;
 using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
+using static JAR.Infrastructure.Constants.DataConstants;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace JAR.Core.Services
 {
@@ -163,10 +165,10 @@ namespace JAR.Core.Services
                        Address = jo.Company.Address,
                        PhoneNumber = jo.Company.PhoneNumber,
                        Email = jo.Company.Email,
-                       OwnerName = jo.Company.Owner.UserName,
+                       OwnerName = jo.Company.Owner.FirstName + " " + jo.Company.Owner.LastName,
                        LogoUrl = jo.Company.Logo
                     },
-                    CreatedOn = jo.CreatedOn.Date.ToString()
+                    CreatedOn = jo.CreatedOn.Date.ToString(DateFormat, CultureInfo.InvariantCulture)
                 })
                 .FirstAsync();
         }
@@ -236,11 +238,11 @@ namespace JAR.Core.Services
             return jobOffer;
         }
 
-        public async Task<bool> HasCompanyWithIdAsync(int houseId, string userId)
+        public async Task<bool> HasCompanyWithIdAsync(int jobOfferId, string userId)
         {
             return await repository
                 .AllReadOnly<JobOffer>()
-                .AnyAsync(jo => jo.Id == houseId && jo.Company.OwnerId == userId && jo.Company.IsDeleted == false);
+                .AnyAsync(jo => jo.Id == jobOfferId && jo.Company.OwnerId == userId && jo.Company.IsDeleted == false);
         }
 
         public async Task EditAsync(JobOfferFormModel model, int jobOfferId)
@@ -299,7 +301,7 @@ namespace JAR.Core.Services
                         RequiredExperience = jo.RequiredExperience,
                         RequiredSkills = jo.RequiredSkills,
                         Salary = jo.Salary,
-                        CreatedOn = jo.CreatedOn.Date.ToString(),
+                        CreatedOn = jo.CreatedOn.Date.ToString(DateFormat, CultureInfo.InvariantCulture),
                         CompanyLogo = jo.Company.Logo,
                         CompanyOwnerId = jo.Company.OwnerId
                     })
@@ -322,7 +324,7 @@ namespace JAR.Core.Services
                         RequiredExperience = jo.RequiredExperience,
                         RequiredSkills = jo.RequiredSkills,
                         Salary = jo.Salary,
-                        CreatedOn = jo.CreatedOn.Date.ToString(),
+                        CreatedOn = jo.CreatedOn.Date.ToString(DateFormat, CultureInfo.InvariantCulture),
                         CompanyLogo = jo.Company.Logo,
                         CompanyOwnerId = jo.Company.OwnerId
                     })
