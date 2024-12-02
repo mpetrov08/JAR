@@ -136,6 +136,46 @@ namespace JAR.Tests.UnitTests
 
             var result = await jobApplicationService.IsUserAlreadyApprovedAsync(JobOffer.Id, GuestUser.Id);
             Assert.That(result, Is.True);
+
+            await SetUpBase();
+            SetUp();
+        }
+
+        [Test]
+        public async Task GetApprovalMessageAsync_ShouldWorkCorrectly()
+        {
+            var message = "You have been approved!";
+            await jobApplicationService.ApproveAsync(JobOffer.Id, GuestUser.Id, message);
+
+            var result = await jobApplicationService.GetApprovalMessageAsync(JobOffer.Id, GuestUser.Id);
+            Assert.That(result, Is.EqualTo(message));
+
+            await SetUpBase();
+            SetUp();
+        }
+
+        [Test]
+        public async Task WithdrawApplication_ShouldWorkCorrectly()
+        {
+            await jobApplicationService.WithdrawApplication(JobOffer.Id, GuestUser.Id);
+            var isExisting = repository.AllReadOnly<JobApplication>()
+                .Any(ja => ja.JobOfferId == JobOffer.Id && ja.UserId == GuestUser.Id);
+            Assert.That(isExisting, Is.False);
+
+            await SetUpBase();
+            SetUp();
+        }
+
+        [Test]
+        public async Task DisapproveAsync_ShouldWorkCorrectly()
+        {
+            var message = "You have been approved!";
+            await jobApplicationService.ApproveAsync(JobOffer.Id, GuestUser.Id, message);
+
+            await jobApplicationService.DisapproveAsync(JobOffer.Id, GuestUser.Id);
+            var status = await jobApplicationService.GetJobApplicationStatusViewModelAsync(JobOffer.Id, GuestUser.Id);
+            Assert.That(status.IsApproved, Is.False);
+            Assert.IsEmpty(status.Message);
         }
     }
 }
