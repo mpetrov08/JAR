@@ -48,35 +48,48 @@ namespace JAR.Core.Services
         public async Task<IEnumerable<RoomViewModel>> GetAll(string userId)
         {
             var rooms = await repository.AllReadOnly<Room>()
-                                     .Include(r => r.Admin)
-                                     .Include(r => r.Messages)
-                                     .Where(r => !r.IsDeleted && (r.Users.Any(u => u.UserId == userId) || r.AdminId == userId))
-                                     .Select(room => new RoomViewModel()
-                                     {
-                                         Admin = room.Admin.UserName,
-                                         Id = room.Id,
-                                         Name = room.Name,
-                                         LastMessage = room.Messages.OrderBy(m => m.Timestamp).FirstOrDefault() == null ? "" : room.Messages.OrderBy(m => m.Timestamp).FirstOrDefault().Content,
-                                         TimeStamp = room.Messages.OrderBy(m => m.Timestamp).FirstOrDefault() == null ? "" : room.Messages.OrderBy(m => m.Timestamp).FirstOrDefault().Timestamp.ToString("MM/dd/yyyy")
-                                     })
-                                     .ToListAsync();
-            return rooms;
+                .Include(r => r.Admin)
+                .Include(r => r.Messages)
+                .Where(r => !r.IsDeleted && (r.Users.Any(u => u.UserId == userId) || r.AdminId == userId))
+                .ToListAsync();
+
+            return rooms.Select(room =>
+            {
+                var lastMessage = room.Messages.OrderBy(m => m.Timestamp).FirstOrDefault();
+                return new RoomViewModel
+                {
+                    Admin = room.Admin.Id,
+                    Id = room.Id,
+                    Name = room.Name,
+                    LastMessage = room.Messages.OrderBy(m => m.Timestamp).FirstOrDefault() == null ? "" : room.Messages.OrderByDescending(m => m.Timestamp).FirstOrDefault().Content,
+                    TimeStamp = room.Messages.OrderBy(m => m.Timestamp).FirstOrDefault() == null ? "" : room.Messages.OrderBy(m => m.Timestamp).FirstOrDefault().Timestamp.ToString("MM/dd/yyyy") ?? ""
+                };
+            });
         }
 
         public async Task<RoomViewModel?> GetById(int id, string userId)
         {
             var room = await repository.AllReadOnly<Room>()
-                                    .Where(r => !r.IsDeleted && r.Users.Any(u => u.UserId == userId))
-                                    .FirstOrDefaultAsync(r => r.Id == id);
+                .Where(r => !r.IsDeleted && r.Users.Any(u => u.UserId == userId))
+                .Include(r => r.Admin)
+                .Include(r => r.Messages)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
             if (room == null)
                 return null;
+
+            var adminName = room.Admin != null ? room.Admin.FirstName + " " + room.Admin.LastName : "Unknown Admin";
+            var lastMessage = room.Messages?
+                .OrderBy(m => m.Timestamp)
+                .FirstOrDefault();
+
             return new RoomViewModel()
             {
-                Admin = room.Admin.FirstName + " " + room.Admin.LastName,
+                Admin = adminName,
                 Id = room.Id,
                 Name = room.Name,
-                LastMessage = room.Messages.MinBy(m => m.Timestamp) == null ? "" : room.Messages.MinBy(m => m.Timestamp).Content,
-                TimeStamp = room.Messages.MinBy(m => m.Timestamp) == null ? "" : room.Messages.MinBy(m => m.Timestamp).Timestamp.ToString("MM/dd/yyyy")
+                LastMessage = lastMessage?.Content ?? "",
+                TimeStamp = lastMessage?.Timestamp.ToString("MM/dd/yyyy") ?? ""
             };
         }
 

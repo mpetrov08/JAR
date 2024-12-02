@@ -245,7 +245,7 @@ namespace JAR.Tests.UnitTests
             {
                 Id = 1,
                 Name = "Chat Room",
-                AdminId = OwnerUser.Id,
+                AdminId = OwnerUser.Id
             };
 
             data.Rooms.Add(ChatRoom);
