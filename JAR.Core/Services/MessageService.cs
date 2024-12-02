@@ -25,6 +25,8 @@ namespace JAR.Core.Services
         {
             var message = await repository.AllReadOnly<Message>()
                                        .Where(m => !m.IsDeleted)
+                                       .Include(m => m.Sender)
+                                       .Include(m => m.Room)
                                        .FirstOrDefaultAsync(m => m.Id == id);
 
             return new MessageViewModel()
