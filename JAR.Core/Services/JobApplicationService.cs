@@ -106,6 +106,15 @@ namespace JAR.Core.Services
                                 
         }
 
+        public async Task<string> GetApprovalMessageAsync(int jobOfferId, string userId)
+        {
+            var jobApplication = await repository
+                .AllReadOnly<JobApplication>()
+                .FirstOrDefaultAsync(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId);
+
+            return jobApplication.Message;
+        }
+
         public async Task<JobApplicationStatusViewModel> GetJobApplicationStatusViewModelAsync(int jobOfferId, string userId)
         {
             return await repository

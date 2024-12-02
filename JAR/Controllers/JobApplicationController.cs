@@ -137,11 +137,6 @@ namespace JAR.Controllers
                 return BadRequest("This user has not applied for this job offer.");
             }
 
-            if (await jobApplicationService.IsUserAlreadyApprovedAsync(jobId, userId))
-            {
-                return BadRequest("User is already approved");
-            }
-
             var applicant = await jobApplicationService.GetApplicantByIdAsync(jobId, userId);
 
             var model = new JobApplicationApproveViewModel()
@@ -150,7 +145,8 @@ namespace JAR.Controllers
                 UserId = userId,
                 Email = applicant.Email,
                 IsApproved = applicant.IsApproved,
-                AppliedOn = applicant.AppliedOn
+                AppliedOn = applicant.AppliedOn,
+                Message = await jobApplicationService.GetApprovalMessageAsync(jobId, userId)
             };
 
             return View(model);
@@ -185,12 +181,6 @@ namespace JAR.Controllers
             {
                 return BadRequest("This user has not applied for this job offer.");
             }
-
-            if (await jobApplicationService.IsUserAlreadyApprovedAsync(model.JobId, model.UserId))
-            {
-                return BadRequest("User is already approved");
-            }
-
 
             await jobApplicationService.ApproveAsync(model.JobId, model.UserId, model.Message);
             return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = model.JobId });

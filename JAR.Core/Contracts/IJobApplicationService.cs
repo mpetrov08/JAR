@@ -29,5 +29,7 @@ namespace JAR.Core.Contracts
         Task<JobOfferApplicantViewModel> GetApplicantByIdAsync(int jobOfferId, string userId);
 
         Task<JobApplicationStatusViewModel> GetJobApplicationStatusViewModelAsync(int jobOfferId, string userId);
+
+        Task<string> GetApprovalMessageAsync(int jobOfferId, string userId);
     }
 }
