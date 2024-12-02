@@ -129,5 +129,11 @@ namespace JAR.Core.Services
 
             return jobApplication.IsApproved;
         }
+
+        public async Task WithdrawApplication(int jobOfferId, string userId)
+        {
+            await repository.DeleteCompositeAsync<JobApplication>(new object[] { jobOfferId, userId });
+            await repository.SaveChangesAsync();
+        }
     }
 }

@@ -57,6 +57,16 @@ namespace JAR.Infrastructure.Repository
             }
         }
 
+        public async Task DeleteCompositeAsync<T>(object[] keyValues) where T : class
+        {
+            T? entity = await DbSet<T>().FindAsync(keyValues);
+
+            if (entity != null)
+            {
+                DbSet<T>().Remove(entity);
+            }
+        }
+
         public async Task<int> SaveChangesAsync()
         {
             return await context.SaveChangesAsync();

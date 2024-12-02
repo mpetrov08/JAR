@@ -84,6 +84,29 @@ namespace JAR.Controllers
             return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> WithdrawApplication(int jobId)
+        {
+            if (!await jobOfferService.ExistsAsync(jobId))
+            {
+                return BadRequest("Job Offer does not exists");
+            }
+
+            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, User.Id()))
+            {
+                return BadRequest("You have not applied for this job");
+            }
+
+            if (await companyService.OwnerCompanyExistsAsync(User.Id()))
+            {
+                return BadRequest("You are the owner of the job offer");
+            }
+
+            await jobApplicationService.WithdrawApplication(jobId, User.Id());
+
+            return RedirectToAction(nameof(JobOfferController.Mine), "JobOffer");
+        }
+
         [HttpGet]
         public async Task<IActionResult> Approve(int jobId, string userId)
         {

@@ -60,6 +60,13 @@
 
                             @if (await jobApplication.HasUserAlreadyAppliedAsync(jobOffer.Id, User.Id()))
                             {
+                                <form asp-area="" asp-controller="JobApplication" asp-action="WithdrawApplication" method="post" class="btn-group">
+                                    <input type="hidden" name="jobId" value="@jobOffer.Id" />
+                                    <button type="submit" class="btn btn-outline-warning">
+                                        <i class="fas fa-sign-out-alt"></i> Unregister
+                                    </button>
+                                </form>
+
                                 <a class="btn btn-outline-primary" asp-area="" asp-controller="JobApplication" asp-action="CheckStatus" asp-route-jobId="@jobOffer.Id">
                                     <i class="fas fa-check-circle"></i> Check Status
                                 </a>

@@ -20,6 +20,8 @@ namespace JAR.Infrastructure.Repository
 
         Task DeleteAsync<T>(object id) where T : class;
 
+        Task DeleteCompositeAsync<T>(object[] keyValues) where T : class;
+
         Task<int> SaveChangesAsync();
     }
 }
