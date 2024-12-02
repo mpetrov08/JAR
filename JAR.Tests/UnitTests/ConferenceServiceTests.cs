@@ -133,6 +133,8 @@ namespace JAR.Tests.UnitTests
                 .Count();
 
             Assert.That(conferenceCountBefore + 1, Is.EqualTo(currentCount));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -152,6 +154,8 @@ namespace JAR.Tests.UnitTests
             await conferenceService.EditConferenceAsync(conferenceModel, Conference.Id);
 
             Assert.That(Conference.Topic, Is.EqualTo(editedTopic));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -250,34 +254,19 @@ namespace JAR.Tests.UnitTests
             await conferenceService.Unregister(Conference.Id, GuestUser.Id);
             var isSignedUp = await conferenceService.HasUserSignedUp(Conference.Id, GuestUser.Id);
             Assert.That(isSignedUp, Is.False);
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]  
         public async Task DeleteConferenceAsync_ShouldWorkCorrectly()
         {
-            var conferenceModel = new ConferenceFormModel()
-            {
-                LecturerId = Conference.LecturerId,
-                Topic = "New Conference",
-                Start = Conference.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
-                End = Conference.End.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture),
-                ConferenceUrl = Conference.ConferenceUrl,
-                Description = "New Description. Something clever.",
-            };
-
-            await conferenceService.CreateConferenceAsync(conferenceModel);
-
-            var conferenceId = repository
-                .AllReadOnly<Conference>()
-                .FirstOrDefault(c => c.Topic == conferenceModel.Topic)
-                .Id;
-
             var conferenceCountBefore = repository
                 .AllReadOnly<Conference>()
                 .Where(c => c.IsDeleted == false)
                 .Count();
 
-            await conferenceService.DeleteConferenceAsync(conferenceId);
+            await conferenceService.DeleteConferenceAsync(Conference.Id);
 
             var currentCount = repository
                 .AllReadOnly<Conference>()
@@ -287,9 +276,11 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(conferenceCountBefore - 1, Is.EqualTo(currentCount));
 
-            var isExisting = await conferenceService.ExistsAsync(conferenceId);
+            var isExisting = await conferenceService.ExistsAsync(Conference.Id);
 
             Assert.That(isExisting, Is.False);
+            await SetUpBase();
+            SetUp();
         }
     }
 }

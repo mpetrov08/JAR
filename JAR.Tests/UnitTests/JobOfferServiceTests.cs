@@ -182,6 +182,8 @@ namespace JAR.Tests.UnitTests
                 .Count();
 
             Assert.That(currentCount, Is.EqualTo(jobOffersCountBefore + 1));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -253,7 +255,7 @@ namespace JAR.Tests.UnitTests
         {
             var model = new JobOfferFormModel()
             {
-                Title = "New Title",
+                Title = "Edited Title",
                 Description = JobOffer.Description,
                 Address = JobOffer.Address,
                 Salary = JobOffer.Salary,
@@ -265,43 +267,26 @@ namespace JAR.Tests.UnitTests
                 JobTypeId = JobOffer.JobTypeId
             };
 
-            await jobOfferService.CreateAsync(model, ApprovedCompany.Id, DateTime.Now);
 
-            var id = repository.AllReadOnly<JobOffer>().FirstOrDefault(jo => jo.Title == model.Title).Id;
+            await jobOfferService.EditAsync(model, JobOffer.Id);
 
-            model.Title = "Edited Title";
-            await jobOfferService.EditAsync(model, id);
-
-            var jobOffer = await jobOfferService.GetJobOfferFormModelByIdAsync(id);
+            var jobOffer = await jobOfferService.GetJobOfferFormModelByIdAsync(JobOffer.Id);
             Assert.That(jobOffer.Title, Is.EqualTo(model.Title));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
         public async Task DeleteAsync_ShouldWorkCorrectly()
         {
-            var model = new JobOfferFormModel()
-            {
-                Title = "Title For Delete",
-                Description = JobOffer.Description,
-                Address = JobOffer.Address,
-                Salary = JobOffer.Salary,
-                RequiredDegree = JobOffer.RequiredDegree,
-                RequiredExperience = JobOffer.RequiredExperience,
-                RequiredLanguage = JobOffer.RequiredLanguage,
-                RequiredSkills = JobOffer.RequiredSkills,
-                CategoryId = JobOffer.CategoryId,
-                JobTypeId = JobOffer.JobTypeId
-            };
-
-            await jobOfferService.CreateAsync(model, ApprovedCompany.Id, DateTime.Now);
-            var id = repository.AllReadOnly<JobOffer>().FirstOrDefault(jo => jo.Title == model.Title).Id;
-
-            await jobOfferService.DeleteAsync(id);
-            var isExisting = await jobOfferService.ExistsAsync(id);
-            var jobOffer = repository.AllReadOnly<JobOffer>().FirstOrDefault(jo => jo.Title == model.Title);
+            await jobOfferService.DeleteAsync(JobOffer.Id);
+            var isExisting = await jobOfferService.ExistsAsync(JobOffer.Id);
+            var jobOffer = repository.AllReadOnly<JobOffer>().FirstOrDefault(jo => jo.Id == JobOffer.Id);
 
             Assert.That(jobOffer.IsDeleted, Is.True);
             Assert.That(isExisting, Is.False);
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]

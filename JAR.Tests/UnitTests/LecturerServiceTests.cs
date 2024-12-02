@@ -109,25 +109,20 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(result, Is.True);
             Assert.That(isLecturer, Is.True);
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
         public async Task DemoteFromLecturerAsync_ShouldWorkCorrectly()
         {
-            var model = new LecturerFormModel()
-            {
-                UserId = OwnerUser.Id,
-                Description = "Any Description. Its very interesting!"
-            };
-
-            await lecturerService.PromoteToLecturer(model);
-            var id = await lecturerService.GetLecturerId(OwnerUser.Id);
-
-            var result = await lecturerService.DemoteFromLecturerAsync(id);
-            var isLecturer = await lecturerService.IsLecturer(OwnerUser.Id);
+            var result = await lecturerService.DemoteFromLecturerAsync(Lecturer.Id);
+            var isLecturer = await lecturerService.IsLecturer(LecturerUser.Id);
 
             Assert.That(result, Is.True);
             Assert.That(isLecturer, Is.False);
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -155,18 +150,16 @@ namespace JAR.Tests.UnitTests
         {
             var model = new LecturerFormModel()
             {
-                UserId = OwnerUser.Id,
-                Description = "Any Description. Its very interesting!"
+                UserId = LecturerUser.Id,
+                Description = "Edited Description"
             };
 
-            await lecturerService.PromoteToLecturer(model);
-            var id = await lecturerService.GetLecturerId(OwnerUser.Id);
-
-            model.Description = "Edited Description";
-            await lecturerService.Edit(model, id);
-            var lecturer = await lecturerService.GetLecturerFormModel(id);
+            await lecturerService.Edit(model, Lecturer.Id);
+            var lecturer = await lecturerService.GetLecturerFormModel(Lecturer.Id);
 
             Assert.That(lecturer.Description, Is.EqualTo(model.Description));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]

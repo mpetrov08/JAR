@@ -38,11 +38,11 @@ namespace JAR.Tests.UnitTests
         public Message Message2 { get; private set; }
 
         [OneTimeSetUp]
-        public void SetUpBase()
+        public async Task SetUpBase()
         {
             data = DatabaseMock.Instance;
-            SeedDatabase();
             repository = new Repository(data);
+            await SeedDatabase();
         }
 
         [OneTimeTearDown]
@@ -51,7 +51,7 @@ namespace JAR.Tests.UnitTests
             data.Dispose();
         }
 
-        private void SeedDatabase()
+        private async Task SeedDatabase()
         {
             GuestUser = new User()
             {
@@ -61,7 +61,7 @@ namespace JAR.Tests.UnitTests
                 LastName = "Georgiev"
             };
 
-            data.Users.Add(GuestUser);
+            await repository.AddAsync<User>(GuestUser);
 
             OwnerUser = new User()
             {
@@ -71,7 +71,7 @@ namespace JAR.Tests.UnitTests
                 LastName = "Petrov"
             };
 
-            data.Users.Add(OwnerUser);
+            await repository.AddAsync<User>(OwnerUser);
 
             LecturerUser = new User()
             {
@@ -81,7 +81,7 @@ namespace JAR.Tests.UnitTests
                 LastName = "Petrov"
             };
 
-            data.Users.Add(LecturerUser);
+            await repository.AddAsync<User>(LecturerUser);
 
             ApprovedCompany = new Company()
             {
@@ -98,7 +98,7 @@ namespace JAR.Tests.UnitTests
                 Owner = OwnerUser,
             };
 
-            data.Companies.Add(ApprovedCompany);
+            await repository.AddAsync<Company>(ApprovedCompany);
 
             UnapprovedCompany = new Company()
             {
@@ -115,7 +115,7 @@ namespace JAR.Tests.UnitTests
                 Owner = LecturerUser,
             };
 
-            data.Companies.Add(UnapprovedCompany);
+            await repository.AddAsync<Company>(UnapprovedCompany);
 
             JobType = new JobType()
             {
@@ -123,7 +123,7 @@ namespace JAR.Tests.UnitTests
                 Name = "Test Job Type"
             };
 
-            data.JobTypes.Add(JobType);
+            await repository.AddAsync<JobType>(JobType);
 
             Category = new Category()
             {
@@ -131,7 +131,7 @@ namespace JAR.Tests.UnitTests
                 Name = "Test Category"
             };
 
-            data.Categories.Add(Category);
+            await repository.AddAsync<Category>(Category);
 
             JobOffer = new JobOffer()
             {
@@ -150,7 +150,7 @@ namespace JAR.Tests.UnitTests
                 Company = ApprovedCompany
             };
 
-            data.JobOffers.Add(JobOffer);
+            await repository.AddAsync<JobOffer>(JobOffer);
 
             JobApplication = new JobApplication()
             {
@@ -160,7 +160,7 @@ namespace JAR.Tests.UnitTests
                 IsApproved = false,
             };
 
-            data.JobApplications.Add(JobApplication);
+            await repository.AddAsync<JobApplication>(JobApplication);
 
             CV = new CV()
             {
@@ -181,7 +181,7 @@ namespace JAR.Tests.UnitTests
                 Email = GuestUser.Email
             };
 
-            data.CVs.Add(CV);
+            await repository.AddAsync<CV>(CV);
 
             CVDegree = new Degree()
             {
@@ -196,7 +196,7 @@ namespace JAR.Tests.UnitTests
                 CV = CV
             };
 
-            data.Degrees.Add(CVDegree);
+            await repository.AddAsync<Degree>(CVDegree);
 
             CVProfessionalExperience = new ProfessionalExperience()
             {
@@ -209,7 +209,7 @@ namespace JAR.Tests.UnitTests
                 CV = CV
             };
 
-            data.ProfessionalExperiences.Add(CVProfessionalExperience);
+            await repository.AddAsync<ProfessionalExperience>(CVProfessionalExperience);
 
             Lecturer = new Lecturer()
             {
@@ -218,7 +218,7 @@ namespace JAR.Tests.UnitTests
                 Description = "Very Good Lecturer"
             };
 
-            data.Lecturers.Add(Lecturer);
+            await repository.AddAsync<Lecturer>(Lecturer);
 
             Conference = new Conference()
             {
@@ -231,7 +231,7 @@ namespace JAR.Tests.UnitTests
                 ConferenceUrl = "https://meet.google.com/hee-zkjp-sob"
             };
 
-            data.Conferences.Add(Conference);
+            await repository.AddAsync<Conference>(Conference);
 
             ConferenceUser = new ConferenceUser()
             {
@@ -239,7 +239,7 @@ namespace JAR.Tests.UnitTests
                 User = GuestUser
             };
 
-            data.ConferencesUsers.Add(ConferenceUser);
+            await repository.AddAsync<ConferenceUser>(ConferenceUser);
 
             ChatRoom = new Room()
             {
@@ -248,7 +248,7 @@ namespace JAR.Tests.UnitTests
                 AdminId = OwnerUser.Id
             };
 
-            data.Rooms.Add(ChatRoom);
+            await repository.AddAsync<Room>(ChatRoom);
 
             RoomUser1 = new RoomUser()
             {
@@ -256,7 +256,7 @@ namespace JAR.Tests.UnitTests
                 User = OwnerUser
             };
             
-            data.RoomsUsers.Add(RoomUser1);
+            await repository.AddAsync<RoomUser>(RoomUser1);
 
             RoomUser2 = new RoomUser()
             {
@@ -264,7 +264,7 @@ namespace JAR.Tests.UnitTests
                 User = GuestUser
             };
 
-            data.RoomsUsers.Add(RoomUser2);
+            await repository.AddAsync<RoomUser>(RoomUser2);
 
             Message1 = new Message()
             {
@@ -275,7 +275,7 @@ namespace JAR.Tests.UnitTests
                 Timestamp = new DateTime(2024, 11, 28, 22, 30, 0)
             };
 
-            data.Messages.Add(Message1);
+            await repository.AddAsync<Message>(Message1);
 
             Message2 = new Message()
             {
@@ -286,9 +286,9 @@ namespace JAR.Tests.UnitTests
                 Timestamp = new DateTime(2024, 11, 28, 22, 31, 0)
             };
             
-            data.Messages.Add(Message2);
+            await repository.AddAsync<Message>(Message2);
 
-            data.SaveChanges();
+            await repository.SaveChangesAsync();
         }
     }
 }

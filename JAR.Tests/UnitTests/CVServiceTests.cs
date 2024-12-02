@@ -83,6 +83,8 @@ namespace JAR.Tests.UnitTests
                 .Count();
 
             Assert.That(currentCount, Is.EqualTo(cvsCountBefore + 1));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -134,36 +136,12 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task DeleteCVAsync_ShouldWorkCorrectly()
         {
-            var cvModel = new CVFormModel()
-            {
-                FirstName = "New FirstName",
-                LastName = CV.LastName,
-                Email = CV.Email,
-                LinkedInProfile = CV.LinkedInProfile,
-                PhoneNumber = CV.PhoneNumber,
-                Address = CV.Address,
-                Gender = CV.Gender,
-                BirthDate = CV.BirthDate.ToString(DateFormat, CultureInfo.InvariantCulture),
-                Citizenship = CV.Citizenship,
-                PhotoUrl = CV.Photo,
-                Languages = CV.Languages,
-                Skills = CV.Skills,
-                DrivingLicense = CV.DrivingLicenseCategory,
-            };
-
-            await cvService.CreateCVAsync(cvModel, LecturerUser.Id);
-            
-            var cvId = repository
-                .AllReadOnly<CV>()
-                .FirstOrDefault(cv => cv.FirstName == cvModel.FirstName)
-                .Id;
-
             var cvCountBefore = repository
                 .AllReadOnly<CV>()
                 .Where(cv => cv.IsDeleted == false)
                 .Count();
 
-            await cvService.DeleteCV(cvId);
+            await cvService.DeleteCV(CV.Id);
 
             var currentCount = repository
                 .AllReadOnly<CV>()
@@ -172,9 +150,11 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(currentCount, Is.EqualTo(cvCountBefore - 1));
 
-            var isExisting = await cvService.Exists(cvId);
+            var isExisting = await cvService.Exists(CV.Id);
 
             Assert.That(isExisting, Is.False);
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -374,6 +354,8 @@ namespace JAR.Tests.UnitTests
 
             await cvService.EditCV(cvModel, CV.Id);
             Assert.That(CV.FirstName, Is.EqualTo("Edited First Name"));
+            await SetUpBase();
+            SetUp();
         }
     }
 }

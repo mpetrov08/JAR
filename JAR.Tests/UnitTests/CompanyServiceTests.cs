@@ -37,6 +37,8 @@ namespace JAR.Tests.UnitTests
         {
             var result = await companyService.ApproveCompanyAsync(ApprovedCompany.Id);
             Assert.That(result, Is.False);
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -93,6 +95,8 @@ namespace JAR.Tests.UnitTests
                 .Count();
 
             Assert.That(companyCountBefore + 1, Is.EqualTo(currentCount));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -116,6 +120,8 @@ namespace JAR.Tests.UnitTests
             var isExisting = await companyService.CompanyExistsAsync(UnapprovedCompany.Id);
 
             Assert.That(isExisting, Is.False);
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -201,11 +207,13 @@ namespace JAR.Tests.UnitTests
         }
 
         [Test]
-        public async Task OwnerCompanyExistsAsync_ShouldWorkCorrectly()
+        public async Task DisapproveCompanyAsync_ShouldWorkCorrectly()
         {
             var result = await companyService.DisapproveCompanyAsync(ApprovedCompany.Id);
             Assert.That(result, Is.True);
             Assert.That(JobOffer.IsDeleted, Is.True);
+            await SetUpBase();
+            SetUp();
         }
     }
 }

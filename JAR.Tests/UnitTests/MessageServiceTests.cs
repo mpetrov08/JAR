@@ -72,7 +72,7 @@ namespace JAR.Tests.UnitTests
             Assert.That(data.Messages.Count(), Is.EqualTo(oldMessagesCount + 1));
             Assert.That(createdMessage.Content, Is.EqualTo(messageViewModel.Content));
             Assert.That(createdMessage.Room, Is.EqualTo(ChatRoom.Name));
-            SetUpBase();
+            await SetUpBase();
             SetUp();
         }
 
@@ -85,7 +85,7 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(result, Is.True);
             Assert.That(data.Messages.Count(r => !r.IsDeleted), Is.EqualTo(oldMessagesCount - 1));
-            SetUpBase();
+            await SetUpBase();
             SetUp();
         }
 
@@ -95,7 +95,7 @@ namespace JAR.Tests.UnitTests
             var result = await messageService.Delete(9999, "TeacherUser");
 
             Assert.That(result, Is.False);
-            SetUpBase();
+            await SetUpBase();
             SetUp();
         }
     }

@@ -101,7 +101,7 @@ namespace JAR.Tests.UnitTests
             Assert.NotNull(createdRoom);
             Assert.That(oldRoomCount + 1, Is.EqualTo(data.Rooms.Count()));
             Assert.That(data.Rooms.Any(r => r.Name == createdRoom.Name), Is.True);
-            SetUpBase();
+            await SetUpBase();
             SetUp();
         }
 
@@ -120,7 +120,7 @@ namespace JAR.Tests.UnitTests
             var roomInDb = await data.Rooms.FirstAsync(r => r.Id == ChatRoom.Id);
             Assert.NotNull(roomInDb);
             Assert.That(updatedRoom.Name, Is.EqualTo(roomInDb.Name));
-            SetUpBase();
+            await SetUpBase();
             SetUp();
         }
 
@@ -134,7 +134,7 @@ namespace JAR.Tests.UnitTests
             Assert.That(result, Is.True);
             Assert.That(oldCount - 1, Is.EqualTo(data.Rooms.Count(r => !r.IsDeleted)));
             Assert.That(data.Rooms.First(r => r.Id == ChatRoom.Id).IsDeleted, Is.True);
-            SetUpBase();
+            await SetUpBase();
             SetUp();
         }
 
@@ -147,7 +147,7 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(result, Is.True);
             Assert.That(oldUserCount + 1, Is.EqualTo(data.RoomsUsers.Count(ru => ru.RoomId == ChatRoom.Id)));
-            SetUpBase();
+            await SetUpBase();
             SetUp();
         }
     }

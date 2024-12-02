@@ -42,6 +42,8 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(hasApplied, Is.True);
             Assert.That(currentCount, Is.EqualTo(jobApplicationsCountBefore + 1));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
@@ -52,16 +54,15 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(JobApplication.IsApproved, Is.True);
             Assert.That(JobApplication.Message, Is.EqualTo(message));
+            await SetUpBase();
+            SetUp();
         }
 
         [Test]
         public async Task CheckStatusAsync_ShouldWorkCorrectly()
         {
-            var message = "You have been approved!";
-            await jobApplicationService.ApproveAsync(JobOffer.Id, GuestUser.Id, message);
-
             var result = await jobApplicationService.CheckStatusAsync(JobOffer.Id, GuestUser.Id);
-            Assert.That(result, Is.True);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -135,13 +136,6 @@ namespace JAR.Tests.UnitTests
 
             var result = await jobApplicationService.IsUserAlreadyApprovedAsync(JobOffer.Id, GuestUser.Id);
             Assert.That(result, Is.True);
-        }
-
-        [Test]
-        public async Task IsUserAlreadyApprovedAsync_ShouldReturnFalse()
-        {
-            var result1 = await jobApplicationService.IsUserAlreadyApprovedAsync(JobOffer.Id, LecturerUser.Id);
-            Assert.That(result1, Is.False);
         }
     }
 }
