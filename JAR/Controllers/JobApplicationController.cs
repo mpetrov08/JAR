@@ -134,7 +134,7 @@ namespace JAR.Controllers
 
             if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, userId))
             {
-                return BadRequest("This used has not applied for this job offer.");
+                return BadRequest("This user has not applied for this job offer.");
             }
 
             if (await jobApplicationService.IsUserAlreadyApprovedAsync(jobId, userId))
@@ -181,12 +181,12 @@ namespace JAR.Controllers
                 return Unauthorized("You are not the owner of this company");
             }
 
-            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(model.JobId, User.Id()))
+            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(model.JobId, model.UserId))
             {
-                return BadRequest("This used has not applied for this job offer.");
+                return BadRequest("This user has not applied for this job offer.");
             }
 
-            if (await jobApplicationService.IsUserAlreadyApprovedAsync(model.JobId, User.Id()))
+            if (await jobApplicationService.IsUserAlreadyApprovedAsync(model.JobId, model.UserId))
             {
                 return BadRequest("User is already approved");
             }
@@ -194,6 +194,45 @@ namespace JAR.Controllers
 
             await jobApplicationService.ApproveAsync(model.JobId, model.UserId, model.Message);
             return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = model.JobId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DisapproveAsync(int jobId, string userId)
+        {
+            var companyId = await companyService.GetCompanyIdAsync(User.Id());
+
+            if (!await companyService.CompanyExistsAsync(companyId))
+            {
+                return BadRequest("Company does not exists");
+            }
+
+            if (!await companyService.IsApproved(companyId))
+            {
+                return BadRequest("Company is not approved");
+            }
+
+            if (!await jobOfferService.ExistsAsync(jobId))
+            {
+                return BadRequest("Job offer does not exists");
+            }
+
+            if (!await jobOfferService.HasCompanyWithIdAsync(jobId, User.Id()))
+            {
+                return Unauthorized("You are not the owner of this company");
+            }
+
+            if (!await jobApplicationService.HasUserAlreadyAppliedAsync(jobId, userId))
+            {
+                return BadRequest("This user has not applied for this job offer.");
+            }
+
+            if (!await jobApplicationService.IsUserAlreadyApprovedAsync(jobId, userId))
+            {
+                return BadRequest("User is not approved");
+            }
+
+            await jobApplicationService.DisapproveAsync(jobId, userId);
+            return RedirectToAction(nameof(JobOfferController.ViewApplicants), "JobOffer", new { id = jobId });
         }
 
         [HttpGet]

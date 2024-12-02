@@ -20,6 +20,8 @@ namespace JAR.Core.Contracts
 
         Task ApproveAsync(int jobOfferId, string userId, string message);
 
+        Task DisapproveAsync(int jobOfferId, string userId);
+
         Task<bool> CheckStatusAsync(int jobOfferId, string userId);
 
         Task<List<JobOfferApplicantViewModel>> GetApplicantsAsync(int jobOfferId);

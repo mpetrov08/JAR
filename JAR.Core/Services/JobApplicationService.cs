@@ -62,6 +62,17 @@ namespace JAR.Core.Services
             return jobOffer != null && jobOffer.IsApproved == true;
         }
 
+        public async Task DisapproveAsync(int jobOfferId, string userId)
+        {
+            var jobApplication = await repository
+                .All<JobApplication>()
+                .FirstOrDefaultAsync(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId);
+
+            jobApplication.Message = string.Empty;
+            jobApplication.IsApproved = false;
+            await repository.SaveChangesAsync();
+        }
+
         public async Task<JobOfferApplicantViewModel> GetApplicantByIdAsync(int jobOfferId, string userId)
         {
             return await repository
@@ -124,8 +135,7 @@ namespace JAR.Core.Services
         {
             var jobApplication = await repository
                 .AllReadOnly<JobApplication>()
-                .Where(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(ja => ja.JobOfferId == jobOfferId && ja.UserId == userId);
 
             return jobApplication.IsApproved;
         }
