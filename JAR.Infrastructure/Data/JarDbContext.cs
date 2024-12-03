@@ -82,6 +82,8 @@ namespace JAR.Infrastructure.Data
                 builder.ApplyConfiguration(new JobApplicationConfiguration());
                 builder.ApplyConfiguration(new RoomConfiguration());
                 builder.ApplyConfiguration(new RoomUserConfiguration());
+                builder.ApplyConfiguration(new LecturerConfiguration());
+                builder.ApplyConfiguration(new ConferenceConfiguration());
             }
             
             base.OnModelCreating(builder); 

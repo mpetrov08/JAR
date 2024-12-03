@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace JAR.Infrastructure.Data.Seed
 {
@@ -48,6 +49,10 @@ namespace JAR.Infrastructure.Data.Seed
 
         public RoomUser RoomUser2 { get; set; }
 
+        public Lecturer Lecturer {  get; set; }
+
+        public Conference Conference { get; set; }
+
         public SeedData()
         {
             SeedUsers();
@@ -58,6 +63,8 @@ namespace JAR.Infrastructure.Data.Seed
             SeedJobApplication();
             SeedRoom();
             SeedRoomsUsers();
+            SeedLecturers();
+            SeedConferences();
         }
 
         private void SeedUsers()
@@ -269,6 +276,32 @@ namespace JAR.Infrastructure.Data.Seed
             {
                 RoomId = Room.Id,
                 UserId = GuestUser.Id
+            };
+        }
+
+        private void SeedLecturers()
+        {
+            Lecturer = new Lecturer()
+            {
+                Id = 1,
+                UserId = CompanyOwnerUser.Id,
+                Description = "Very good lecturer. He has experience of 15 years, one of the best.",
+                IsDeleted = false
+            };
+        }
+
+        private void SeedConferences()
+        {
+            Conference = new Conference()
+            {
+                Id = 1,
+                LecturerId = Lecturer.Id,
+                Topic = "How to find easy Job? Is it really hard?",
+                Start = DateTime.UtcNow,
+                End = DateTime.UtcNow.AddHours(2),
+                Description = "In this conference we will talk about that, how to find easy work and is it that hard.",
+                IsDeleted = false,
+                ConferenceUrl = "https://meet.google.com/pra-cekt-nbn"
             };
         }
     }
