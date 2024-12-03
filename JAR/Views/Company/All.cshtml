@@ -51,7 +51,7 @@
                             <td>
                                 @if (company.IsApproved)
                                 {
-                                    <form asp-area="Admin" asp-controller="Company" asp-action="DisapproveCompany" method="post" class="d-inline">
+                                    <form asp-area="" asp-controller="Company" asp-action="DisapproveCompany" method="post" class="d-inline">
                                         <input type="hidden" name="id" value="@company.Id" />
                                         <button type="submit" class="btn btn-outline-warning btn-sm">
                                             <i class="fas fa-times-circle"></i> Disapprove
@@ -60,7 +60,7 @@
                                 }
                                 else
                                 {
-                                    <form asp-area="Admin" asp-controller="Company" asp-action="ApproveCompany" method="post" class="d-inline">
+                                    <form asp-area="" asp-controller="Company" asp-action="ApproveCompany" method="post" class="d-inline">
                                         <input type="hidden" name="id" value="@company.Id" />
                                         <button type="submit" class="btn btn-outline-success btn-sm">
                                             <i class="fas fa-check-circle"></i> Approve

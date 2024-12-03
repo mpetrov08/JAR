@@ -1,5 +1,6 @@
 ﻿using JAR.Core.Contracts;
 using JAR.Core.Models.Company;
+using static JAR.Infrastructure.Constants.AdministratorConstants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -104,6 +105,51 @@ namespace JAR.Controllers
 
             await companyService.DeleteAsync(model.Id);
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = AdminRole)]
+        public async Task<IActionResult> All()
+        {
+            var companies = await companyService.GetAllCompaniesAsync();
+            return View(companies);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = AdminRole)]
+        public async Task<IActionResult> ApproveCompany(int id)
+        {
+            if (!await companyService.CompanyExistsAsync(id))
+            {
+                return BadRequest("Company does not exists");
+            }
+
+            bool IsSucceeded = await companyService.ApproveCompanyAsync(id);
+
+            if (!IsSucceeded)
+            {
+                return BadRequest("Cannot approve company");
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = AdminRole)]
+        public async Task<IActionResult> DisapproveCompany(int id)
+        {
+            if (!await companyService.CompanyExistsAsync(id))
+            {
+                return BadRequest("Company does not exists");
+            }
+            bool IsSucceeded = await companyService.DisapproveCompanyAsync(id);
+
+            if (!IsSucceeded)
+            {
+                return BadRequest("Cannot approve company");
+            }
+
+            return RedirectToAction(nameof(All));
         }
     }
 }
