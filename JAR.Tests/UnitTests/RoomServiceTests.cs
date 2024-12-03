@@ -150,5 +150,11 @@ namespace JAR.Tests.UnitTests
             await SetUpBase();
             SetUp();
         }
+
+        [Test]
+        public async Task ExistsAsync_ShouldReturnTrue()
+        {
+            var result = await roomService.ExistsAsync(JobOffer.Title, GuestUser.Id);
+        }
     }
 }

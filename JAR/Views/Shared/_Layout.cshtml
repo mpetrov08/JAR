@@ -45,18 +45,21 @@
                                 </li>
                             }
 
-                            @if (!await cv.UserHasCV(User.Id()))
+                            @if(!User.IsInRole(AdminRole) && !await company.OwnerCompanyExistsAsync(User.Id()))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Create">Create CV</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Preview">Preview CV</a>
-                                </li>
-                            }
+                                @if (!await cv.UserHasCV(User.Id()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Create">Create CV</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Preview">Preview CV</a>
+                                    </li>
+                                }
+                            }                         
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Conference" asp-action="All">Conferences</a>

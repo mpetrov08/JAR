@@ -1,4 +1,5 @@
 ﻿@model JobApplicationApproveViewModel
+@inject ICVService cvService;
 
 @{
     ViewBag.Title = "Approve Applicant";
@@ -37,12 +38,15 @@
                 </div>
             </div>
 
-            <div class="col-md-12 mb-4 text-center">
-                <a class="btn btn-outline-info btn-lg px-5" asp-area="" asp-controller="CV" asp-action="Preview" asp-route-userId="@Model.UserId">
-                    <i class="fas fa-file-pdf"></i> View CV
-                </a>
-            </div>
-
+            @if (await cvService.UserHasCV(Model.UserId))
+            {
+                <div class="col-md-12 mb-4 text-center">
+                    <a class="btn btn-outline-info btn-lg px-5" asp-area="" asp-controller="CV" asp-action="Preview" asp-route-userId="@Model.UserId">
+                        <i class="fas fa-file-pdf"></i> View CV
+                    </a>
+                </div>
+            }
+            
             <div class="col-md-12">
                 <div class="form-group mb-3">
                     <label asp-for="Message" class="form-label text-primary fw-bold">

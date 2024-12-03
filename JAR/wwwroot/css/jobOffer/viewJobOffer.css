@@ -34,6 +34,22 @@
     transition: all 0.3s ease-in-out;
 }
 
+.btn-group .btn-outline-primary:hover, 
+.btn-group form .btn-outline-primary:hover {
+    background-color: var(--primary-color); 
+    color: var(--light-color); 
+    text-decoration: none; 
+    transition: all 0.3s ease-in-out; 
+}
+
+.btn-group .btn-outline-success:hover, 
+.btn-group form .btn-outline-success:hover {
+    background-color: var(--secondary-color); 
+    color: var(--light-color);
+    text-decoration: none;
+    transition: all 0.3s ease-in-out; 
+}
+
 .btn-outline-secondary, .btn-group form .btn-outline-secondary {
     color: var(--secondary-color);
     border-color: var(--secondary-color);

@@ -23,5 +23,7 @@ namespace JAR.Core.Contracts
         public Task<bool> AddUser(int roomId, string userId);
 
         public Task<ChatsViewModel> GetChatsViewModel(string userId);
+
+        public Task<bool> ExistsAsync(string jobTitle, string userId);
     }
 }

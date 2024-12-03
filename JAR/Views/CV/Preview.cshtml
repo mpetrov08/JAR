@@ -1,4 +1,5 @@
 ﻿@model CVViewModel
+@inject ICVService cvService;
 
 @{
     ViewBag.Title = "Preview Your CV";
@@ -74,14 +75,17 @@
         </div>
     </div>
 
-    <div class="text-center mb-5">
-        <a class="btn btn-lg btn-outline-primary mx-3 shadow-sm rounded-pill transform-on-hover" asp-area="" asp-controller="CV" asp-action="Edit" asp-route-id="@Model.Id">
-            <i class="fas fa-edit"></i> <span class="ml-2">Edit CV</span>
-        </a>
-        <a class="btn btn-lg btn-outline-danger mx-3 shadow-sm rounded-pill transform-on-hover" asp-area="" asp-controller="CV" asp-action="Delete" asp-route-id="@Model.Id">
-            <i class="fas fa-trash"></i> <span class="ml-2">Delete CV</span>
-        </a>
-    </div>
+    @if (await cvService.UserHasCVWithId(Model.Id, User.Id()))
+    {
+        <div class="text-center mb-5">
+            <a class="btn btn-lg btn-outline-primary mx-3 shadow-sm rounded-pill transform-on-hover" asp-area="" asp-controller="CV" asp-action="Edit" asp-route-id="@Model.Id">
+                <i class="fas fa-edit"></i> <span class="ml-2">Edit CV</span>
+            </a>
+            <a class="btn btn-lg btn-outline-danger mx-3 shadow-sm rounded-pill transform-on-hover" asp-area="" asp-controller="CV" asp-action="Delete" asp-route-id="@Model.Id">
+                <i class="fas fa-trash"></i> <span class="ml-2">Delete CV</span>
+            </a>
+        </div>
+    }   
 </div>
 
 @section Styles

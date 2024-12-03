@@ -231,5 +231,14 @@ namespace JAR.Core.Services
 
             return uniqueName;
         }
+
+        public async Task<bool> ExistsAsync(string jobTitle, string userId)
+        {
+            var roomUser = await repository
+                .AllReadOnly<RoomUser>()
+                .FirstOrDefaultAsync(ru => ru.UserId == userId && ru.Room.Name.Contains(jobTitle));
+
+            return roomUser != null;
+        }
     }
 }

@@ -19,7 +19,7 @@
             Description: description
         };
         degrees.push(degree);
-        updateDegreeList();
+            updateDegreeList();
         updateDegreesJson();
     }
 
@@ -127,6 +127,7 @@
 
     document.getElementById('submit').addEventListener('click', function () {
         document.getElementById('degreesJson').value = JSON.stringify(degrees);
+        degreeModal.hide();
     });
 
     updateDegreeList();

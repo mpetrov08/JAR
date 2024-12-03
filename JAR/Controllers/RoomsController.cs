@@ -46,7 +46,7 @@ namespace JAR.Controllers
             {
                 return BadRequest("Invalid room name or room already exists");
             }
-            return CreatedAtAction(nameof(Get), new { id = createdRoom.Id }, createdRoom);
+            return RedirectToAction(nameof(ChatController.Index), "Chat");
         }
 
         [HttpGet("Edit/{Id}")]
