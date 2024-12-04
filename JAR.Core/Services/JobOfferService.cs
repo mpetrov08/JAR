@@ -275,14 +275,20 @@ namespace JAR.Core.Services
         public async Task DeleteAsync(int id)
         {
             var jobOffer = await repository
-                .GetByIdAsync<JobOffer>(id);
+                .All<JobOffer>()
+                .Include(jo => jo.JobApplications)
+                .FirstOrDefaultAsync(jo => jo.Id == id);
 
             if (jobOffer != null)
             {
-                jobOffer.IsDeleted = true;
-            }
+                foreach (var jobApplication in jobOffer.JobApplications)
+                {
+                    await repository.DeleteCompositeAsync<JobApplication>(new object[] { jobApplication.JobOfferId, jobApplication.UserId });
+                }
 
-            await repository.SaveChangesAsync();
+                jobOffer.IsDeleted = true;
+                await repository.SaveChangesAsync();
+            }
         }
 
         public async Task<List<JobOfferViewModel>> AllByUserIdAsync(string userId)
