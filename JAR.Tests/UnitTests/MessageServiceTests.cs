@@ -69,7 +69,7 @@ namespace JAR.Tests.UnitTests
             var createdMessage = await messageService.Create(messageViewModel, GuestUser.Id);
 
             Assert.IsNotNull(createdMessage);
-            Assert.That(data.Messages.Count(), Is.EqualTo(oldMessagesCount + 1));
+            Assert.That(repository.AllReadOnly<Message>().Count(), Is.EqualTo(oldMessagesCount + 1));
             Assert.That(createdMessage.Content, Is.EqualTo(messageViewModel.Content));
             Assert.That(createdMessage.Room, Is.EqualTo(ChatRoom.Name));
             await SetUpBase();
@@ -84,7 +84,7 @@ namespace JAR.Tests.UnitTests
             var result = await messageService.Delete(Message2.Id, OwnerUser.Id);
 
             Assert.That(result, Is.True);
-            Assert.That(data.Messages.Count(r => !r.IsDeleted), Is.EqualTo(oldMessagesCount - 1));
+            Assert.That(repository.AllReadOnly<Message>().Count(r => !r.IsDeleted), Is.EqualTo(oldMessagesCount - 1));
             await SetUpBase();
             SetUp();
         }

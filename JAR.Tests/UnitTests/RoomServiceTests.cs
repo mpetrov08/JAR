@@ -91,7 +91,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task Create_ShouldWorkCorrectly()
         {
-            int oldRoomCount = data.Rooms.Count();
+            int oldRoomCount = repository.AllReadOnly<Room>().Count();
 
             var createdRoom = await roomService.Create(new RoomViewModel()
             {
@@ -100,7 +100,7 @@ namespace JAR.Tests.UnitTests
 
             Assert.NotNull(createdRoom);
             Assert.That(oldRoomCount + 1, Is.EqualTo(data.Rooms.Count()));
-            Assert.That(data.Rooms.Any(r => r.Name == createdRoom.Name), Is.True);
+            Assert.That(repository.AllReadOnly<Room>().Any(r => r.Name == createdRoom.Name), Is.True);
             await SetUpBase();
             SetUp();
         }
@@ -117,7 +117,7 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(result, Is.EqualTo(HttpError.Ok));
 
-            var roomInDb = await data.Rooms.FirstAsync(r => r.Id == ChatRoom.Id);
+            var roomInDb = await repository.AllReadOnly<Room>().FirstAsync(r => r.Id == ChatRoom.Id);
             Assert.NotNull(roomInDb);
             Assert.That(updatedRoom.Name, Is.EqualTo(roomInDb.Name));
             await SetUpBase();
@@ -127,13 +127,13 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task Delete_ShouldWorkCorrectly()
         {
-            int oldCount = data.Rooms.Count(r => !r.IsDeleted);
+            int oldCount = repository.AllReadOnly<Room>().Count(r => !r.IsDeleted);
 
             var result = await roomService.Delete(ChatRoom.Id, OwnerUser.Id);
 
             Assert.That(result, Is.True);
-            Assert.That(oldCount - 1, Is.EqualTo(data.Rooms.Count(r => !r.IsDeleted)));
-            Assert.That(data.Rooms.First(r => r.Id == ChatRoom.Id).IsDeleted, Is.True);
+            Assert.That(oldCount - 1, Is.EqualTo(repository.AllReadOnly<Room>().Count(r => !r.IsDeleted)));
+            Assert.That(repository.AllReadOnly<Room>().First(r => r.Id == ChatRoom.Id).IsDeleted, Is.True);
             await SetUpBase();
             SetUp();
         }
@@ -141,12 +141,12 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task AddUser_ShouldWorkCorrectly()
         {
-            int oldUserCount = data.RoomsUsers.Count(ru => ru.RoomId == ChatRoom.Id);
+            int oldUserCount = repository.AllReadOnly<RoomUser>().Count(ru => ru.RoomId == ChatRoom.Id);
 
             var result = await roomService.AddUser(ChatRoom.Id, "NewUserId");
 
             Assert.That(result, Is.True);
-            Assert.That(oldUserCount + 1, Is.EqualTo(data.RoomsUsers.Count(ru => ru.RoomId == ChatRoom.Id)));
+            Assert.That(oldUserCount + 1, Is.EqualTo(repository.AllReadOnly<RoomUser>().Count(ru => ru.RoomId == ChatRoom.Id)));
             await SetUpBase();
             SetUp();
         }
