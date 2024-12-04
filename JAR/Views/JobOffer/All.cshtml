@@ -7,7 +7,7 @@
 <h2 class="text-center text-primary mb-4">@ViewBag.Title</h2>
 <hr />
 
-<form method="get">
+<form method="get" asp-controller="JobOffer" asp-action="All">
     <div class="row">
         <div class="form-group col-md-3 mb-3">
             <label asp-for="SearchTerm" class="form-label"></label>
@@ -19,7 +19,6 @@
             <select asp-for="Category" class="form-select rounded">
                 <option value="">All Categories</option>
                 @foreach (var category in Model.Categories)
-
                 {
                     <option value="@category">@category</option>
                 }
@@ -31,7 +30,6 @@
             <select asp-for="JobType" class="form-select rounded">
                 <option value="">All Job Types</option>
                 @foreach (var jobType in Model.JobTypes)
-
                 {
                     <option value="@jobType">@jobType</option>
                 }
@@ -114,8 +112,4 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/jobOffer/allJobOffers.css">
     <link rel="stylesheet" href="~/css/jobOffer/viewJobOffer.css">
-}
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial"></partial>
 }
