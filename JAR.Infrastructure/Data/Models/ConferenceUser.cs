@@ -24,9 +24,5 @@ namespace JAR.Infrastructure.Data.Models
 
         [ForeignKey(nameof(UserId))]
         public User User { get; set; } = null!;
-
-        [Required]
-        [Comment("Checks if the ConferenceUser has been deleted")]
-        public bool IsDeleted { get; set; }
     }
 }

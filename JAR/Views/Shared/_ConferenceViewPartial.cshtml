@@ -67,6 +67,19 @@ else
                                             <i class="fas fa-sign-out-alt"></i> Unregister
                                         </button>
                                     </form>
+
+                                    @if (isOngoing)
+                                    {
+                                        <a class="btn btn-secondary mt-2" href="@conference.ConferenceUrl" target="_blank">
+                                            <i class="fas fa-video"></i> Join
+                                        </a>
+                                    }
+                                    else if (hasNotStarted)
+                                    {
+                                        <p class="text-warning">
+                                            <i class="fas fa-clock"></i> Conference has not started yet.
+                                        </p>
+                                    }
                                 }
                                 else if (!await conferences.HasUserSignedUp(conference.Id, User.Id()) &&
                                          !await lecturer.HasLecturerConference(User.Id(), conference.Id))
@@ -77,20 +90,7 @@ else
                                             <i class="fas fa-user-plus"></i> Sign Up
                                         </button>
                                     </form>
-                                }
-
-                                @if (isOngoing)
-                                {
-                                    <a class="btn btn-secondary mt-2" href="@conference.ConferenceUrl" target="_blank">
-                                        <i class="fas fa-video"></i> Join
-                                    </a>
-                                }
-                                else if (hasNotStarted)
-                                {
-                                    <p class="text-warning">
-                                        <i class="fas fa-clock"></i> Conference has not started yet.
-                                    </p>
-                                }
+                                } 
                             }            
                         </div>
                     </div>

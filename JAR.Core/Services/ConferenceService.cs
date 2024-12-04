@@ -99,13 +99,13 @@ namespace JAR.Core.Services
 
         public async Task CreateConferenceAsync(ConferenceFormModel model)
         {
-            if (!DateTime.TryParseExact(model.Start, ConferenceDateTimeFormat, CultureInfo.InvariantCulture,
+            if (!DateTime.TryParseExact(model.Start, ConferenceDateTimeFormat, CultureInfo.CurrentCulture,
             DateTimeStyles.None, out DateTime start))
             {
                 throw new InvalidOperationException("Invalid date or hour format");
             }
 
-            if (!DateTime.TryParseExact(model.End, ConferenceDateTimeFormat, CultureInfo.InvariantCulture,
+            if (!DateTime.TryParseExact(model.End, ConferenceDateTimeFormat, CultureInfo.CurrentCulture,
                 DateTimeStyles.None, out DateTime end))
             {
                 throw new InvalidOperationException("Invalid date or hour format");
@@ -134,11 +134,20 @@ namespace JAR.Core.Services
 
         public async Task DeleteConferenceAsync(int id)
         {
-            var conference = await repository.GetByIdAsync<Conference>(id);
-             
+            var conference = await repository
+                .All<Conference>()
+                .Include(c => c.ConferencesUsers)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+
             if (conference != null && conference.IsDeleted == false)
             {
                 conference.IsDeleted = true;
+                foreach (var conferenceUser in conference.ConferencesUsers)
+                {
+                    await repository.DeleteCompositeAsync<ConferenceUser>(new object[] { conferenceUser.ConferenceId, conferenceUser.UserId });
+                }
+
                 await repository.SaveChangesAsync();
             }
         }
@@ -264,7 +273,7 @@ namespace JAR.Core.Services
         {
             return await repository
                 .AllReadOnly<ConferenceUser>()
-                .FirstOrDefaultAsync(cu => cu.ConferenceId == conferenceId && cu.UserId == userId && cu.IsDeleted == false) 
+                .FirstOrDefaultAsync(cu => cu.ConferenceId == conferenceId && cu.UserId == userId) 
                 != null;
         }
 
@@ -291,11 +300,11 @@ namespace JAR.Core.Services
         {
             var conferenceUser = await repository
                 .All<ConferenceUser>()
-                .FirstOrDefaultAsync(cu => cu.ConferenceId == conferenceId && cu.UserId == userId && cu.IsDeleted == false);
+                .FirstOrDefaultAsync(cu => cu.ConferenceId == conferenceId && cu.UserId == userId);
 
             if (conferenceUser != null)
             {
-                conferenceUser.IsDeleted = true;
+                await repository.DeleteCompositeAsync<ConferenceUser>(new object[] { conferenceUser.ConferenceId, conferenceUser.UserId });
                 await repository.SaveChangesAsync();
             }
         }
