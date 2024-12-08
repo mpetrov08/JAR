@@ -10,26 +10,26 @@ namespace JAR.Core.Contracts
 {
     public interface ILecturerService
     {
-        Task<bool> Exists(int id);
+        Task<bool> ExistsAsync(int id);
 
-        Task<bool> IsLecturer(string userId);
+        Task<bool> IsLecturerAsync(string userId);
 
-        Task<bool> PromoteToLecturer(LecturerFormModel model);
+        Task<bool> PromoteToLecturerAsync(LecturerFormModel model);
 
         Task<bool> DemoteFromLecturerAsync(int id);
 
-        Task<bool> HasLecturerConference(string userId, int conferenceId);
+        Task<bool> HasLecturerConferenceAsync(string userId, int conferenceId);
 
-        Task<int> GetLecturerId(string userId);
+        Task<int> GetLecturerIdAsync(string userId);
 
-        Task<LecturerOptionViewModel> GetLecturerOptionViewModel(int id);
+        Task<LecturerOptionViewModel> GetLecturerOptionViewModelAsync(int id);
 
-        Task<LecturerFormModel> GetLecturerFormModel(int id);
+        Task<LecturerFormModel> GetLecturerFormModelAsync(int id);
 
         Task<IEnumerable<LecturerOptionViewModel>> AllOptionsAsync();
 
         Task<IEnumerable<LecturerDetailsViewModel>> AllAsync();
 
-        Task Edit(LecturerFormModel model, int id);
+        Task EditAsync(LecturerFormModel model, int id);
     }
 }

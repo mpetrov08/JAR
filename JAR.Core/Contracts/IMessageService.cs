@@ -9,14 +9,14 @@ namespace JAR.Core.Contracts
 {
     public interface IMessageService
     {
-        public Task<MessageViewModel?> GetById(int id);
+        public Task<MessageViewModel?> GetByIdAsync(int id);
 
-        public Task<int>? GetRoomIdByName(string name);
+        public Task<int>? GetRoomIdByNameAsync(string name);
 
-        public Task<IEnumerable<MessageViewModel>?> GetMessages(string roomName);
+        public Task<IEnumerable<MessageViewModel>?> GetMessagesAsync(string roomName);
 
-        public Task<MessageViewModel?> Create(MessageViewModel viewModel, string userId);
+        public Task<MessageViewModel?> CreateAsync(MessageViewModel viewModel, string userId);
 
-        public Task<bool> Delete(int id, string userId);
+        public Task<bool> DeleteAsync(int id, string userId);
     }
 }

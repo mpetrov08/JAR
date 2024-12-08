@@ -1,4 +1,6 @@
 ﻿@model ConferenceDetailsViewModel
+@inject IConferenceService conferenceService;
+@inject ILecturerService lecturerService;
 
 @{
     ViewBag.Title = "View Details";
@@ -28,7 +30,9 @@
                     </div>
 
                     @if (DateTime.Parse(Model.Start) <= DateTime.Now && 
-                         DateTime.Parse(Model.End) >= DateTime.Now)
+                         DateTime.Parse(Model.End) >= DateTime.Now && 
+                         (await conferenceService.HasUserSignedUpAsync(Model.Id, User.Id()) ||
+                          await lecturerService.HasLecturerConferenceAsync(User.Id(), Model.Id)))
                     {
                         <a href="@Model.ConferenceUrl" class="btn btn-secondary btn-lg" target="_blank">
                             <i class="bi bi-door-open"></i> Join Conference

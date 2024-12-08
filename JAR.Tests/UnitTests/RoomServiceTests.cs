@@ -37,7 +37,7 @@ namespace JAR.Tests.UnitTests
                 Name = OwnerUser.FirstName + " " + OwnerUser.LastName
             };
 
-            var result = await roomService.GetChatsViewModel(userId);
+            var result = await roomService.GetChatsViewModelAsync(userId);
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Profile);
@@ -56,7 +56,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task GetAll_ShouldWorkCorrectly()
         {
-            var result = await roomService.GetAll(GuestUser.Id);
+            var result = await roomService.GetAllAsync(GuestUser.Id);
 
             Assert.IsNotNull(result);
 
@@ -78,7 +78,7 @@ namespace JAR.Tests.UnitTests
             var userId = OwnerUser.Id;
             var roomId = ChatRoom.Id;
 
-            var result = await roomService.GetById(roomId, userId);
+            var result = await roomService.GetByIdAsync(roomId, userId);
 
             Assert.IsNotNull(result);
             Assert.That(result.Id, Is.EqualTo(ChatRoom.Id));
@@ -93,7 +93,7 @@ namespace JAR.Tests.UnitTests
         {
             int oldRoomCount = repository.AllReadOnly<Room>().Count();
 
-            var createdRoom = await roomService.Create(new RoomViewModel()
+            var createdRoom = await roomService.CreateAsync(new RoomViewModel()
             {
                 Name = "New Chat Room"
             }, GuestUser.Id, OwnerUser.Id);
@@ -113,7 +113,7 @@ namespace JAR.Tests.UnitTests
                 Name = "Unique Updated Chat Room"
             };
 
-            var result = await roomService.Edit(ChatRoom.Id, updatedRoom, OwnerUser.Id);
+            var result = await roomService.EditAsync(ChatRoom.Id, updatedRoom, OwnerUser.Id);
 
             Assert.That(result, Is.EqualTo(HttpError.Ok));
 
@@ -129,7 +129,7 @@ namespace JAR.Tests.UnitTests
         {
             int oldCount = repository.AllReadOnly<Room>().Count(r => !r.IsDeleted);
 
-            var result = await roomService.Delete(ChatRoom.Id, OwnerUser.Id);
+            var result = await roomService.DeleteAsync(ChatRoom.Id, OwnerUser.Id);
 
             Assert.That(result, Is.True);
             Assert.That(oldCount - 1, Is.EqualTo(repository.AllReadOnly<Room>().Count(r => !r.IsDeleted)));
@@ -143,7 +143,7 @@ namespace JAR.Tests.UnitTests
         {
             int oldUserCount = repository.AllReadOnly<RoomUser>().Count(ru => ru.RoomId == ChatRoom.Id);
 
-            var result = await roomService.AddUser(ChatRoom.Id, "NewUserId");
+            var result = await roomService.AddUserAsync(ChatRoom.Id, "NewUserId");
 
             Assert.That(result, Is.True);
             Assert.That(oldUserCount + 1, Is.EqualTo(repository.AllReadOnly<RoomUser>().Count(ru => ru.RoomId == ChatRoom.Id)));

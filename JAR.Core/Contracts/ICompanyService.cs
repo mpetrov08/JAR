@@ -25,7 +25,9 @@ namespace JAR.Core.Contracts
 
         Task<bool> DisapproveCompanyAsync(int companyId);
 
-        Task<bool> IsApproved(int companyId);   
+        Task<bool> IsApprovedAsync(int companyId);
+
+        Task<bool> IsApprovedByUserIdAsync(string ownerId);
 
         Task DeleteAsync(int companyId);
 

@@ -35,12 +35,12 @@ namespace JAR.Controllers
             var userId = User.Id();
             var conferences = new List<ConferenceViewModel>();
 
-            if (await lecturerService.IsLecturer(userId))
+            if (await lecturerService.IsLecturerAsync(userId))
             {
-                conferences = await conferenceService.AllByLecturerId(userId);
+                conferences.AddRange(await conferenceService.AllByLecturerIdAsync(userId));
             }
 
-            conferences.AddRange(await conferenceService.AllByUserId(userId));
+            conferences.AddRange(await conferenceService.AllByUserIdAsync(userId));
 
             return View(conferences);
         }
@@ -87,7 +87,7 @@ namespace JAR.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             if (!User.IsInRole(AdminRole) &&
-                !await lecturerService.HasLecturerConference(User.Id(), id))
+                !await lecturerService.HasLecturerConferenceAsync(User.Id(), id))
             {
                 return BadRequest("You do not have permission to edit Conference");
             }
@@ -106,7 +106,7 @@ namespace JAR.Controllers
         public async Task<IActionResult> Edit(ConferenceFormModel model, int id)
         {
             if (!User.IsInRole(AdminRole) &&
-                !await lecturerService.HasLecturerConference(User.Id(), id))
+                !await lecturerService.HasLecturerConferenceAsync(User.Id(), id))
             {
                 return BadRequest("You do not have permission to edit Conference");
             }
@@ -131,7 +131,7 @@ namespace JAR.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             if (!User.IsInRole(AdminRole) &&
-                !await lecturerService.HasLecturerConference(User.Id(), id))
+                !await lecturerService.HasLecturerConferenceAsync(User.Id(), id))
             {
                 return BadRequest("You do not have permission to edit Conference");
             }
@@ -150,7 +150,7 @@ namespace JAR.Controllers
         public async Task<IActionResult> Delete(ConferenceDetailsViewModel model)
         {
             if (!User.IsInRole(AdminRole) &&
-                !await lecturerService.HasLecturerConference(User.Id(), model.Id))
+                !await lecturerService.HasLecturerConferenceAsync(User.Id(), model.Id))
             {
                 return BadRequest("You do not have permission to edit Conference");
             }
@@ -175,22 +175,22 @@ namespace JAR.Controllers
                 return BadRequest("Conference does not exists");
             }
 
-            if (await conferenceService.HasUserSignedUp(conferenceId, userId))
+            if (await conferenceService.HasUserSignedUpAsync(conferenceId, userId))
             {
                 return BadRequest("You already signed up for this conference");
             }
 
-            if (await conferenceService.IsConferenceOver(conferenceId, DateTime.Now))
+            if (await conferenceService.IsConferenceOverAsync(conferenceId, DateTime.Now))
             {
                 return BadRequest("Conference is over");
             }
 
-            if (await lecturerService.HasLecturerConference(userId, conferenceId))
+            if (await lecturerService.HasLecturerConferenceAsync(userId, conferenceId))
             {
                 return BadRequest("You are the lecturer of the conference");
             }
 
-            await conferenceService.SignUp(conferenceId, userId);
+            await conferenceService.SignUpAsync(conferenceId, userId);
 
             return RedirectToAction(nameof(All));
         }
@@ -205,17 +205,17 @@ namespace JAR.Controllers
                 return BadRequest("Conference does not exists");
             }
 
-            if (!await conferenceService.HasUserSignedUp(conferenceId, userId))
+            if (!await conferenceService.HasUserSignedUpAsync(conferenceId, userId))
             {
                 return BadRequest("You have not signed up for this conference");
             }
 
-            if (await conferenceService.IsConferenceOver(conferenceId, DateTime.Now))
+            if (await conferenceService.IsConferenceOverAsync(conferenceId, DateTime.Now))
             {
                 return BadRequest("Conference is over");
             }
 
-            await conferenceService.Unregister(conferenceId, userId);
+            await conferenceService.UnregisterAsync(conferenceId, userId);
 
             return RedirectToAction(nameof(All));
         }

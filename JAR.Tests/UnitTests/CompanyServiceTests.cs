@@ -181,14 +181,28 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task IsApprovedAsync_ShouldReturnTrue()
         {
-            var result = await companyService.IsApproved(ApprovedCompany.Id);
+            var result = await companyService.IsApprovedAsync(ApprovedCompany.Id);
             Assert.That(result, Is.True);
         }
 
         [Test]
         public async Task IsApprovedAsync_ShouldReturnFalse()
         {
-            var result = await companyService.IsApproved(invalidCompanyId);
+            var result = await companyService.IsApprovedAsync(invalidCompanyId);
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public async Task IsApprovedByUserIdAsync_ShouldReturnTrue()
+        {
+            var result = await companyService.IsApprovedByUserIdAsync(OwnerUser.Id);
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public async Task IsApprovedByUserIdAsync_ShouldReturnFalse()
+        {
+            var result = await companyService.IsApprovedByUserIdAsync(GuestUser.Id);
             Assert.That(result, Is.False);
         }
 

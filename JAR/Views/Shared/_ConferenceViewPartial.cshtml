@@ -27,7 +27,7 @@ else
                         </p>
 
                         <div class="d-flex flex-column gap-2">
-                            @if (await lecturer.HasLecturerConference(User.Id(), conference.Id) ||
+                            @if (await lecturer.HasLecturerConferenceAsync(User.Id(), conference.Id) ||
                                 User.IsInRole(AdminRole))
                             {
                                 <a class="btn btn-outline-primary" asp-area="" asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id">
@@ -58,8 +58,8 @@ else
                             }
                             else
                             {
-                                @if (await conferences.HasUserSignedUp(conference.Id, User.Id()) &&
-                                     !await lecturer.HasLecturerConference(User.Id(), conference.Id))
+                                @if (await conferences.HasUserSignedUpAsync(conference.Id, User.Id()) &&
+                                     !await lecturer.HasLecturerConferenceAsync(User.Id(), conference.Id))
                                 {
                                     <form asp-area="" asp-controller="Conference" asp-action="Unregister" method="post">
                                         <input type="hidden" name="conferenceId" value="@conference.Id" />
@@ -81,8 +81,8 @@ else
                                         </p>
                                     }
                                 }
-                                else if (!await conferences.HasUserSignedUp(conference.Id, User.Id()) &&
-                                         !await lecturer.HasLecturerConference(User.Id(), conference.Id))
+                                else if (!await conferences.HasUserSignedUpAsync(conference.Id, User.Id()) &&
+                                         !await lecturer.HasLecturerConferenceAsync(User.Id(), conference.Id))
                                 {
                                     <form asp-area="" asp-controller="Conference" asp-action="SignUp" method="post">
                                         <input type="hidden" name="conferenceId" value="@conference.Id" />

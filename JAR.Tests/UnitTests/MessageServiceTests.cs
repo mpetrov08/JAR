@@ -24,7 +24,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task GetMessages_Correct()
         {
-            var result = await messageService.GetMessages(ChatRoom.Name);
+            var result = await messageService.GetMessagesAsync(ChatRoom.Name);
 
             Assert.IsNotNull(result);
             var firstMsg = result?.FirstOrDefault();
@@ -38,7 +38,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task GetById_Correct()
         {
-            var received = await messageService.GetById(Message1.Id);
+            var received = await messageService.GetByIdAsync(Message1.Id);
 
             Assert.That(received.Id, Is.EqualTo(Message1.Id));
             Assert.That(received.Content, Is.EqualTo(Message1.Content));
@@ -51,7 +51,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task GetRoomIdByName_Correct()
         {
-            var result = await messageService.GetRoomIdByName(ChatRoom.Name);
+            var result = await messageService.GetRoomIdByNameAsync(ChatRoom.Name);
 
             Assert.That(result, Is.EqualTo(ChatRoom.Id));
         }
@@ -66,7 +66,7 @@ namespace JAR.Tests.UnitTests
                 Room = "Chat Room"
             };
 
-            var createdMessage = await messageService.Create(messageViewModel, GuestUser.Id);
+            var createdMessage = await messageService.CreateAsync(messageViewModel, GuestUser.Id);
 
             Assert.IsNotNull(createdMessage);
             Assert.That(repository.AllReadOnly<Message>().Count(), Is.EqualTo(oldMessagesCount + 1));
@@ -81,7 +81,7 @@ namespace JAR.Tests.UnitTests
         {
             int oldMessagesCount = repository.AllReadOnly<Message>().Count(r => !r.IsDeleted);
 
-            var result = await messageService.Delete(Message2.Id, OwnerUser.Id);
+            var result = await messageService.DeleteAsync(Message2.Id, OwnerUser.Id);
 
             Assert.That(result, Is.True);
             Assert.That(repository.AllReadOnly<Message>().Count(r => !r.IsDeleted), Is.EqualTo(oldMessagesCount - 1));
@@ -92,7 +92,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task Delete_MessageNotFound_ShouldReturnFalse()
         {
-            var result = await messageService.Delete(9999, "TeacherUser");
+            var result = await messageService.DeleteAsync(9999, "TeacherUser");
 
             Assert.That(result, Is.False);
             await SetUpBase();

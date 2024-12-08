@@ -44,7 +44,7 @@ namespace JAR.Areas.Admin.Controllers
                 return BadRequest();
             }
 
-            bool isSucceeded = await lecturerService.PromoteToLecturer(model);
+            bool isSucceeded = await lecturerService.PromoteToLecturerAsync(model);
 
             if (!isSucceeded)
             {
@@ -62,7 +62,7 @@ namespace JAR.Areas.Admin.Controllers
                 return BadRequest("Id is null or empty");
             }
 
-            var lecturerId = await lecturerService.GetLecturerId(id);
+            var lecturerId = await lecturerService.GetLecturerIdAsync(id);
             bool isSucceeded = false;
 
             if (lecturerId > -1)
@@ -85,19 +85,19 @@ namespace JAR.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            if (!await lecturerService.Exists(id))
+            if (!await lecturerService.ExistsAsync(id))
             {
                 return BadRequest("This lecturer does not exists");
             }
 
-            var model =  await lecturerService.GetLecturerFormModel(id);
+            var model =  await lecturerService.GetLecturerFormModelAsync(id);
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(LecturerFormModel model, int id)
         {
-            if (!await lecturerService.Exists(id))
+            if (!await lecturerService.ExistsAsync(id))
             {
                 return BadRequest("This lecturer does not exists");
             }
@@ -107,7 +107,7 @@ namespace JAR.Areas.Admin.Controllers
                 return View(model);
             }
 
-            await lecturerService.Edit(model, id);
+            await lecturerService.EditAsync(model, id);
             return RedirectToAction(nameof(All));
         }
     }

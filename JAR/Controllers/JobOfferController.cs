@@ -92,7 +92,7 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return Unauthorized("Company is not approved");
             }
@@ -116,7 +116,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return Unauthorized("Company is not approved");
             }
@@ -154,7 +154,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return Unauthorized("Company is not approved");
             }
@@ -184,7 +184,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return Unauthorized("Company is not approved");
             }
@@ -230,7 +230,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return Unauthorized("Company is not approved");
             }
@@ -268,7 +268,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return Unauthorized("Company is not approved");
             }
@@ -298,7 +298,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return Unauthorized("Company is not approved");
             }

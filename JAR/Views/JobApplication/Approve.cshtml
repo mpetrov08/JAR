@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            @if (await cvService.UserHasCV(Model.UserId))
+            @if (await cvService.UserHasCVAsync(Model.UserId))
             {
                 <div class="col-md-12 mb-4 text-center">
                     <a class="btn btn-outline-info btn-lg px-5" asp-area="" asp-controller="CV" asp-action="Preview" asp-route-userId="@Model.UserId">

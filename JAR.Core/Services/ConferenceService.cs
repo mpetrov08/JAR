@@ -48,14 +48,14 @@ namespace JAR.Core.Services
                 })
                 .ToListAsync();
 
-            return conferences;
+            return conferences.OrderByDescending(c => c.Start);
         }
 
-        public async Task<List<ConferenceViewModel>> AllByLecturerId(string userId)
+        public async Task<IEnumerable<ConferenceViewModel>> AllByLecturerIdAsync(string userId)
         {
-            var lecturerId = await lecturerService.GetLecturerId(userId);
+            var lecturerId = await lecturerService.GetLecturerIdAsync(userId);
 
-            return await repository
+            var conferences = await repository
                 .AllReadOnly<Conference>()
                 .Where(c => c.LecturerId == lecturerId && c.IsDeleted == false)
                 .Select(c => new ConferenceViewModel()
@@ -73,11 +73,13 @@ namespace JAR.Core.Services
                     }
                 })
                 .ToListAsync();
+
+            return conferences.OrderByDescending(c => c.Start);
         }
 
-        public async Task<List<ConferenceViewModel>> AllByUserId(string userId)
+        public async Task<IEnumerable<ConferenceViewModel>> AllByUserIdAsync(string userId)
         {
-            return await repository
+            var conferences = await repository
                 .AllReadOnly<Conference>()
                 .Where(c => c.ConferencesUsers.Any(cu => cu.UserId == userId) && c.IsDeleted == false)
                 .Select(c => new ConferenceViewModel()
@@ -95,6 +97,8 @@ namespace JAR.Core.Services
                     }
                 })
                 .ToListAsync();
+
+            return conferences.OrderByDescending(c => c.Start);
         }
 
         public async Task CreateConferenceAsync(ConferenceFormModel model)
@@ -111,7 +115,7 @@ namespace JAR.Core.Services
                 throw new InvalidOperationException("Invalid date or hour format");
             }
 
-            if (!await lecturerService.Exists(model.LecturerId))
+            if (!await lecturerService.ExistsAsync(model.LecturerId))
             {
                 throw new KeyNotFoundException("Lecturer does not exist.");
             }
@@ -166,7 +170,7 @@ namespace JAR.Core.Services
                 throw new InvalidOperationException("Invalid date or hour format");
             }
 
-            if (!await lecturerService.Exists(model.LecturerId))
+            if (!await lecturerService.ExistsAsync(model.LecturerId))
             {
                 throw new KeyNotFoundException("Lecturer does not exist.");
             }
@@ -269,7 +273,7 @@ namespace JAR.Core.Services
             return conference;
         }
 
-        public async Task<bool> HasUserSignedUp(int conferenceId, string userId)
+        public async Task<bool> HasUserSignedUpAsync(int conferenceId, string userId)
         {
             return await repository
                 .AllReadOnly<ConferenceUser>()
@@ -277,14 +281,14 @@ namespace JAR.Core.Services
                 != null;
         }
 
-        public async Task<bool> IsConferenceOver(int conferenceId, DateTime currentTime)
+        public async Task<bool> IsConferenceOverAsync(int conferenceId, DateTime currentTime)
         {
             var conference = await repository.GetByIdAsync<Conference>(conferenceId);
 
             return conference.End < currentTime;
         }
 
-        public async Task SignUp(int conferenceId, string userId)
+        public async Task SignUpAsync(int conferenceId, string userId)
         {
             var conferenceUser = new ConferenceUser()
             {
@@ -296,7 +300,7 @@ namespace JAR.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task Unregister(int conferenceId, string userId)
+        public async Task UnregisterAsync(int conferenceId, string userId)
         {
             var conferenceUser = await repository
                 .All<ConferenceUser>()

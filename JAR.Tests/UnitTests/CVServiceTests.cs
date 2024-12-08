@@ -141,7 +141,7 @@ namespace JAR.Tests.UnitTests
                 .Where(cv => cv.IsDeleted == false)
                 .Count();
 
-            await cvService.DeleteCV(CV.Id);
+            await cvService.DeleteCVAsync(CV.Id);
 
             var currentCount = repository
                 .AllReadOnly<CV>()
@@ -150,7 +150,7 @@ namespace JAR.Tests.UnitTests
 
             Assert.That(currentCount, Is.EqualTo(cvCountBefore - 1));
 
-            var isExisting = await cvService.Exists(CV.Id);
+            var isExisting = await cvService.ExistsAsync(CV.Id);
 
             Assert.That(isExisting, Is.False);
             await SetUpBase();
@@ -186,7 +186,7 @@ namespace JAR.Tests.UnitTests
 
             await repository.AddAsync(professionalExperience);
 
-            await cvService.DeleteProfessionalExperience(experienceId);
+            await cvService.DeleteProfessionalExperienceAsync(experienceId);
 
             Assert.That(professionalExperience.IsDeleted, Is.True);
         }
@@ -194,21 +194,21 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task ExistsAsync_ShouldReturnTrue()
         {
-            var result = await cvService.Exists(CV.Id);
+            var result = await cvService.ExistsAsync(CV.Id);
             Assert.That(result, Is.True);
         }
 
         [Test]
         public async Task ExistsAsync_ShouldReturnFalse()
         {
-            var result = await cvService.Exists(invalidCVId);
+            var result = await cvService.ExistsAsync(invalidCVId);
             Assert.That(result, Is.False);
         }
 
         [Test]
         public async Task GetCVFormModelByUserIdAsync_ShouldWorkCorrectly()
         {
-            var result = await cvService.GetCVFormModelByUserId(GuestUser.Id);
+            var result = await cvService.GetCVFormModelByUserIdAsync(GuestUser.Id);
 
             Assert.IsNotNull(result);
             Assert.That(result.FirstName, Is.EqualTo(CV.FirstName));
@@ -243,7 +243,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task GetCVViewModelByUserIdAsync_ShouldWorkCorrectly()
         {
-            var result = await cvService.GetCVViewModelByUserId(GuestUser.Id);
+            var result = await cvService.GetCVViewModelByUserIdAsync(GuestUser.Id);
 
             Assert.IsNotNull(result);
             Assert.That(result.Id, Is.EqualTo(CV.Id));
@@ -279,21 +279,21 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task UserHasCVAsync_ShouldReturnTrue()
         {
-            var result = await cvService.UserHasCV(GuestUser.Id);
+            var result = await cvService.UserHasCVAsync(GuestUser.Id);
             Assert.That(result, Is.True);
         }
 
         [Test]
         public async Task UserHasCVAsync_ShouldReturnFalse()
         {
-            var result = await cvService.UserHasCV(OwnerUser.Id);
+            var result = await cvService.UserHasCVAsync(OwnerUser.Id);
             Assert.That(result, Is.False);
         }
 
         [Test]
         public async Task UserHasCVWithId_ShouldReturnTrue()
         {
-            var result = await cvService.UserHasCVWithId(CV.Id, GuestUser.Id);
+            var result = await cvService.UserHasCVWithIdAsync(CV.Id, GuestUser.Id);
 
             Assert.That(result, Is.True);
         }
@@ -301,10 +301,10 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task UserHasCVWithId_ShouldReturnFalse()
         {
-            var result1 = await cvService.UserHasCVWithId(CV.Id, OwnerUser.Id);
+            var result1 = await cvService.UserHasCVWithIdAsync(CV.Id, OwnerUser.Id);
             Assert.That(result1, Is.False);
 
-            var result2 = await cvService.UserHasCVWithId(invalidCVId, GuestUser.Id);
+            var result2 = await cvService.UserHasCVWithIdAsync(invalidCVId, GuestUser.Id);
             Assert.That(result2, Is.False);
         }
 
@@ -352,7 +352,7 @@ namespace JAR.Tests.UnitTests
                 }
             };
 
-            await cvService.EditCV(cvModel, CV.Id);
+            await cvService.EditCVAsync(cvModel, CV.Id);
             Assert.That(CV.FirstName, Is.EqualTo("Edited First Name"));
             await SetUpBase();
             SetUp();

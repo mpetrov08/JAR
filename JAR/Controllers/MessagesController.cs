@@ -24,7 +24,7 @@ namespace JAR.Controllers
         [HttpGet("Get/{Id}")]
         public async Task<ActionResult<Room>> Get(int id)
         {
-            var messageViewModel = await messageService.GetById(id);
+            var messageViewModel = await messageService.GetByIdAsync(id);
             if (messageViewModel == null)
             {
                 return NotFound();
@@ -35,7 +35,7 @@ namespace JAR.Controllers
         [HttpGet("Room/{roomName}")]
         public async Task<IActionResult> GetMessages(string roomName)
         {
-            var messagesViewModel = await messageService.GetMessages(roomName);
+            var messagesViewModel = await messageService.GetMessagesAsync(roomName);
             if (messagesViewModel == null)
             {
                 return BadRequest();
@@ -46,7 +46,7 @@ namespace JAR.Controllers
         [HttpGet("Create")]
         public async Task<IActionResult> Create([FromQuery] string content, [FromQuery] string room)
         {
-            var createdMessage = await messageService.Create(new MessageViewModel()
+            var createdMessage = await messageService.CreateAsync(new MessageViewModel()
             {
                 Content = content,
                 Room = room
@@ -62,7 +62,7 @@ namespace JAR.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var userId = User.Id();
-            var result = await messageService.Delete(id, userId);
+            var result = await messageService.DeleteAsync(id, userId);
 
             if (!result)
             {

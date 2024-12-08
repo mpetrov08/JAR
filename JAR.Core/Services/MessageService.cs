@@ -21,7 +21,7 @@ namespace JAR.Core.Services
             hubContext = _hubContext;
         }
 
-        public async Task<MessageViewModel?> GetById(int id)
+        public async Task<MessageViewModel?> GetByIdAsync(int id)
         {
             var message = await repository.AllReadOnly<Message>()
                                        .Where(m => !m.IsDeleted)
@@ -40,16 +40,16 @@ namespace JAR.Core.Services
             };
         }
 
-        public async Task<int>? GetRoomIdByName(string name)
+        public async Task<int>? GetRoomIdByNameAsync(string name)
         {
             var room = await repository.AllReadOnly<Room>().FirstOrDefaultAsync(r => r.Name == name);
             if (room == null) return 0;
             return room.Id;
         }
 
-        public async Task<IEnumerable<MessageViewModel>?> GetMessages(string roomName)
+        public async Task<IEnumerable<MessageViewModel>?> GetMessagesAsync(string roomName)
         {
-            int roomId = await GetRoomIdByName(roomName);
+            int roomId = await GetRoomIdByNameAsync(roomName);
             if (roomId == null)
             {
                 return null;
@@ -72,7 +72,7 @@ namespace JAR.Core.Services
                                    .ToListAsync();
             return messages;
         }
-        public async Task<MessageViewModel?> Create(MessageViewModel viewModel, string userId)
+        public async Task<MessageViewModel?> CreateAsync(MessageViewModel viewModel, string userId)
         {
             var room = await repository.AllReadOnly<Room>().FirstOrDefaultAsync(r => r.Name == viewModel.Room);
             if (room == null)
@@ -109,7 +109,7 @@ namespace JAR.Core.Services
             return createdMessage;
         }
 
-        public async Task<bool> Delete(int id, string userId)
+        public async Task<bool> DeleteAsync(int id, string userId)
         {
             var message = await repository.All<Message>()
                                         .Include(u => u.Sender)

@@ -17,7 +17,7 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await roomService.GetChatsViewModel(User.Id());
+            var model = await roomService.GetChatsViewModelAsync(User.Id());
             return View(model);
         }
     }

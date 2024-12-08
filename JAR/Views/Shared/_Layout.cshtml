@@ -38,7 +38,8 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="JobOffer" asp-action="Mine">My Job Offers</a>
                             </li>
 
-                            @if (await company.OwnerCompanyExistsAsync(User.Id()))
+                            @if (await company.OwnerCompanyExistsAsync(User.Id()) &&
+                                 await company.IsApprovedByUserIdAsync(User.Id()))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="JobOffer" asp-action="Add">Add Job Offer</a>
@@ -47,7 +48,7 @@
 
                             @if(!User.IsInRole(AdminRole) && !await company.OwnerCompanyExistsAsync(User.Id()))
                             {
-                                @if (!await cv.UserHasCV(User.Id()))
+                                @if (!await cv.UserHasCVAsync(User.Id()))
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Create">Create CV</a>

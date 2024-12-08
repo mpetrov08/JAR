@@ -22,7 +22,7 @@ namespace JAR.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            if (await cvService.UserHasCV(User.Id()))
+            if (await cvService.UserHasCVAsync(User.Id()))
             {
                 return RedirectToAction(nameof(Preview));
             }
@@ -83,17 +83,17 @@ namespace JAR.Controllers
         {
             string userId = User.Id();
 
-            if (!await cvService.Exists(id))
+            if (!await cvService.ExistsAsync(id))
             {
                 return BadRequest();
             }
 
-            if (!await cvService.UserHasCVWithId(id, userId))
+            if (!await cvService.UserHasCVWithIdAsync(id, userId))
             {
                 return BadRequest();
             }
 
-            var cv = await cvService.GetCVFormModelByUserId(userId);
+            var cv = await cvService.GetCVFormModelByUserIdAsync(userId);
 
             cv.DegreesJson = JsonConvert.SerializeObject(cv.Degrees);
             cv.ProfessionalExperiencesJson = JsonConvert.SerializeObject(cv.ProfessionalExperiences);
@@ -104,12 +104,12 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CVFormModel model, int id)
         {
-            if (!await cvService.Exists(id))
+            if (!await cvService.ExistsAsync(id))
             {
                 return BadRequest();
             }
 
-            if (!await cvService.UserHasCVWithId(id, User.Id()))
+            if (!await cvService.UserHasCVWithIdAsync(id, User.Id()))
             {
                 return BadRequest();
             }
@@ -157,7 +157,7 @@ namespace JAR.Controllers
                 return View(model);
             }
 
-            await cvService.EditCV(model, id);
+            await cvService.EditCVAsync(model, id);
 
             return RedirectToAction(nameof(Preview));
         }
@@ -166,17 +166,17 @@ namespace JAR.Controllers
         {
             string userId = User.Id();
 
-            if (!await cvService.Exists(id))
+            if (!await cvService.ExistsAsync(id))
             {
                 return BadRequest();
             }
 
-            if (!await cvService.UserHasCVWithId(id, userId))
+            if (!await cvService.UserHasCVWithIdAsync(id, userId))
             {
                 return BadRequest();
             }
 
-            await cvService.DeleteCV(id);
+            await cvService.DeleteCVAsync(id);
 
             return RedirectToAction(nameof(JobOfferController.All), "JobOffer");
         }
@@ -189,7 +189,7 @@ namespace JAR.Controllers
                 userId = User.Id();
             }
 
-            var cv = await cvService.GetCVViewModelByUserId(userId);
+            var cv = await cvService.GetCVViewModelByUserIdAsync(userId);
 
             if (cv == null)
             {

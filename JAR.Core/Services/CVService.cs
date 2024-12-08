@@ -117,7 +117,7 @@ namespace JAR.Core.Services
             };
         }
 
-        public async Task DeleteCV(int cvId)
+        public async Task DeleteCVAsync(int cvId)
         {
             var cv = await repository
                 .All<CV>()
@@ -136,7 +136,7 @@ namespace JAR.Core.Services
 
                 foreach (var professionalExperience in cv.ProfessionalExperiences)
                 {
-                    await DeleteProfessionalExperience(professionalExperience.Id);
+                    await DeleteProfessionalExperienceAsync(professionalExperience.Id);
                 }
             }
             
@@ -153,7 +153,7 @@ namespace JAR.Core.Services
             }
         }
 
-        public async Task DeleteProfessionalExperience(int professionalExperienceId)
+        public async Task DeleteProfessionalExperienceAsync(int professionalExperienceId)
         {
             var professionalExperience = await repository
                 .GetByIdAsync<ProfessionalExperience>(professionalExperienceId);
@@ -164,7 +164,7 @@ namespace JAR.Core.Services
             }
         }
 
-        public async Task EditCV(CVFormModel model, int cvId)
+        public async Task EditCVAsync(CVFormModel model, int cvId)
         {
             if (!DateTime.TryParseExact(model.BirthDate, DateFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime birthDate))
@@ -226,7 +226,7 @@ namespace JAR.Core.Services
                 {
                     if (!experiences.Contains(experience))
                     {
-                        await DeleteProfessionalExperience(experience.Id);
+                        await DeleteProfessionalExperienceAsync(experience.Id);
                     }
                 }
 
@@ -242,14 +242,14 @@ namespace JAR.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> Exists(int cvId)
+        public async Task<bool> ExistsAsync(int cvId)
         {
             return await repository
                 .All<CV>()
                 .FirstOrDefaultAsync(c => c.Id == cvId && c.IsDeleted == false) != null;
         }
 
-        public async Task<CVFormModel> GetCVFormModelByUserId(string userId)
+        public async Task<CVFormModel> GetCVFormModelByUserIdAsync(string userId)
         {
             var cv = await repository
                 .AllReadOnly<CV>()
@@ -299,7 +299,7 @@ namespace JAR.Core.Services
             return cv;
         }
 
-        public async Task<CVViewModel> GetCVViewModelByUserId(string userId)
+        public async Task<CVViewModel> GetCVViewModelByUserIdAsync(string userId)
         {
             var cv = await repository
                 .AllReadOnly<CV>()
@@ -350,14 +350,14 @@ namespace JAR.Core.Services
             return cv;
         }
 
-        public async Task<bool> UserHasCV(string userId)
+        public async Task<bool> UserHasCVAsync(string userId)
         {
             return await repository
                 .AllReadOnly<CV>()
                 .AnyAsync(c => c.IsDeleted == false && c.UserId == userId);
         }
 
-        public async Task<bool> UserHasCVWithId(int cvId, string userId)
+        public async Task<bool> UserHasCVWithIdAsync(int cvId, string userId)
         {
             return await repository
                 .AllReadOnly<CV>()

@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    @if (await cvService.UserHasCVWithId(Model.Id, User.Id()))
+    @if (await cvService.UserHasCVWithIdAsync(Model.Id, User.Id()))
     {
         <div class="text-center mb-5">
             <a class="btn btn-lg btn-outline-primary mx-3 shadow-sm rounded-pill transform-on-hover" asp-area="" asp-controller="CV" asp-action="Edit" asp-route-id="@Model.Id">

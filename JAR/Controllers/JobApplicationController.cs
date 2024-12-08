@@ -102,7 +102,7 @@ namespace JAR.Controllers
                 return BadRequest("You are the owner of the job offer");
             }
 
-            await jobApplicationService.WithdrawApplication(jobId, User.Id());
+            await jobApplicationService.WithdrawApplicationAsync(jobId, User.Id());
 
             return RedirectToAction(nameof(JobOfferController.Mine), "JobOffer");
         }
@@ -117,7 +117,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return BadRequest("Company is not approved");
             }
@@ -162,7 +162,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return BadRequest("Company is not approved");
             }
@@ -196,7 +196,7 @@ namespace JAR.Controllers
                 return BadRequest("Company does not exists");
             }
 
-            if (!await companyService.IsApproved(companyId))
+            if (!await companyService.IsApprovedAsync(companyId))
             {
                 return BadRequest("Company is not approved");
             }

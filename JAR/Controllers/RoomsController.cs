@@ -19,14 +19,14 @@ namespace JAR.Controllers
         [HttpGet("Get")]
         public async Task<ActionResult<IEnumerable<RoomViewModel>>> Get()
         {
-            var roomsViewModel = await roomService.GetAll(User.Id());
+            var roomsViewModel = await roomService.GetAllAsync(User.Id());
             return Ok(roomsViewModel);
         }
 
         [HttpGet("Get/{Id}")]
         public async Task<ActionResult<Room>> Get(int id)
         {
-            var roomViewModel = await roomService.GetById(id, User.Id());
+            var roomViewModel = await roomService.GetByIdAsync(id, User.Id());
             if (roomViewModel == null)
             {
                 return NotFound();
@@ -41,7 +41,7 @@ namespace JAR.Controllers
             {
                 Name = name
             };
-            var createdRoom = await roomService.Create(viewModel, User.Id(), companyOwnerId);
+            var createdRoom = await roomService.CreateAsync(viewModel, User.Id(), companyOwnerId);
             if (createdRoom == null)
             {
                 return BadRequest("Invalid room name or room already exists");
@@ -52,7 +52,7 @@ namespace JAR.Controllers
         [HttpGet("Edit/{Id}")]
         public async Task<IActionResult> Edit(int id, string name)
         {
-            var status = await roomService.Edit(id, new RoomViewModel()
+            var status = await roomService.EditAsync(id, new RoomViewModel()
             {
                 Name = name
             }, User.Id());
@@ -71,7 +71,7 @@ namespace JAR.Controllers
         [HttpGet("Delete/{Id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            bool isOkay = await roomService.Delete(id, User.Id());
+            bool isOkay = await roomService.DeleteAsync(id, User.Id());
             if (!isOkay)
             {
                 return NotFound();
@@ -82,7 +82,7 @@ namespace JAR.Controllers
         [HttpGet("Join/{Id}")]
         public async Task<IActionResult> Join(int id)
         {
-            bool isOkay = await roomService.AddUser(id, User.Id());
+            bool isOkay = await roomService.AddUserAsync(id, User.Id());
             if (!isOkay)
             {
                 return NotFound();

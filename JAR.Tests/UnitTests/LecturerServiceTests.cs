@@ -38,7 +38,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task ExistsAsync_ShouldReturnTrue()
         {
-            var result = await lecturerService.Exists(Lecturer.Id);
+            var result = await lecturerService.ExistsAsync(Lecturer.Id);
 
             Assert.That(result, Is.True);
         }
@@ -46,21 +46,21 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task ExistsAsync_ShouldReturnFalse()
         {
-            var result1 = await lecturerService.Exists(invalidLecturerId);
+            var result1 = await lecturerService.ExistsAsync(invalidLecturerId);
             Assert.That(result1, Is.False);
         }
 
         [Test]
         public async Task GetLecturerIdAsync_ShouldWorkCorrectly()
         {
-            var result = await lecturerService.GetLecturerId(LecturerUser.Id);
+            var result = await lecturerService.GetLecturerIdAsync(LecturerUser.Id);
             Assert.That(result, Is.EqualTo(Lecturer.Id));
         }
 
         [Test]
         public async Task GetLecturerOptionViewModelAsync_ShouldWorkCorrectly()
         {
-            var result = await lecturerService.GetLecturerOptionViewModel(Lecturer.Id);
+            var result = await lecturerService.GetLecturerOptionViewModelAsync(Lecturer.Id);
 
             Assert.That(result.Id, Is.EqualTo(Lecturer.Id));
             Assert.That(result.FirstName, Is.EqualTo(LecturerUser.FirstName));
@@ -70,28 +70,28 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task HasLecturerConferenceAsync_ShouldReturnTrue()
         {
-            var result = await lecturerService.HasLecturerConference(LecturerUser.Id, Conference.Id);
+            var result = await lecturerService.HasLecturerConferenceAsync(LecturerUser.Id, Conference.Id);
             Assert.That(result, Is.True);
         }
 
         [Test]
         public async Task HasLecturerConferenceAsync_ShouldReturnFalse()
         {
-            var result = await lecturerService.HasLecturerConference(GuestUser.Id, Conference.Id);
+            var result = await lecturerService.HasLecturerConferenceAsync(GuestUser.Id, Conference.Id);
             Assert.That(result, Is.False);
         }
 
         [Test]
         public async Task IsLecturerAsync_ShouldReturnTrue()
         {
-            var result = await lecturerService.IsLecturer(LecturerUser.Id);
+            var result = await lecturerService.IsLecturerAsync(LecturerUser.Id);
             Assert.That(result, Is.True);
         }
 
         [Test]
         public async Task IsLecturerAsync_ShouldReturnFalse()
         {
-            var result = await lecturerService.IsLecturer(GuestUser.Id);
+            var result = await lecturerService.IsLecturerAsync(GuestUser.Id);
             Assert.That(result, Is.False);
         }
 
@@ -104,8 +104,8 @@ namespace JAR.Tests.UnitTests
                 Description = "Any Description. Its very interesting!"
             };
 
-            var result = await lecturerService.PromoteToLecturer(model);
-            var isLecturer = await lecturerService.IsLecturer(OwnerUser.Id);
+            var result = await lecturerService.PromoteToLecturerAsync(model);
+            var isLecturer = await lecturerService.IsLecturerAsync(OwnerUser.Id);
 
             Assert.That(result, Is.True);
             Assert.That(isLecturer, Is.True);
@@ -117,7 +117,7 @@ namespace JAR.Tests.UnitTests
         public async Task DemoteFromLecturerAsync_ShouldWorkCorrectly()
         {
             var result = await lecturerService.DemoteFromLecturerAsync(Lecturer.Id);
-            var isLecturer = await lecturerService.IsLecturer(LecturerUser.Id);
+            var isLecturer = await lecturerService.IsLecturerAsync(LecturerUser.Id);
 
             Assert.That(result, Is.True);
             Assert.That(isLecturer, Is.False);
@@ -154,8 +154,8 @@ namespace JAR.Tests.UnitTests
                 Description = "Edited Description"
             };
 
-            await lecturerService.Edit(model, Lecturer.Id);
-            var lecturer = await lecturerService.GetLecturerFormModel(Lecturer.Id);
+            await lecturerService.EditAsync(model, Lecturer.Id);
+            var lecturer = await lecturerService.GetLecturerFormModelAsync(Lecturer.Id);
 
             Assert.That(lecturer.Description, Is.EqualTo(model.Description));
             await SetUpBase();
@@ -165,7 +165,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task GetLecturerFormModelAsync_ShouldWorkCorrectly()
         {
-            var result = await lecturerService.GetLecturerFormModel(Lecturer.Id);
+            var result = await lecturerService.GetLecturerFormModelAsync(Lecturer.Id);
 
             Assert.That(result.UserId, Is.EqualTo(LecturerUser.Id));
             Assert.That(result.Description, Is.EqualTo(Lecturer.Description));

@@ -35,14 +35,14 @@ namespace JAR.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<bool> Exists(int id)
+        public async Task<bool> ExistsAsync(int id)
         {
             return await repository
                 .AllReadOnly<Lecturer>()
                 .FirstOrDefaultAsync(l => l.Id == id && l.IsDeleted == false) != null;
         }
 
-        public async Task<int> GetLecturerId(string userId)
+        public async Task<int> GetLecturerIdAsync(string userId)
         {
             var lecturer = await repository
                 .AllReadOnly<Lecturer>()
@@ -56,7 +56,7 @@ namespace JAR.Core.Services
             return lecturer.Id;
         }
 
-        public async Task<LecturerOptionViewModel> GetLecturerOptionViewModel(int id)
+        public async Task<LecturerOptionViewModel> GetLecturerOptionViewModelAsync(int id)
         {
             var lecturer = await repository
                 .AllReadOnly<Lecturer>()
@@ -72,22 +72,22 @@ namespace JAR.Core.Services
             return lecturer;
         }
 
-        public async Task<bool> HasLecturerConference(string userId, int conferenceId)
+        public async Task<bool> HasLecturerConferenceAsync(string userId, int conferenceId)
         {
             var conference = await repository.GetByIdAsync<Conference>(conferenceId);
-            var lecturerId = await GetLecturerId(userId);
+            var lecturerId = await GetLecturerIdAsync(userId);
 
             return conference.LecturerId == lecturerId;
         }
 
-        public async Task<bool> IsLecturer(string userId)
+        public async Task<bool> IsLecturerAsync(string userId)
         {
             return await repository
                 .AllReadOnly<Lecturer>()
                 .FirstOrDefaultAsync(l => l.UserId == userId && l.IsDeleted == false) != null;
         }
 
-        public async Task<bool> PromoteToLecturer(LecturerFormModel model)
+        public async Task<bool> PromoteToLecturerAsync(LecturerFormModel model)
         {
             var user = await repository
                 .All<User>()
@@ -142,7 +142,7 @@ namespace JAR.Core.Services
                 .ToListAsync();
         }
 
-        public async Task Edit(LecturerFormModel model, int id)
+        public async Task EditAsync(LecturerFormModel model, int id)
         {
             var lecturer = await repository.GetByIdAsync<Lecturer>(id);
 
@@ -153,7 +153,7 @@ namespace JAR.Core.Services
             }
         }
 
-        public async Task<LecturerFormModel> GetLecturerFormModel(int id)
+        public async Task<LecturerFormModel> GetLecturerFormModelAsync(int id)
         {
             var lecturer = await repository
                 .AllReadOnly<Lecturer>()

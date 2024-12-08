@@ -43,7 +43,7 @@ namespace JAR.Tests.UnitTests
             Assert.That(result.Count(), Is.EqualTo(allUsers.Count()));
 
             var resultUser = result.FirstOrDefault(rc => rc.Id == OwnerUser.Id);
-            var isLecturer = await lecturerService.IsLecturer(OwnerUser.Id);
+            var isLecturer = await lecturerService.IsLecturerAsync(OwnerUser.Id);
 
             Assert.IsNotNull(resultUser);
             Assert.That(resultUser.Email, Is.EqualTo(OwnerUser.Email));

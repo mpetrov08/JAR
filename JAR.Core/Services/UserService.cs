@@ -44,7 +44,7 @@ namespace JAR.Core.Services
 
             foreach (var user in users)
             {
-                var isLecturer = await lecturerService.IsLecturer(user.Id);
+                var isLecturer = await lecturerService.IsLecturerAsync(user.Id);
                 userViewModels.Add(new UserViewModel
                 {
                     Id = user.Id,

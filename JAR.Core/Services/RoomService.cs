@@ -35,17 +35,17 @@ namespace JAR.Core.Services
             };
         }
 
-        public async Task<ChatsViewModel> GetChatsViewModel(string userId)
+        public async Task<ChatsViewModel> GetChatsViewModelAsync(string userId)
         {
             ProfileViewModel profile = await GetCurrentUserProfile(userId);
             return new ChatsViewModel()
             {
                 Profile = profile,
-                Rooms = await GetAll(userId)
+                Rooms = await GetAllAsync(userId)
             };
         }
 
-        public async Task<IEnumerable<RoomViewModel>> GetAll(string userId)
+        public async Task<IEnumerable<RoomViewModel>> GetAllAsync(string userId)
         {
             var rooms = await repository.AllReadOnly<Room>()
                 .Include(r => r.Admin)
@@ -67,7 +67,7 @@ namespace JAR.Core.Services
             });
         }
 
-        public async Task<RoomViewModel?> GetById(int id, string userId)
+        public async Task<RoomViewModel?> GetByIdAsync(int id, string userId)
         {
             var room = await repository.AllReadOnly<Room>()
                 .Where(r => !r.IsDeleted && r.Users.Any(u => u.UserId == userId))
@@ -93,7 +93,7 @@ namespace JAR.Core.Services
             };
         }
 
-        public async Task<RoomViewModel?> Create(RoomViewModel viewModel, string userId, string companyOwnerId)
+        public async Task<RoomViewModel?> CreateAsync(RoomViewModel viewModel, string userId, string companyOwnerId)
         {
             viewModel.Name = await GenerateUniqueRoomName(viewModel.Name);
 
@@ -114,8 +114,8 @@ namespace JAR.Core.Services
             var newRoom = await repository.AllReadOnly<Room>().FirstAsync(r => r.Name == viewModel.Name);
             var roomId = newRoom.Id;
 
-            await AddUser(roomId, userId);
-            await AddUser(roomId, companyOwnerId);
+            await AddUserAsync(roomId, userId);
+            await AddUserAsync(roomId, companyOwnerId);
 
             room.Admin = await repository.All<User>().FirstOrDefaultAsync(u => u.Id == companyOwnerId);
 
@@ -135,7 +135,7 @@ namespace JAR.Core.Services
             return createdRoom;
         }
 
-        public async Task<HttpError> Edit(int id, RoomViewModel viewModel, string userId)
+        public async Task<HttpError> EditAsync(int id, RoomViewModel viewModel, string userId)
         {
             if (repository.AllReadOnly<Room>().Where(r => !r.IsDeleted).Any(r => r.Name == viewModel.Name))
                 return HttpError.NotFound;
@@ -168,7 +168,7 @@ namespace JAR.Core.Services
             return HttpError.Ok;
         }
 
-        public async Task<bool> Delete(int id, string userId)
+        public async Task<bool> DeleteAsync(int id, string userId)
         {
             var room = await repository.All<Room>()
                 .Include(r => r.Admin)
@@ -190,7 +190,7 @@ namespace JAR.Core.Services
             return true;
         }
 
-        public async Task<bool> AddUser(int roomId, string userId)
+        public async Task<bool> AddUserAsync(int roomId, string userId)
         {
             var room = await repository.All<Room>()
                                     .Include(r => r.Users)

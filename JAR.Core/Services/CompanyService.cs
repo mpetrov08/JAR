@@ -139,7 +139,7 @@ namespace JAR.Core.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> IsApproved(int companyId)
+        public async Task<bool> IsApprovedAsync(int companyId)
         {
             var company = await repository
                 .AllReadOnly<Company>()
@@ -182,6 +182,20 @@ namespace JAR.Core.Services
             await repository.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<bool> IsApprovedByUserIdAsync(string ownerId)
+        {
+            var company = await repository
+                .AllReadOnly<Company>()
+                .FirstOrDefaultAsync(c => c.OwnerId == ownerId && c.IsDeleted == false);
+
+            if (company == null)
+            {
+                return false;
+            }
+
+            return company.IsApproved;
         }
     }
 }

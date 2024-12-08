@@ -16,7 +16,7 @@ namespace JAR.Core.Contracts
 
         Task ApplyAsync(int jobOfferId, string userId, DateTime appliedOn);
 
-        Task WithdrawApplication(int jobOfferId, string userId);
+        Task WithdrawApplicationAsync(int jobOfferId, string userId);
 
         Task ApproveAsync(int jobOfferId, string userId, string message);
 

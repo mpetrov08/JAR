@@ -44,7 +44,7 @@ namespace JAR.Tests.UnitTests
             Assert.That(result.Count(), Is.EqualTo(allConferences.Count()));
 
             var resultConference = result.FirstOrDefault(rc => rc.Topic == Conference.Topic);
-            var lecturer = await lecturerService.GetLecturerOptionViewModel(resultConference.Id);
+            var lecturer = await lecturerService.GetLecturerOptionViewModelAsync(resultConference.Id);
 
             Assert.IsNotNull(resultConference);
             Assert.That(resultConference.Start, Is.EqualTo(Conference.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture)));
@@ -58,7 +58,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task AllByLecturerIdAsync_ShouldWorkCorrectly()
         {
-            var result = await conferenceService.AllByLecturerId(Lecturer.User.Id);
+            var result = await conferenceService.AllByLecturerIdAsync(Lecturer.User.Id);
 
             Assert.IsNotNull(result);
 
@@ -70,7 +70,7 @@ namespace JAR.Tests.UnitTests
             Assert.That(result.Count(), Is.EqualTo(allConferences.Count()));
 
             var resultConference = result.FirstOrDefault(rc => rc.Topic == Conference.Topic);
-            var lecturer = await lecturerService.GetLecturerOptionViewModel(resultConference.Id);
+            var lecturer = await lecturerService.GetLecturerOptionViewModelAsync(resultConference.Id);
 
             Assert.IsNotNull(resultConference);
             Assert.That(resultConference.Start, Is.EqualTo(Conference.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture)));
@@ -84,7 +84,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task AllByUserIdAsync_ShouldWorkCorrectly()
         {
-            var result = await conferenceService.AllByUserId(GuestUser.Id);
+            var result = await conferenceService.AllByUserIdAsync(GuestUser.Id);
 
             Assert.IsNotNull(result);
 
@@ -96,7 +96,7 @@ namespace JAR.Tests.UnitTests
             Assert.That(result.Count(), Is.EqualTo(allConferences.Count()));
 
             var resultConference = result.FirstOrDefault(rc => rc.Topic == Conference.Topic);
-            var lecturer = await lecturerService.GetLecturerOptionViewModel(resultConference.Id);
+            var lecturer = await lecturerService.GetLecturerOptionViewModelAsync(resultConference.Id);
 
             Assert.IsNotNull(resultConference);
             Assert.That(resultConference.Start, Is.EqualTo(Conference.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture)));
@@ -208,7 +208,7 @@ namespace JAR.Tests.UnitTests
         public async Task GetConferenceViewModelByIdAsync_ShouldWorkCorrectly()
         {
             var result = await conferenceService.GetConferenceViewModelByIdAsync(Conference.Id);
-            var lecturer = await lecturerService.GetLecturerOptionViewModel(result.Id);
+            var lecturer = await lecturerService.GetLecturerOptionViewModelAsync(result.Id);
 
             Assert.IsNotNull(result);
             Assert.That(result.Start, Is.EqualTo(Conference.Start.ToString(ConferenceDateTimeFormat, CultureInfo.InvariantCulture)));
@@ -222,37 +222,37 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task HasUserSignedUpAsync_ShouldReturnTrue()
         {
-            var result = await conferenceService.HasUserSignedUp(Conference.Id, GuestUser.Id);
+            var result = await conferenceService.HasUserSignedUpAsync(Conference.Id, GuestUser.Id);
             Assert.That(result, Is.True);   
         }
 
         [Test]
         public async Task HasUserSignedUpAsync_ShouldReturnFalse()
         {
-            var result = await conferenceService.HasUserSignedUp(Conference.Id, OwnerUser.Id);
+            var result = await conferenceService.HasUserSignedUpAsync(Conference.Id, OwnerUser.Id);
             Assert.That(result, Is.False);
         }
 
         [Test]
         public async Task IsConferenceOverAsync_ShouldReturnTrue()
         {
-            var result = await conferenceService.IsConferenceOver(Conference.Id, DateTime.Now);
+            var result = await conferenceService.IsConferenceOverAsync(Conference.Id, DateTime.Now);
             Assert.That(result, Is.True);
         }
         
         [Test]
         public async Task SignUp_ShouldWorkCorrectly()
         {
-            await conferenceService.SignUp(Conference.Id, OwnerUser.Id);
-            var isSignedUp = await conferenceService.HasUserSignedUp(Conference.Id, OwnerUser.Id);
+            await conferenceService.SignUpAsync(Conference.Id, OwnerUser.Id);
+            var isSignedUp = await conferenceService.HasUserSignedUpAsync(Conference.Id, OwnerUser.Id);
             Assert.That(isSignedUp, Is.True);
         }
 
         [Test]
         public async Task Unregister_ShouldWorkCorrectly()
         {
-            await conferenceService.Unregister(Conference.Id, GuestUser.Id);
-            var isSignedUp = await conferenceService.HasUserSignedUp(Conference.Id, GuestUser.Id);
+            await conferenceService.UnregisterAsync(Conference.Id, GuestUser.Id);
+            var isSignedUp = await conferenceService.HasUserSignedUpAsync(Conference.Id, GuestUser.Id);
             Assert.That(isSignedUp, Is.False);
             await SetUpBase();
             SetUp();

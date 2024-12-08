@@ -157,7 +157,7 @@ namespace JAR.Tests.UnitTests
         [Test]
         public async Task WithdrawApplication_ShouldWorkCorrectly()
         {
-            await jobApplicationService.WithdrawApplication(JobOffer.Id, GuestUser.Id);
+            await jobApplicationService.WithdrawApplicationAsync(JobOffer.Id, GuestUser.Id);
             var isExisting = repository.AllReadOnly<JobApplication>()
                 .Any(ja => ja.JobOfferId == JobOffer.Id && ja.UserId == GuestUser.Id);
             Assert.That(isExisting, Is.False);

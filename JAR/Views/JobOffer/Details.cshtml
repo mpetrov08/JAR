@@ -65,7 +65,7 @@
                     </ul>
                 </div>
 
-                <div class="form-group d-flex justify-content-between">
+                <div class="form-group d-flex justify-content-around">
                     @if (await jobOffer.HasCompanyWithIdAsync(Model.Id, User.Id()))
                     {
                         <a class="btn btn-outline-primary btn-lg shadow-sm hover-scale-up" asp-controller="JobOffer" asp-action="Edit" asp-route-id="@Model.Id">

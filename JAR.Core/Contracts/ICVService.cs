@@ -12,9 +12,9 @@ namespace JAR.Core.Contracts
     {
         Task CreateCVAsync(CVFormModel model, string userId);
 
-        Task EditCV(CVFormModel model, int cvId);
+        Task EditCVAsync(CVFormModel model, int cvId);
 
-        Task DeleteCV(int cvId);
+        Task DeleteCVAsync(int cvId);
 
         Degree CreateDegree(DegreeFormModel model, int cvId);
 
@@ -22,16 +22,16 @@ namespace JAR.Core.Contracts
 
         ProfessionalExperience CreateProfessionalExperience(ProfessionalExperienceFormModel model, int cvId);
 
-        Task DeleteProfessionalExperience(int professionalExperience);
+        Task DeleteProfessionalExperienceAsync(int professionalExperience);
 
-        Task<CVViewModel> GetCVViewModelByUserId(string userId);
+        Task<CVViewModel> GetCVViewModelByUserIdAsync(string userId);
 
-        Task<CVFormModel> GetCVFormModelByUserId(string userId);
+        Task<CVFormModel> GetCVFormModelByUserIdAsync(string userId);
 
-        Task<bool> Exists(int cvId);
+        Task<bool> ExistsAsync(int cvId);
 
-        Task<bool> UserHasCVWithId(int cvId, string userId);
+        Task<bool> UserHasCVWithIdAsync(int cvId, string userId);
 
-        Task<bool> UserHasCV(string userId);
+        Task<bool> UserHasCVAsync(string userId);
     }
 }

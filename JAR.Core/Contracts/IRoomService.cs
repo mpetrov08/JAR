@@ -10,19 +10,19 @@ namespace JAR.Core.Contracts
 {
     public interface IRoomService
     {
-        public Task<IEnumerable<RoomViewModel>> GetAll(string userId);
+        public Task<IEnumerable<RoomViewModel>> GetAllAsync(string userId);
 
-        public Task<RoomViewModel?> GetById(int id, string userId);
+        public Task<RoomViewModel?> GetByIdAsync(int id, string userId);
 
-        public Task<RoomViewModel?> Create(RoomViewModel viewModel, string userId, string companyOwnerId);
+        public Task<RoomViewModel?> CreateAsync(RoomViewModel viewModel, string userId, string companyOwnerId);
 
-        public Task<HttpError> Edit(int id, RoomViewModel viewModel, string userId);
+        public Task<HttpError> EditAsync(int id, RoomViewModel viewModel, string userId);
 
-        public Task<bool> Delete(int id, string userId);
+        public Task<bool> DeleteAsync(int id, string userId);
 
-        public Task<bool> AddUser(int roomId, string userId);
+        public Task<bool> AddUserAsync(int roomId, string userId);
 
-        public Task<ChatsViewModel> GetChatsViewModel(string userId);
+        public Task<ChatsViewModel> GetChatsViewModelAsync(string userId);
 
         public Task<bool> ExistsAsync(string jobTitle, string userId);
     }

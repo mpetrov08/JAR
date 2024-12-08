@@ -11,9 +11,9 @@ namespace JAR.Core.Contracts
     {
         Task<IEnumerable<ConferenceViewModel>> AllAsync();
 
-        Task<List<ConferenceViewModel>> AllByUserId(string userId);
+        Task<IEnumerable<ConferenceViewModel>> AllByUserIdAsync(string userId);
 
-        Task<List<ConferenceViewModel>> AllByLecturerId(string userId);
+        Task<IEnumerable<ConferenceViewModel>> AllByLecturerIdAsync(string userId);
 
         Task CreateConferenceAsync(ConferenceFormModel model);
 
@@ -29,12 +29,12 @@ namespace JAR.Core.Contracts
 
         Task<bool> ExistsAsync(int id);
 
-        Task SignUp(int conferenceId, string userId);
+        Task SignUpAsync(int conferenceId, string userId);
 
-        Task Unregister(int conferenceId, string userId);
+        Task UnregisterAsync(int conferenceId, string userId);
 
-        Task<bool> HasUserSignedUp(int conferenceId, string userId);
+        Task<bool> HasUserSignedUpAsync(int conferenceId, string userId);
 
-        Task<bool> IsConferenceOver(int conferenceId, DateTime currentTime);
+        Task<bool> IsConferenceOverAsync(int conferenceId, DateTime currentTime);
     }
 }
