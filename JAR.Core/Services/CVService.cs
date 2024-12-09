@@ -4,6 +4,7 @@ using JAR.Infrastructure.Data.Models;
 using JAR.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -29,6 +30,16 @@ namespace JAR.Core.Services
                 DateTimeStyles.None, out DateTime birthDate))
             {
                 throw new InvalidOperationException("Invalid date format");
+            }
+
+            if (!string.IsNullOrEmpty(model.DegreesJson))
+            {
+                model.Degrees = JsonConvert.DeserializeObject<List<DegreeFormModel>>(model.DegreesJson);
+            }
+
+            if (!string.IsNullOrEmpty(model.ProfessionalExperiencesJson))
+            {
+                model.ProfessionalExperiences = JsonConvert.DeserializeObject<List<ProfessionalExperienceFormModel>>(model.ProfessionalExperiencesJson);
             }
 
             var cv = new CV()
@@ -172,6 +183,16 @@ namespace JAR.Core.Services
                 throw new InvalidOperationException("Invalid date format");
             }
 
+            if (!string.IsNullOrEmpty(model.DegreesJson))
+            {
+                model.Degrees = JsonConvert.DeserializeObject<List<DegreeFormModel>>(model.DegreesJson);
+            }
+
+            if (!string.IsNullOrEmpty(model.ProfessionalExperiencesJson))
+            {
+                model.ProfessionalExperiences = JsonConvert.DeserializeObject<List<ProfessionalExperienceFormModel>>(model.ProfessionalExperiencesJson);
+            }
+
             var cv = await repository
                 .All<CV>()
                 .Include(c => c.Degrees)
@@ -292,9 +313,12 @@ namespace JAR.Core.Services
                                                    EndDate = pf.EndDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                                                    Description = pf.Description
                                                })
-                                               .ToList()
+                                               .ToList(),
                 })
                 .FirstOrDefaultAsync();
+
+            cv.DegreesJson = JsonConvert.SerializeObject(cv.Degrees);
+            cv.ProfessionalExperiencesJson = JsonConvert.SerializeObject(cv.ProfessionalExperiences);
 
             return cv;
         }

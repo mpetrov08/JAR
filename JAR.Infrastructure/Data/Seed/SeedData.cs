@@ -31,7 +31,7 @@ namespace JAR.Infrastructure.Data.Seed
 
         public JobType TemporaryJob { get; set; }
 
-        public JobType SeasonalJob {  get; set; }
+        public JobType SeasonalJob { get; set; }
 
         public Company ProgrammingCompany { get; set; }
 
@@ -49,9 +49,15 @@ namespace JAR.Infrastructure.Data.Seed
 
         public RoomUser RoomUser2 { get; set; }
 
-        public Lecturer Lecturer {  get; set; }
+        public Lecturer Lecturer { get; set; }
 
         public Conference Conference { get; set; }
+
+        public Degree Degree { get; set; }
+
+        public ProfessionalExperience ProfessionalExperience { get; set; }
+
+        public CV CV { get; set; }
 
         public SeedData()
         {
@@ -65,6 +71,9 @@ namespace JAR.Infrastructure.Data.Seed
             SeedRoomsUsers();
             SeedLecturers();
             SeedConferences();
+            SeedCV();
+            SeedDegree();
+            SeedProfessionalExperience();
         }
 
         private void SeedUsers()
@@ -302,6 +311,61 @@ namespace JAR.Infrastructure.Data.Seed
                 Description = "In this conference we will talk about that, how to find easy work and is it that hard.",
                 IsDeleted = false,
                 ConferenceUrl = "https://meet.google.com/pra-cekt-nbn"
+            };
+        }
+
+        private void SeedDegree()
+        {
+            Degree = new Degree()
+            {
+                Id = 1,
+                EducationalInstitution = "PPMG \"Dobri Chintulov\"",
+                Major = "Math and Informatik",
+                EducationLevel = "secondary",
+                City = "secondary",
+                StartDate = new DateTime(2019, 09, 15),
+                EndDate = new DateTime(2027, 05, 24),
+                Description = "I learned a lot of here",
+                CVId = CV.Id,
+                IsDeleted = false
+            };
+        }
+
+        private void SeedProfessionalExperience()
+        {
+            ProfessionalExperience = new ProfessionalExperience()
+            {
+                Id = 1,
+                CompanyName = "Softuni",
+                City = "Sofia",
+                StartDate = new DateTime(2025, 02, 12),
+                EndDate = new DateTime(2050, 10, 17),
+                Description = "Ï worked a lot of there",
+                CVId = CV.Id,
+                IsDeleted = false
+            };
+        }
+
+        private void SeedCV()
+        {
+            CV = new CV()
+            {
+                Id = 1,
+                UserId = GuestUser.Id,
+                FirstName = "Mihail",
+                LastName = "Petrov",
+                LinkedInProfile = "https://www.linkedin.com/mihail",
+                PhoneNumber = "0888888888",
+                Address = "Somewhere in Bulgaria, Europe",
+                Gender = "Male",
+                BirthDate = new DateTime(2008, 09, 13),
+                Citizenship = "Bulgarian",
+                Photo = "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+                Languages = "Bulgarian C2, German B1, English B1",
+                Skills = "Math, Programming, History, Table Tennis, Football",
+                DrivingLicenseCategory = "A",
+                Email = "mihailnanpetrov@gmai.com",
+                IsDeleted = false
             };
         }
     }

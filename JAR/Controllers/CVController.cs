@@ -34,16 +34,6 @@ namespace JAR.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CVFormModel model)
         {
-            if (!string.IsNullOrEmpty(model.DegreesJson))
-            {
-                model.Degrees = JsonConvert.DeserializeObject<List<DegreeFormModel>>(model.DegreesJson);
-            }
-
-            if (!string.IsNullOrEmpty(model.ProfessionalExperiencesJson))
-            {
-                model.ProfessionalExperiences = JsonConvert.DeserializeObject<List<ProfessionalExperienceFormModel>>(model.ProfessionalExperiencesJson);
-            }
-
             if (model.Image != null && model.Image.Length > 0)
             {
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
@@ -93,10 +83,7 @@ namespace JAR.Controllers
                 return BadRequest();
             }
 
-            var cv = await cvService.GetCVFormModelByUserIdAsync(userId);
-
-            cv.DegreesJson = JsonConvert.SerializeObject(cv.Degrees);
-            cv.ProfessionalExperiencesJson = JsonConvert.SerializeObject(cv.ProfessionalExperiences);
+            var cv = await cvService.GetCVFormModelByUserIdAsync(userId); 
 
             return View(cv);
         }
@@ -112,16 +99,6 @@ namespace JAR.Controllers
             if (!await cvService.UserHasCVWithIdAsync(id, User.Id()))
             {
                 return BadRequest();
-            }
-
-            if (!string.IsNullOrEmpty(model.DegreesJson))
-            {
-                model.Degrees = JsonConvert.DeserializeObject<List<DegreeFormModel>>(model.DegreesJson);
-            }
-
-            if (!string.IsNullOrEmpty(model.ProfessionalExperiencesJson))
-            {
-                model.ProfessionalExperiences = JsonConvert.DeserializeObject<List<ProfessionalExperienceFormModel>>(model.ProfessionalExperiencesJson);
             }
 
             if (model.Image != null && model.Image.Length > 0)
@@ -150,7 +127,6 @@ namespace JAR.Controllers
                     ModelState.AddModelError(nameof(model.Image), "Image is required.");
                 }
             }
-
 
             if (!ModelState.IsValid)
             {
