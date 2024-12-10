@@ -44,7 +44,7 @@ namespace JAR.Controllers
             var createdRoom = await roomService.CreateAsync(viewModel, User.Id(), companyOwnerId);
             if (createdRoom == null)
             {
-                return BadRequest("Invalid room name or room already exists");
+                return BadRequest();
             }
             return RedirectToAction(nameof(ChatController.Index), "Chat");
         }
@@ -63,7 +63,7 @@ namespace JAR.Controllers
 
             if (status == HttpError.BadRequest)
             {
-                return BadRequest("Invalid room.");
+                return BadRequest();
             }
             return Ok();
         }

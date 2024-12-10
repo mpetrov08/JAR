@@ -29,14 +29,14 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("Id is null");
+                return BadRequest();
             }
 
             bool IsSucceeded = await userService.PromoteUserToAdminAsync(id);
 
             if (!IsSucceeded)
             {
-                return BadRequest("Id is invalid"); 
+                return BadRequest(); 
             }
 
             return RedirectToAction(nameof(All));   
@@ -47,14 +47,14 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("Id is null");
+                return BadRequest();
             }
 
             bool isSucceeded = await userService.RemoveAdminRoleAsync(id);
 
             if (!isSucceeded)
             {
-                return BadRequest("Id is invalid");
+                return BadRequest();
             }
 
             return RedirectToAction(nameof(All));

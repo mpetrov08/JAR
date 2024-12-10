@@ -66,7 +66,7 @@ namespace JAR.Controllers
 
             if (!result)
             {
-                return NotFound(new { error = "Message not found or you don't have permission to delete it." });
+                return NotFound();
             }
 
             await chatHub.Clients.All.SendAsync("deleteMessage", id);

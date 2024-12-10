@@ -74,7 +74,7 @@ namespace JAR.Controllers
 
             if (!await companyService.OwnerCompanyExistsAsync(userId))
             {
-                return BadRequest("You are not owner of Company");
+                return BadRequest();
             }
             
             var companyId = await companyService.GetCompanyIdAsync(userId);
@@ -82,7 +82,7 @@ namespace JAR.Controllers
 
             if (company == null)
             {
-                return BadRequest("The company does not exists");
+                return BadRequest();
             }
 
             return View(company);
@@ -95,12 +95,12 @@ namespace JAR.Controllers
 
             if (!await companyService.CompanyExistsAsync(model.Id))
             {
-                return BadRequest("Company does not exists");
+                return BadRequest();
             }
 
             if (!await companyService.OwnerCompanyExistsAsync(userId))
             {
-                return BadRequest("You are not owner of Company");
+                return BadRequest();
             }
 
             await companyService.DeleteAsync(model.Id);
@@ -121,14 +121,14 @@ namespace JAR.Controllers
         {
             if (!await companyService.CompanyExistsAsync(id))
             {
-                return BadRequest("Company does not exists");
+                return BadRequest();
             }
 
             bool IsSucceeded = await companyService.ApproveCompanyAsync(id);
 
             if (!IsSucceeded)
             {
-                return BadRequest("Cannot approve company");
+                return BadRequest();
             }
 
             return RedirectToAction(nameof(All));
@@ -140,13 +140,13 @@ namespace JAR.Controllers
         {
             if (!await companyService.CompanyExistsAsync(id))
             {
-                return BadRequest("Company does not exists");
+                return BadRequest();
             }
             bool IsSucceeded = await companyService.DisapproveCompanyAsync(id);
 
             if (!IsSucceeded)
             {
-                return BadRequest("Cannot approve company");
+                return BadRequest();
             }
 
             return RedirectToAction(nameof(All));

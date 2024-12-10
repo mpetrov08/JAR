@@ -25,7 +25,7 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("Id is null");
+                return BadRequest();
             }
 
             var lecturer = new LecturerFormModel()
@@ -48,7 +48,7 @@ namespace JAR.Areas.Admin.Controllers
 
             if (!isSucceeded)
             {
-                return BadRequest("Invalid data! Cannot promote user to lecturer.");
+                return BadRequest();
             }
 
             return RedirectToAction(nameof(All));
@@ -59,7 +59,7 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("Id is null or empty");
+                return BadRequest();
             }
 
             var lecturerId = await lecturerService.GetLecturerIdAsync(id);
@@ -76,7 +76,7 @@ namespace JAR.Areas.Admin.Controllers
 
             if (!isSucceeded)
             {
-                return BadRequest("Id is invalid");
+                return BadRequest();
             }
 
             return RedirectToAction(nameof(All));
@@ -87,7 +87,7 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (!await lecturerService.ExistsAsync(id))
             {
-                return BadRequest("This lecturer does not exists");
+                return BadRequest();
             }
 
             var model =  await lecturerService.GetLecturerFormModelAsync(id);
@@ -99,7 +99,7 @@ namespace JAR.Areas.Admin.Controllers
         {
             if (!await lecturerService.ExistsAsync(id))
             {
-                return BadRequest("This lecturer does not exists");
+                return BadRequest();
             }
 
             if (!ModelState.IsValid)

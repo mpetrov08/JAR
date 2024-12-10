@@ -50,7 +50,7 @@ namespace JAR.Controllers
         {
             if (!await conferenceService.ExistsAsync(id))
             {
-                return BadRequest("This conference does not exists");
+                return BadRequest();
             }
 
             var conference = await conferenceService.GetConferenceDetailsViewModelByIdAsync(id);
@@ -89,12 +89,12 @@ namespace JAR.Controllers
             if (!User.IsInRole(AdminRole) &&
                 !await lecturerService.HasLecturerConferenceAsync(User.Id(), id))
             {
-                return BadRequest("You do not have permission to edit Conference");
+                return BadRequest();
             }
 
             if (!await conferenceService.ExistsAsync(id))
             {
-                return BadRequest("Conference does not exists");
+                return BadRequest();
             }
 
             var model = await conferenceService.GetConferenceFormModelByIdAsync(id);
@@ -108,12 +108,12 @@ namespace JAR.Controllers
             if (!User.IsInRole(AdminRole) &&
                 !await lecturerService.HasLecturerConferenceAsync(User.Id(), id))
             {
-                return BadRequest("You do not have permission to edit Conference");
+                return BadRequest();
             }
 
             if (!await conferenceService.ExistsAsync(id))
             {
-                return BadRequest("Conference does not exists");
+                return BadRequest();
             }
 
             if (!ModelState.IsValid)
@@ -133,12 +133,12 @@ namespace JAR.Controllers
             if (!User.IsInRole(AdminRole) &&
                 !await lecturerService.HasLecturerConferenceAsync(User.Id(), id))
             {
-                return BadRequest("You do not have permission to edit Conference");
+                return BadRequest();
             }
 
             if (!await conferenceService.ExistsAsync(id))
             {
-                return BadRequest("Conference does not exists");
+                return BadRequest();
             }
 
             var model = await conferenceService.GetConferenceDetailsViewModelByIdAsync(id);
@@ -152,12 +152,12 @@ namespace JAR.Controllers
             if (!User.IsInRole(AdminRole) &&
                 !await lecturerService.HasLecturerConferenceAsync(User.Id(), model.Id))
             {
-                return BadRequest("You do not have permission to edit Conference");
+                return BadRequest();
             }
 
             if (!await conferenceService.ExistsAsync(model.Id))
             {
-                return BadRequest("Conference does not exists");
+                return BadRequest();
             }
 
             await conferenceService.DeleteConferenceAsync(model.Id);
@@ -172,22 +172,22 @@ namespace JAR.Controllers
 
             if (!await conferenceService.ExistsAsync(conferenceId))
             {
-                return BadRequest("Conference does not exists");
+                return BadRequest();
             }
 
             if (await conferenceService.HasUserSignedUpAsync(conferenceId, userId))
             {
-                return BadRequest("You already signed up for this conference");
+                return BadRequest();
             }
 
             if (await conferenceService.IsConferenceOverAsync(conferenceId, DateTime.Now))
             {
-                return BadRequest("Conference is over");
+                return BadRequest();
             }
 
             if (await lecturerService.HasLecturerConferenceAsync(userId, conferenceId))
             {
-                return BadRequest("You are the lecturer of the conference");
+                return BadRequest();
             }
 
             await conferenceService.SignUpAsync(conferenceId, userId);
@@ -202,17 +202,17 @@ namespace JAR.Controllers
 
             if (!await conferenceService.ExistsAsync(conferenceId))
             {
-                return BadRequest("Conference does not exists");
+                return BadRequest();
             }
 
             if (!await conferenceService.HasUserSignedUpAsync(conferenceId, userId))
             {
-                return BadRequest("You have not signed up for this conference");
+                return BadRequest();
             }
 
             if (await conferenceService.IsConferenceOverAsync(conferenceId, DateTime.Now))
             {
-                return BadRequest("Conference is over");
+                return BadRequest();
             }
 
             await conferenceService.UnregisterAsync(conferenceId, userId);
