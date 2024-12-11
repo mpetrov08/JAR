@@ -9,8 +9,18 @@ using static JAR.Infrastructure.Constants.DataConstants;
 
 namespace JAR.Core.Models.JobApplication
 {
-    public class JobApplicationApproveViewModel : JobOfferApplicantViewModel
+    public class JobApplicationApproveViewModel
     {
+        public string UserId { get; set; } = null!;
+
+        public int JobId { get; set; }
+
+        public string Email { get; set; } = null!;
+
+        public bool IsApproved { get; set; }
+
+        public string AppliedOn { get; set; } = null!;
+
         [Required]
         [StringLength(JobApplicationMessageMaxLength,
             MinimumLength = JobOfferDescriptionMinLength)]
