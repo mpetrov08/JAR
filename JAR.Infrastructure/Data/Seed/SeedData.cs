@@ -116,7 +116,8 @@ namespace JAR.Infrastructure.Data.Seed
                 Email = "admin@gmail.com",
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 FirstName = "Admin",
-                LastName = "Adminov"
+                LastName = "Adminov",
+                EmailConfirmed = true
             };
 
             AdminUser.PasswordHash = 
