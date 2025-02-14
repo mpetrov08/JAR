@@ -50,7 +50,7 @@ namespace JAR.Tests.UnitTests
             Assert.That(resultRoom.Name, Is.EqualTo(ChatRoom.Name));
             Assert.That(resultRoom.Admin, Is.EqualTo(OwnerUser.Id));
             Assert.That(resultRoom.LastMessage, Is.EqualTo(ChatRoom.Messages.Last().Content));
-            Assert.That(resultRoom.TimeStamp, Is.EqualTo(ChatRoom.Messages.Last().Timestamp.ToString("MM.dd.yyyy")));
+            Assert.That(resultRoom.TimeStamp, Is.EqualTo(ChatRoom.Messages.Last().Timestamp.ToString("MM/dd/yyyy")));
         }
 
         [Test]
