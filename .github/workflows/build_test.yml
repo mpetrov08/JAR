@@ -2,9 +2,9 @@ name: Build the app and execute unit tests
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "NOIT-2025" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "NOIT-2025" ]
 
 jobs:
   build_test:
