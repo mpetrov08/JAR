@@ -2,7 +2,7 @@
 @inject ICVService cvService;
 
 @{
-    ViewBag.Title = "Approve Applicant";
+    ViewBag.Title = "Одобряване на кандидат";
 }
 
 <h3 class="text-center text-primary mb-5">@ViewBag.Title</h3>
@@ -14,25 +14,25 @@
             <div class="col-md-12 mb-4">
                 <div class="form-group mb-3">
                     <label asp-for="Email" class="form-label text-primary fw-bold">
-                        <i class="fas fa-envelope"></i> Applicant Email
+                        <i class="fas fa-envelope"></i> Имейл
                     </label>
                     <input asp-for="Email" class="form-control rounded" disabled="disabled" />
                 </div>
 
                 <div class="form-group mb-3">
                     <label class="form-label text-primary fw-bold">
-                        <i class="fas fa-check-circle"></i> Approval Status
+                        <i class="fas fa-check-circle"></i> Статус
                     </label>
                     <div>
                         <span class="badge @(Model.IsApproved ? "bg-success" : "bg-danger")">
-                            @(Model.IsApproved ? "Approved" : "Pending")
+                            @(Model.IsApproved ? "Одобрен" : "Чакащ одобрение")
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="AppliedOn" class="form-label text-primary fw-bold">
-                        <i class="fas fa-calendar-alt"></i> Application Date
+                        <i class="fas fa-calendar-alt"></i> Дата на кандидатстване
                     </label>
                     <input asp-for="AppliedOn" class="form-control rounded" disabled="disabled" />
                 </div>
@@ -42,7 +42,7 @@
             {
                 <div class="col-md-12 mb-4 text-center">
                     <a class="btn btn-outline-info btn-lg px-5" asp-area="" asp-controller="CV" asp-action="Preview" asp-route-userId="@Model.UserId">
-                        <i class="fas fa-file-pdf"></i> View CV
+                        <i class="fas fa-file-pdf"></i> Виж CV
                     </a>
                 </div>
             }
@@ -50,9 +50,9 @@
             <div class="col-md-12">
                 <div class="form-group mb-3">
                     <label asp-for="Message" class="form-label text-primary fw-bold">
-                        <i class="fas fa-comment-alt"></i> Message to Applicant
+                        <i class="fas fa-comment-alt"></i> Съобщение до кандидата
                     </label>
-                    <textarea asp-for="Message" class="form-control rounded" rows="4" placeholder="Write your message here..."></textarea>
+                    <textarea asp-for="Message" class="form-control rounded" rows="4" placeholder="Напиши своето съобщение тук..."></textarea>
                     <span asp-validation-for="Message" class="small text-danger"></span>
                 </div>
             </div>

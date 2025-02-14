@@ -1,7 +1,7 @@
 ﻿@model JobApplicationStatusViewModel
 
 @{
-    ViewBag.Title = "Check Job Application Status";
+    ViewBag.Title = "Преглед на статуса на кандидатурата за рабоата";
 }
 
 <h3 class="text-center text-primary mb-5">@ViewBag.Title</h3>
@@ -21,20 +21,20 @@
         <p class="card-text">
             <strong><i class="fas fa-check-circle"></i> Status: </strong>
             <span class="badge @(Model.IsApproved ? "bg-success" : "bg-danger")">
-                @(Model.IsApproved ? "Approved" : "Not Approved")
+                @(Model.IsApproved ? "Одобрен" : "Чакащ одобрение")
             </span>
         </p>
 
         @if (!string.IsNullOrEmpty(Model.Message))
         {
             <p class="mt-3">
-                <strong><i class="fas fa-comment-dots"></i> Message:</strong>
+                <strong><i class="fas fa-comment-dots"></i> Съобщение:</strong>
                 <span class="text-secondary">@Model.Message</span>
             </p>
         }
     </div>
 
     <div class="card-footer text-center bg-light">
-        <p class="text-muted small mb-0"><i class="fas fa-sync-alt"></i> Keep checking your application status for updates.</p>
+        <p class="text-muted small mb-0"><i class="fas fa-sync-alt"></i> Продължавайте да проверявате състоянието на приложението си за актуализации.</p>
     </div>
 </div>

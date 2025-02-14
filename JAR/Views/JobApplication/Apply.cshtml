@@ -1,7 +1,7 @@
 ﻿@model JobOfferDetailsViewModel
 
 @{
-    ViewBag.Title = "Apply For Job Offer";
+    ViewBag.Title = "Кандидатстване за работа";
 }
 
 <h3 class="text-center text-primary mb-5">@ViewBag.Title</h3>
@@ -13,14 +13,14 @@
             <div class="col-md-12">
                 <div class="form-group mb-4">
                     <label asp-for="Title" class="form-label text-primary fw-bold">
-                        <i class="fas fa-briefcase"></i> Job Title
+                        <i class="fas fa-briefcase"></i> Заглавие на работа
                     </label>
                     <input asp-for="Title" class="form-control rounded" disabled="disabled" />
                 </div>
 
                 <div class="form-group mb-4">
                     <label asp-for="Description" class="form-label text-primary fw-bold">
-                        <i class="fas fa-file-alt"></i> Job Description
+                        <i class="fas fa-file-alt"></i> Описание
                     </label>
                     <div class="form-control rounded" disabled="disabled" style="padding: 10px; border: 1px solid #ced4da;">
                         @Html.Raw(Model.Description.RemoveHtmlXss())
@@ -29,7 +29,7 @@
 
                 <div class="form-group mb-4">
                     <label asp-for="Address" class="form-label text-primary fw-bold">
-                        <i class="fas fa-map-marker-alt"></i> Address
+                        <i class="fas fa-map-marker-alt"></i> Адрес
                     </label>
                     <input asp-for="Address" class="form-control rounded" disabled="disabled" />
                 </div>
@@ -38,7 +38,7 @@
                 {
                     <div class="form-group mb-4">
                         <label asp-for="RequiredLanguage" class="form-label text-primary fw-bold">
-                            <i class="fas fa-language"></i> Required Language
+                            <i class="fas fa-language"></i> Нужни езици
                         </label>
                         <input asp-for="RequiredLanguage" class="form-control rounded" disabled="disabled" />
                     </div>
@@ -47,7 +47,7 @@
                 {
                     <div class="form-group mb-4">
                         <label asp-for="RequiredDegree" class="form-label text-primary fw-bold">
-                            <i class="fas fa-graduation-cap"></i> Required Degree
+                            <i class="fas fa-graduation-cap"></i> Нужно образование
                         </label>
                         <input asp-for="RequiredDegree" class="form-control rounded" disabled="disabled" />
                     </div>
@@ -56,7 +56,7 @@
                 {
                     <div class="form-group mb-4">
                         <label asp-for="RequiredExperience" class="form-label text-primary fw-bold">
-                            <i class="fas fa-briefcase"></i> Required Experience
+                            <i class="fas fa-briefcase"></i> Нужен опит
                         </label>
                         <input asp-for="RequiredExperience" class="form-control rounded" disabled="disabled" />
                     </div>
@@ -64,13 +64,13 @@
 
                 <div class="form-group mb-4">
                     <label asp-for="RequiredSkills" class="form-label text-primary fw-bold">
-                        <i class="fas fa-cogs"></i> Required Skills
+                        <i class="fas fa-cogs"></i> Нужни умения
                     </label>
                     <textarea asp-for="RequiredSkills" class="form-control rounded" rows="3" disabled="disabled"></textarea>
                 </div>
 
                 <div class="text-center mt-5">
-                    <input type="submit" value="Apply" class="btn btn-outline-primary btn-lg px-5 py-2" />
+                    <input type="submit" value="Кандидатствай" class="btn btn-outline-primary btn-lg px-5 py-2" />
                 </div>
             </div>
         </div>

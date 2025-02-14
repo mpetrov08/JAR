@@ -1,7 +1,7 @@
 ﻿@model LecturerFormModel
 
 @{
-    ViewBag.Title = "Edit Lecturer";
+    ViewBag.Title = "Редактирай лектор";
 }
 
 <div class="container my-5">
@@ -13,7 +13,7 @@
             <form method="post" id="form" class="shadow-lg p-4 rounded bg-light">
                 <div class="form-group mb-4">
                     <label for="editor" class="form-label fs-5">
-                        <i class="fas fa-pencil-alt"></i> Description
+                        <i class="fas fa-pencil-alt"></i> Описание
                     </label>
                     <div class="main-container">
                         <div class="editor-container editor-container_classic-editor" id="editor-container">
@@ -30,10 +30,10 @@
 
                 <div class="d-flex justify-content-between">
                     <a asp-action="All" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back to List
+                        <i class="fas fa-arrow-left"></i> Върни се
                     </a>
                     <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i> Save Changes
+                        <i class="fas fa-save"></i> Запази промените
                     </button>
                 </div>
             </form>

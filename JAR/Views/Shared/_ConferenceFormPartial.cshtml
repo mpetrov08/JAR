@@ -3,7 +3,7 @@
 <form method="post" id="form" class="conference-form">
     <div class="form-group mb-4">
         <label asp-for="LecturerId" class="form-label fw-bold text-primary">
-            <i class="fas fa-chalkboard-teacher"></i> Lecturer
+            <i class="fas fa-chalkboard-teacher"></i> Лектор
         </label>
         <select asp-for="LecturerId" class="form-control rounded shadow-sm">
             @foreach (var lecturer in Model.Lecturers)
@@ -16,15 +16,15 @@
 
     <div class="form-group mb-4">
         <label asp-for="Topic" class="form-label fw-bold text-primary">
-            <i class="fas fa-book-open"></i> Topic
+            <i class="fas fa-book-open"></i> Тема
         </label>
-        <input asp-for="Topic" class="form-control rounded shadow-sm" placeholder="Topic" />
+        <input asp-for="Topic" class="form-control rounded shadow-sm" placeholder="Тема" />
         <span asp-validation-for="Topic" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-4">
         <label asp-for="Description" class="form-label fw-bold text-primary">
-            <i class="fas fa-align-left"></i> Description
+            <i class="fas fa-align-left"></i> Описание
         </label>
         <div class="main-container">
             <div class="editor-container editor-container_classic-editor" id="editor-container">
@@ -39,31 +39,31 @@
 
     <div class="form-group mb-4">
         <label asp-for="Start" class="form-label fw-bold text-primary">
-            <i class="fas fa-calendar-alt"></i> Start Date
+            <i class="fas fa-calendar-alt"></i> Начало(формат: dd/MM/yyyy)
         </label>
-        <input asp-for="Start" class="form-control rounded shadow-sm" placeholder="Start" />
+        <input asp-for="Start" class="form-control rounded shadow-sm" placeholder="Начало" />
         <span asp-validation-for="Start" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-4">
         <label asp-for="End" class="form-label fw-bold text-primary">
-            <i class="fas fa-calendar-check"></i> End Date
+            <i class="fas fa-calendar-check"></i> Край(формат: dd/MM/yyyy)
         </label>
-        <input asp-for="End" class="form-control rounded shadow-sm" placeholder="End" />
+        <input asp-for="End" class="form-control rounded shadow-sm" placeholder="Край" />
         <span asp-validation-for="End" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-4">
         <label asp-for="ConferenceUrl" class="form-label fw-bold text-primary">
-            <i class="fas fa-link"></i> Conference URL
+            <i class="fas fa-link"></i> Линк към конференцията
         </label>
-        <input asp-for="ConferenceUrl" class="form-control rounded shadow-sm" placeholder="Conference URL" />
+        <input asp-for="ConferenceUrl" class="form-control rounded shadow-sm" placeholder="Линк към конференцията" />
         <span asp-validation-for="ConferenceUrl" class="small text-danger"></span>
     </div>
 
     <div class="text-center">
         <button class="btn btn-primary mt-3 px-5 py-2 rounded-pill shadow" type="submit">
-            <i class="fas fa-save"></i> Save
+            <i class="fas fa-save"></i> Запази
         </button>
     </div>
 </form>

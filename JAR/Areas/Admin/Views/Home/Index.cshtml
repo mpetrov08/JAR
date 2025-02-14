@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Admin Dashboard";
+    ViewBag.Title = "Администраторско табло";
 }
 
 <div class="container my-5">
     <div class="text-center mb-5">
         <img src="~/images/jar-logo.png" alt="Platform Logo" class="mb-4" />
         <h1 class="mb-4 text-primary fw-bold">@ViewBag.Title</h1>
-        <p class="text-muted fs-5">Welcome, Admin! Manage your platform efficiently and keep everything organized in one place.</p>
+        <p class="text-muted fs-5">Добре дошъл, Админ! Управлявайте платформата си ефективно и поддържайте всичко организирано на едно място</p>
     </div>
 
     <div class="row g-4 d-flex justify-content-center align-items-stretch">
@@ -14,9 +14,9 @@
             <div class="card border-0 shadow-lg h-100">
                 <div class="card-body text-center">
                     <i class="fas fa-users fa-4x text-primary mb-3"></i>
-                    <h5 class="card-title fs-4">Users</h5>
-                    <p class="card-text text-muted">Manage all registered users.</p>
-                    <a asp-area="Admin" asp-controller="User" asp-action="All" class="btn btn-primary btn-lg"><i class="fas fa-users"></i> All Users</a>
+                    <h5 class="card-title fs-4">Потребители</h5>
+                    <p class="card-text text-muted">Управление на всички регистрирани потребители.</p>
+                    <a asp-area="Admin" asp-controller="User" asp-action="All" class="btn btn-primary btn-lg"><i class="fas fa-users"></i> Всички потребители</a>
                 </div>
             </div>
         </div>
@@ -25,9 +25,10 @@
             <div class="card border-0 shadow-lg h-100">
                 <div class="card-body text-center">
                     <i class="fas fa-building fa-4x text-success mb-3"></i>
-                    <h5 class="card-title fs-4">Companies</h5>
-                    <p class="card-text text-muted">View and approve company registrations.</p>
-                    <a asp-area="" asp-controller="Company" asp-action="All" class="btn btn-success btn-lg"><i class="fas fa-building"></i> All Companies</a>
+                    <h5 class="card-title fs-4">Компании</h5>
+                    <p class="card-text text-muted">Преглед и одобрение на регистрирани компании.
+</p>
+                    <a asp-area="" asp-controller="Company" asp-action="All" class="btn btn-success btn-lg"><i class="fas fa-building"></i> Всички компании</a>
                 </div>
             </div>
         </div>
@@ -36,9 +37,9 @@
             <div class="card border-0 shadow-lg h-100">
                 <div class="card-body text-center">
                     <i class="fas fa-calendar-plus fa-4x text-info mb-3"></i>
-                    <h5 class="card-title fs-4">Add Conference</h5>
-                    <p class="card-text text-muted">Organize new conferences.</p>
-                    <a asp-area=" " asp-controller="Conference" asp-action="Add" class="btn btn-info btn-lg"><i class="fas fa-calendar-plus"></i> Add Conference</a>
+                    <h5 class="card-title fs-4">Добави конференция</h5>
+                    <p class="card-text text-muted">Организирайте нови конференции.</p>
+                    <a asp-area=" " asp-controller="Conference" asp-action="Add" class="btn btn-info btn-lg"><i class="fas fa-calendar-plus"></i> Добави на конференция</a>
                 </div>
             </div>
         </div>
@@ -47,9 +48,9 @@
             <div class="card border-0 shadow-lg h-100">
                 <div class="card-body text-center">
                     <i class="fas fa-calendar-check fa-4x text-danger mb-3"></i>
-                    <h5 class="card-title fs-4">All Conferences</h5>
-                    <p class="card-text text-muted">Manage scheduled conferences.</p>
-                    <a asp-area=" " asp-controller="Conference" asp-action="All" class="btn btn-danger btn-lg"><i class="fas fa-calendar-check"></i> All Conferences</a>
+                    <h5 class="card-title fs-4">Всички конференции</h5>
+                    <p class="card-text text-muted">Управлявайте планирани конференции.</p>
+                    <a asp-area=" " asp-controller="Conference" asp-action="All" class="btn btn-danger btn-lg"><i class="fas fa-calendar-check"></i> Всички конференции</a>
                 </div>
             </div>
         </div>
@@ -58,10 +59,10 @@
             <div class="card border-0 shadow-lg h-100">
                 <div class="card-body text-center">
                     <i class="fas fa-chalkboard-teacher fa-4x text-warning mb-3"></i>
-                    <h5 class="card-title fs-4">Lecturers</h5>
-                    <p class="card-text text-muted">View and manage all lecturers.</p>
+                    <h5 class="card-title fs-4">Лектори</h5>
+                    <p class="card-text text-muted">Преглеждайте и управлявайте всички лектори.</p>
                     <a asp-area="Admin" asp-controller="Lecturer" asp-action="All" class="btn btn-warning btn-lg">
-                        <i class="fas fa-chalkboard-teacher"></i> All Lecturers
+                        <i class="fas fa-chalkboard-teacher"></i> Всички лектори
                     </a>
                 </div>
             </div>

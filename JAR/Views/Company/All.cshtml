@@ -1,7 +1,7 @@
 ﻿@model List<CompanyApproveViewModel>
 
 @{
-    ViewBag.Title = "All Companies";
+    ViewBag.Title = "Всички компании";
 }
 
 <div class="container my-5">
@@ -13,16 +13,16 @@
             <table class="table table-hover table-bordered align-middle">
                 <thead class="table-light">
                     <tr class="text-center">
-                        <th><i class="fas fa-building"></i> Company Name</th>
-                        <th><i class="fas fa-id-card"></i> UIC</th>
-                        <th><i class="fas fa-globe"></i> Country</th>
-                        <th><i class="fas fa-map-marker-alt"></i> Address</th>
-                        <th><i class="fas fa-phone"></i> Phone Number</th>
-                        <th><i class="fas fa-envelope"></i> Email</th>
-                        <th><i class="fas fa-align-left"></i> Description</th>
-                        <th><i class="fas fa-user"></i> Owner Name</th>
-                        <th><i class="fas fa-circle"></i> Status</th>
-                        <th><i class="fas fa-cogs"></i> Action</th>
+                        <th><i class="fas fa-building"></i> Име</th>
+                        <th><i class="fas fa-id-card"></i> УИК(уникален индетификационен код)</th>
+                        <th><i class="fas fa-globe"></i> Държава</th>
+                        <th><i class="fas fa-map-marker-alt"></i> Адрес</th>
+                        <th><i class="fas fa-phone"></i> Телефонен Номер</th>
+                        <th><i class="fas fa-envelope"></i> Имейл</th>
+                        <th><i class="fas fa-align-left"></i> Описание</th>
+                        <th><i class="fas fa-user"></i> Име на собственика</th>
+                        <th><i class="fas fa-circle"></i> Състояние</th>
+                        <th><i class="fas fa-cogs"></i> Одобри компания</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,12 +40,12 @@
                             <td>
                                 @if (company.IsDeleted)
                                 {
-                                    <span class="badge bg-danger"><i class="fas fa-times-circle"></i> Deleted</span>
+                                    <span class="badge bg-danger"><i class="fas fa-times-circle"></i> Изтрита</span>
                                 }
 
                                 else
                                 {
-                                    <span class="badge bg-success"><i class="fas fa-check-circle"></i> Active</span>
+                                    <span class="badge bg-success"><i class="fas fa-check-circle"></i> Активна</span>
                                 }
                             </td>
                             <td>
@@ -54,7 +54,7 @@
                                     <form asp-area="" asp-controller="Company" asp-action="DisapproveCompany" method="post" class="d-inline">
                                         <input type="hidden" name="id" value="@company.Id" />
                                         <button type="submit" class="btn btn-outline-warning btn-sm">
-                                            <i class="fas fa-times-circle"></i> Disapprove
+                                            <i class="fas fa-times-circle"></i> Неодобри
                                         </button>
                                     </form>
                                 }
@@ -63,7 +63,7 @@
                                     <form asp-area="" asp-controller="Company" asp-action="ApproveCompany" method="post" class="d-inline">
                                         <input type="hidden" name="id" value="@company.Id" />
                                         <button type="submit" class="btn btn-outline-success btn-sm">
-                                            <i class="fas fa-check-circle"></i> Approve
+                                            <i class="fas fa-check-circle"></i> Одобри
                                         </button>
                                     </form>
                                 }

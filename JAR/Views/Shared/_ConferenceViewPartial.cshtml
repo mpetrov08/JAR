@@ -4,7 +4,7 @@
 
 @if (!Model.Any())
 {
-    <p class="text-center">No conferences available.</p>
+    <p class="text-center">Няма налични конференции.</p>
 }
 
 else
@@ -31,15 +31,15 @@ else
                                 User.IsInRole(AdminRole))
                             {
                                 <a class="btn btn-outline-primary" asp-area="" asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id">
-                                    <i class="fas fa-edit"></i> Edit
+                                    <i class="fas fa-edit"></i> Редактирай
                                 </a>
                                 <a class="btn btn-outline-danger" asp-area="" asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id">
-                                    <i class="fas fa-trash"></i> Delete
+                                    <i class="fas fa-trash"></i> Изтрий
                                 </a>
                             }
 
                             <a class="btn btn-outline-info" asp-area="" asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id">
-                                <i class="fas fa-info-circle"></i> Details
+                                <i class="fas fa-info-circle"></i> Подробности
                             </a>
 
                             @{
@@ -53,7 +53,7 @@ else
                             @if (hasEnded)
                             {
                                 <p class="text-muted">
-                                    <i class="fas fa-hourglass-end"></i> This conference has ended. Registration is closed.
+                                    <i class="fas fa-hourglass-end"></i> Тази конференция приключи. Записването е затворено.
                                 </p>
                             }
                             else
@@ -64,20 +64,20 @@ else
                                     <form asp-area="" asp-controller="Conference" asp-action="Unregister" method="post">
                                         <input type="hidden" name="conferenceId" value="@conference.Id" />
                                         <button type="submit" class="btn btn-warning">
-                                            <i class="fas fa-sign-out-alt"></i> Unregister
+                                            <i class="fas fa-sign-out-alt"></i> Отпиши се
                                         </button>
                                     </form>
 
                                     @if (isOngoing)
                                     {
                                         <a class="btn btn-secondary mt-2" href="@conference.ConferenceUrl" target="_blank">
-                                            <i class="fas fa-video"></i> Join
+                                            <i class="fas fa-video"></i> Присъедини се
                                         </a>
                                     }
                                     else if (hasNotStarted)
                                     {
                                         <p class="text-warning">
-                                            <i class="fas fa-clock"></i> Conference has not started yet.
+                                            <i class="fas fa-clock"></i> Конференцията все още не е започнала.
                                         </p>
                                     }
                                 }
@@ -87,7 +87,7 @@ else
                                     <form asp-area="" asp-controller="Conference" asp-action="SignUp" method="post">
                                         <input type="hidden" name="conferenceId" value="@conference.Id" />
                                         <button type="submit" class="btn btn-success">
-                                            <i class="fas fa-user-plus"></i> Sign Up
+                                            <i class="fas fa-user-plus"></i> Запиши се
                                         </button>
                                     </form>
                                 } 

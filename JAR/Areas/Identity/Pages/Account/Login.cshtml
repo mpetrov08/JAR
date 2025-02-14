@@ -2,7 +2,7 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Вход";
 }
 
 <h1 class="text-center my-4">@ViewData["Title"]</h1>
@@ -10,41 +10,41 @@
 <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">
         <section class="shadow p-4 rounded bg-light">
-            <h2 class="text-center">Welcome Back!</h2>
-            <p class="text-center text-muted">Please log in to your account</p>
+            <h2 class="text-center">Добре дошли обратно!</h2>
+            <p class="text-center text-muted">Моля, влезте в акаунта си</p>
             <hr />
             <form id="account" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
                 <div class="form-floating mb-3 position-relative">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
+                    <label asp-for="Input.Email" class="form-label"><i class="fas fa-envelope me-2"></i>Имейл</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
 
                 <div class="form-floating mb-3 position-relative">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" type="password" />
-                    <label asp-for="Input.Password" class="form-label"><i class="fas fa-lock me-2"></i>Password</label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Парола" type="password" />
+                    <label asp-for="Input.Password" class="form-label"><i class="fas fa-lock me-2"></i>Парола</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
 
                 <div class="form-check mb-3">
                     <input class="form-check-input" asp-for="Input.RememberMe" id="rememberMeCheck" />
                     <label class="form-check-label" for="rememberMeCheck">
-                        Remember Me
+                        Запомни ме
                     </label>
                 </div>
 
                 <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mt-3">
-                    <i class="fas fa-sign-in-alt me-2"></i>Log in
+                    <i class="fas fa-sign-in-alt me-2"></i>Вход
                 </button>
 
                 <div class="text-center mt-3">
-                    <a asp-page="/Account/ForgotPassword" class="text-decoration-none">Forgot your password?</a>
+                    <a asp-page="/Account/ForgotPassword" class="text-decoration-none">Забравена парола?</a>
                 </div>
 
                 <div class="text-center mt-3">
-                    <a asp-page="/Account/Register" class="text-decoration-none">Don't have an account? Sign up!</a>
+                    <a asp-page="/Account/Register" class="text-decoration-none">Нямате акаунт? Регистрирайте се!</a>
                 </div>
             </form>
         </section>

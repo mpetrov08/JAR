@@ -8,18 +8,18 @@
     @if (!await company.OwnerCompanyExistsAsync(User.Id()))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Register">Register Company</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Register">Регистрирай компания</a>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Delete">Delete Your Company</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Delete">Изтрий компания</a>
         </li>
     }
 
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей, @User.Identity?.Name!</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -30,10 +30,10 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрирай се</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Влез</a>
     </li>
 }
 </ul>

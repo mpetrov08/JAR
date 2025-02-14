@@ -1,7 +1,7 @@
 ﻿@model ConferenceDetailsViewModel
 
 @{
-    ViewBag.Title = "Delete Conference";
+    ViewBag.Title = "Изтриване конференция";
 }
 
 <h3 class="text-center">@ViewBag.Title</h3>
@@ -15,28 +15,28 @@
                     <div class="col-md-8 mx-auto">
                         <div class="form-group mb-3">
                             <label asp-for="Topic" class="form-label fw-bold text-primary">
-                                <i class="fas fa-book-open"></i> Topic
+                                <i class="fas fa-book-open"></i> Тема
                             </label>
                             <input asp-for="Topic" class="form-control" disabled="disabled" />
                         </div>
 
                         <div class="form-group mb-3">
                             <label asp-for="Start" class="form-label fw-bold text-primary">
-                                <i class="fas fa-calendar-alt"></i> Start Date
+                                <i class="fas fa-calendar-alt"></i> Начало
                             </label>
                             <input asp-for="Start" class="form-control" disabled="disabled" />
                         </div>
 
                         <div class="form-group mb-3">
                             <label asp-for="End" class="form-label fw-bold text-primary">
-                                <i class="fas fa-calendar-check"></i> End Date
+                                <i class="fas fa-calendar-check"></i> Край
                             </label>
                             <input asp-for="End" class="form-control" disabled="disabled" />
                         </div>
 
                         <div class="form-group mb-4">
                             <label class="form-label fw-bold text-primary">
-                                <i class="fas fa-align-left"></i> Description
+                                <i class="fas fa-align-left"></i> Описание
                             </label>
                             <div class="description-container">
                                 @Html.Raw(Model.Description.RemoveHtmlXss())
@@ -45,21 +45,21 @@
 
                         <div class="form-group mb-3">
                             <label asp-for="Lecturer.FirstName" class="form-label fw-bold text-primary">
-                                <i class="fas fa-user-tie"></i> Lecturer First Name
+                                <i class="fas fa-user-tie"></i> Първо име на лектора
                             </label>
                             <input asp-for="Lecturer.FirstName" class="form-control" disabled="disabled" />
                         </div>
 
                         <div class="form-group mb-3">
                             <label asp-for="Lecturer.LastName" class="form-label fw-bold text-primary">
-                                <i class="fas fa-user-tie"></i> Lecturer Last Name
+                                <i class="fas fa-user-tie"></i> Фамилия на лектора
                             </label>
                             <input asp-for="Lecturer.LastName" class="form-control" disabled="disabled" />
                         </div>
 
                         <div class="form-group mb-4">
                             <label class="form-label fw-bold text-primary">
-                                <i class="fas fa-align-left"></i> Lecturer Description
+                                <i class="fas fa-align-left"></i> Описание за лектора
                             </label>
                             <div class="description-container">
                                 @Html.Raw(Model.Lecturer.Description)
@@ -69,7 +69,7 @@
                         <input asp-for="Id" type="hidden" />
 
                         <div class="form-group mt-4">
-                            <input type="submit" value="Delete Conference" class="btn btn-danger w-100" />
+                            <input type="submit" value="Изтрий конференция" class="btn btn-danger w-100" />
                         </div>
                     </div>
                 </div>

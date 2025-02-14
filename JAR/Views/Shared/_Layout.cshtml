@@ -2,7 +2,7 @@
 @inject ICVService cv;
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,32 +17,32 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">    
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img id="logo" src="~/images/jar-logo.png" alt="App Logo" /> JAR</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img id="logo" src="~/images/jar-logo.png" alt="Лого на приложението" /> JAR</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                        aria-expanded="false" aria-label="Превключване на навигацията">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="JobOffer" asp-action="All">Browse Job Offers</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="JobOffer" asp-action="All">Разгледайте обяви за работа</a>
                         </li>
 
                         @if(User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="JobOffer" asp-action="Mine">My Job Offers</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="JobOffer" asp-action="Mine">Моите обяви за работа</a>
                             </li>
 
                             @if (await company.OwnerCompanyExistsAsync(User.Id()) &&
                                  await company.IsApprovedByUserIdAsync(User.Id()))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="JobOffer" asp-action="Add">Add Job Offer</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="JobOffer" asp-action="Add">Добави обява за работа</a>
                                 </li>
                             }
 
@@ -51,27 +51,27 @@
                                 @if (!await cv.UserHasCVAsync(User.Id()))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Create">Create CV</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Create">Създай автобиография</a>
                                     </li>
                                 }
                                 else
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Preview">Preview CV</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="CV" asp-action="Preview">Преглед на автобиография</a>
                                     </li>
                                 }
                             }                         
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Conference" asp-action="All">Conferences</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Conference" asp-action="All">Конференции</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Conference" asp-action="Mine">My Conferences</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Conference" asp-action="Mine">Моите конференции</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">My Chats</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">Моите чатове</a>
                             </li>
                         }                      
                     </ul>
@@ -88,7 +88,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.Now.Year - JAR(Job-Arbeit-Rabota)
+            &copy; @DateTime.Now.Year - JAR (Job-Arbeit-Rabota)
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

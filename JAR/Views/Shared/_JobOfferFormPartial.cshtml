@@ -2,56 +2,56 @@
 
 <form method="post" id="form">
     <div class="form-group mb-3">
-        <label asp-for="Title" class="form-label text-dark"><i class="fas fa-briefcase"></i> Job Title</label>
-        <input asp-for="Title" class="form-control" placeholder="Job Title" />
+        <label asp-for="Title" class="form-label text-dark"><i class="fas fa-briefcase"></i> Заглавие</label>
+        <input asp-for="Title" class="form-control" placeholder="Заглавие" />
         <span asp-validation-for="Title" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Description" class="form-label text-dark"><i class="fas fa-file-alt"></i> Job Description</label>
+        <label asp-for="Description" class="form-label text-dark"><i class="fas fa-file-alt"></i> Описание</label>
         <textarea id="editor" class="form-control">@Model.Description</textarea>
         <input type="hidden" asp-for="Description" id="hiddenDescription" />
         <span asp-validation-for="Description" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Address" class="form-label text-dark"><i class="fas fa-map-marker-alt"></i> Job Address</label>
-        <input asp-for="Address" class="form-control" placeholder="Job Address" />
+        <label asp-for="Address" class="form-label text-dark"><i class="fas fa-map-marker-alt"></i> Адрес</label>
+        <input asp-for="Address" class="form-control" placeholder="Адрес" />
         <span asp-validation-for="Address" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Salary" class="form-label text-dark"><i class="fas fa-dollar-sign"></i> Expected Salary</label>
-        <input asp-for="Salary" class="form-control" placeholder="Expected Salary" />
+        <label asp-for="Salary" class="form-label text-dark"><i class="fas fa-dollar-sign"></i> Заплата</label>
+        <input asp-for="Salary" class="form-control" placeholder="Заплата" />
         <span asp-validation-for="Salary" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="RequiredLanguage" class="form-label text-dark"><i class="fas fa-language"></i> Language Requirements</label>
-        <input asp-for="RequiredLanguage" class="form-control" placeholder="Language Requirements" />
+        <label asp-for="RequiredLanguage" class="form-label text-dark"><i class="fas fa-language"></i> Нужни езици</label>
+        <input asp-for="RequiredLanguage" class="form-control" placeholder="Нужни езици" />
         <span asp-validation-for="RequiredLanguage" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="RequiredDegree" class="form-label text-dark"><i class="fas fa-graduation-cap"></i> Degree Requirements</label>
-        <input asp-for="RequiredDegree" class="form-control" placeholder="Degree Requirements" />
+        <label asp-for="RequiredDegree" class="form-label text-dark"><i class="fas fa-graduation-cap"></i> Нужно образование</label>
+        <input asp-for="RequiredDegree" class="form-control" placeholder="Нужно образование" />
         <span asp-validation-for="RequiredDegree" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="RequiredExperience" class="form-label text-dark"><i class="fas fa-briefcase"></i> Years of Experience</label>
-        <input asp-for="RequiredExperience" class="form-control" placeholder="Years of Experience" />
+        <label asp-for="RequiredExperience" class="form-label text-dark"><i class="fas fa-briefcase"></i> Години опит</label>
+        <input asp-for="RequiredExperience" class="form-control" placeholder="Години опит" />
         <span asp-validation-for="RequiredExperience" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="RequiredSkills" class="form-label text-dark"><i class="fas fa-cogs"></i> Key Skills</label>
-        <input asp-for="RequiredSkills" class="form-control" placeholder="Key Skills" />
+        <label asp-for="RequiredSkills" class="form-label text-dark"><i class="fas fa-cogs"></i> Ключови умение</label>
+        <input asp-for="RequiredSkills" class="form-control" placeholder="Ключови умение" />
         <span asp-validation-for="RequiredSkills" class="small text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="CategoryId" class="form-label text-dark"><i class="fas fa-list-alt"></i> Job Category</label>
+        <label asp-for="CategoryId" class="form-label text-dark"><i class="fas fa-list-alt"></i> Катогория</label>
         <select asp-for="CategoryId" class="form-select">
             @foreach (var category in Model.Categories)
             {
@@ -62,7 +62,7 @@
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="JobTypeId" class="form-label text-dark"><i class="fas fa-briefcase"></i> Job Type</label>
+        <label asp-for="JobTypeId" class="form-label text-dark"><i class="fas fa-briefcase"></i> Тип</label>
         <select asp-for="JobTypeId" class="form-select">
             @foreach (var jobType in Model.JobTypes)
             {
@@ -73,6 +73,6 @@
     </div>
 
     <div class="text-center">
-        <button class="btn btn-primary mt-3 px-5"><i class="fas fa-save"></i> Save</button>
+        <button class="btn btn-primary mt-3 px-5"><i class="fas fa-save"></i> Запази</button>
     </div>
 </form>
