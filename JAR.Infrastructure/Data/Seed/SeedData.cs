@@ -107,8 +107,8 @@ namespace JAR.Infrastructure.Data.Seed
                 NormalizedUserName = "GUEST@GMAIL.COM",
                 Email = "guest@gmail.com",
                 NormalizedEmail = "GUEST@GMAIL.COM",
-                FirstName = "Иван",
-                LastName = "Иванов"
+                FirstName = "Ivan",
+                LastName = "Ivanov"
             };
 
             GuestUser.PasswordHash = 
@@ -121,8 +121,8 @@ namespace JAR.Infrastructure.Data.Seed
                 NormalizedUserName = "OWNER@GMAIL.COM",
                 Email = "owner@gmail.com",
                 NormalizedEmail = "OWNER@GMAIL.COM",
-                FirstName = "Петър",
-                LastName = "Петров"
+                FirstName = "Bill",
+                LastName = "Gates"
             };
 
             CompanyOwnerUser.PasswordHash = 
@@ -135,8 +135,8 @@ namespace JAR.Infrastructure.Data.Seed
                 NormalizedUserName = "ADMIN@GMAIL.COM",
                 Email = "admin@gmail.com",
                 NormalizedEmail = "ADMIN@GMAIL.COM",
-                FirstName = "Михаил",
-                LastName = "Петров",
+                FirstName = "Mihail",
+                LastName = "Petrov",
                 EmailConfirmed = true
             };
 
