@@ -23,6 +23,26 @@ namespace JAR.Infrastructure.Data.Seed
 
         public Category ManagementCategory { get; set; }
 
+        public Category MarketingCategory { get; set; }
+
+        public Category EducationCategory { get; set; }
+
+        public Category FinanceCategory { get; set; }
+
+        public Category DesignCategory { get; set; }
+
+        public Category ConstructionCategory { get; set; }
+
+        public Category RetailCategory { get; set; }
+
+        public Category LogisticsCategory { get; set; }
+
+        public Category HospitalityCategory { get; set; }
+
+        public Category LawCategory { get; set; }
+
+        public Category ManufacturingCategory { get; set; }
+
         public JobType InternshipJob { get; set; }
 
         public JobType FullTimeJob { get; set; }
@@ -87,8 +107,8 @@ namespace JAR.Infrastructure.Data.Seed
                 NormalizedUserName = "GUEST@GMAIL.COM",
                 Email = "guest@gmail.com",
                 NormalizedEmail = "GUEST@GMAIL.COM",
-                FirstName = "Guest",
-                LastName = "Guestov"
+                FirstName = "Иван",
+                LastName = "Иванов"
             };
 
             GuestUser.PasswordHash = 
@@ -101,8 +121,8 @@ namespace JAR.Infrastructure.Data.Seed
                 NormalizedUserName = "OWNER@GMAIL.COM",
                 Email = "owner@gmail.com",
                 NormalizedEmail = "OWNER@GMAIL.COM",
-                FirstName = "Owner",
-                LastName = "Ownerov"
+                FirstName = "Петър",
+                LastName = "Петров"
             };
 
             CompanyOwnerUser.PasswordHash = 
@@ -115,8 +135,8 @@ namespace JAR.Infrastructure.Data.Seed
                 NormalizedUserName = "ADMIN@GMAIL.COM",
                 Email = "admin@gmail.com",
                 NormalizedEmail = "ADMIN@GMAIL.COM",
-                FirstName = "Admin",
-                LastName = "Adminov",
+                FirstName = "Михаил",
+                LastName = "Петров",
                 EmailConfirmed = true
             };
 
@@ -129,19 +149,79 @@ namespace JAR.Infrastructure.Data.Seed
             SoftwareEngineeringCategory = new Category()
             {
                 Id = 1,
-                Name = "Software Engineering"
+                Name = "Софтуерно инженерство"
             };
 
             HealthCareCategory = new Category()
             {
                 Id = 2,
-                Name = "Health Care"
+                Name = "Медицина"
             };
 
             ManagementCategory = new Category()
             {
                 Id = 3,
-                Name = "Management"
+                Name = "Мениджмънт"
+            };
+
+            MarketingCategory = new Category()
+            {
+                Id = 4,
+                Name = "Маркетинг"
+            };
+
+            EducationCategory = new Category()
+            {
+                Id = 5,
+                Name = "Образование"
+            };
+
+            FinanceCategory = new Category()
+            {
+                Id = 6,
+                Name = "Финанси"
+            };
+
+            DesignCategory = new Category()
+            {
+                Id = 7,
+                Name = "Графичен дизайн"
+            };
+
+            ConstructionCategory = new Category()
+            {
+                Id = 8,
+                Name = "Строителство"
+            };
+
+            RetailCategory = new Category()
+            {
+                Id = 9,
+                Name = "Търговия на дребно"
+            };
+
+            LogisticsCategory = new Category()
+            {
+                Id = 10,
+                Name = "Логистика"
+            };
+
+            HospitalityCategory = new Category()
+            {
+                Id = 11,
+                Name = "Хотелиерство и туризъм"
+            };
+
+            LawCategory = new Category()
+            {
+                Id = 12,
+                Name = "Право"
+            };
+
+            ManufacturingCategory = new Category()
+            {
+                Id = 13,
+                Name = "Производство"
             };
         }
 
@@ -150,31 +230,31 @@ namespace JAR.Infrastructure.Data.Seed
             InternshipJob = new JobType()
             {
                 Id = 1,
-                Name = "Internship Job"
+                Name = "Стажантска работа"
             };
 
             FullTimeJob = new JobType()
             {
                 Id = 2,
-                Name = "Full Time Job"
+                Name = "Работа на пълен работен ден"
             };
 
             PartTimeJob = new JobType()
             {
                 Id = 3,
-                Name = "Part Time Job"
+                Name = "Работа на непълен работен ден"
             };
 
             TemporaryJob = new JobType()
             {
                 Id = 4,
-                Name = "Temporary Job"
+                Name = "Временна работа"
             };
 
             SeasonalJob = new JobType()
             {
                 Id = 5,
-                Name = "Seasonal Job"
+                Name = "Сезонна работа"
             };
         }
 
@@ -183,14 +263,14 @@ namespace JAR.Infrastructure.Data.Seed
             ProgrammingCompany = new Company()
             {
                 Id = 1,
-                Name = "Microsoft",
+                Name = "Майкрософт",
                 Logo = "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg",
                 UIC = "91-1144442",
-                Country = "USA",
-                Address = "Redmond, Washington, USA",
+                Country = "САЩ",
+                Address = "Редмънд, Вашингтон, САЩ",
                 PhoneNumber = "1234567890",
                 Email = "microsoft@gmail.com",
-                Description = "Microsoft is a global technology company known for software and hardware.",
+                Description = "Майкрософт е глобална технологична компания, позната заради софтуера и хардуера, който произвеждат.",
                 IsDeleted = false,
                 IsApproved = true,
                 OwnerId = CompanyOwnerUser.Id
@@ -202,13 +282,13 @@ namespace JAR.Infrastructure.Data.Seed
             ProgrammerJobOffer1 = new JobOffer()
             {
                 Id = 1,
-                Title = "Junior C# Programmer",
-                Description = "A C# junior programmer should know OOP, Design Patterns, .NET, debugging and SQL.",
-                Address = "Redmond, Washington, USA",
+                Title = "Junior C# програмист",
+                Description = "C# junior програмистът трябва да знае ООП, Design Patterns, .NET, дебъгване и SQL.",
+                Address = "Редмънд, Вашингтон, САЩ",
                 Salary = 2000,
-                RequiredLanguage = "English C2",
-                RequiredDegree = "Higher Education",
-                RequiredSkills = "OOP, SQL, .NET, Design Patterns, Data Structures and Algorithms",
+                RequiredLanguage = "Аниглийски C2",
+                RequiredDegree = "Висше образование",
+                RequiredSkills = "ООП, SQL, .NET, Design Patterns, Структури от данни и алгоритми",
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
                 CategoryId = 1,
@@ -219,13 +299,13 @@ namespace JAR.Infrastructure.Data.Seed
             ProgrammerJobOffer2 = new JobOffer()
             {
                 Id = 2,
-                Title = "Senior C# Programmer",
-                Description = "C# Senior Developer must have excellent knowledge of .NET, architecture, code optimization.",
-                Address = "Reading, Thames Valley Park, UK",
+                Title = "Senior C# програмист",
+                Description = "C# Senior програмистът трябва да има отлични знания в .NET, архитектура на приложенията, оптимизация на код.",
+                Address = "Редмънд, Вашингтон, САЩ",
                 Salary = 10_000,
-                RequiredLanguage = "English C2",
-                RequiredDegree = "Higher Education",
-                RequiredSkills = "OOP, SQL, .NET, Architecture, Code Optimization",
+                RequiredLanguage = "Английски C2",
+                RequiredDegree = "Висше образование",
+                RequiredSkills = "ООП, SQL, .NET, архитектура, оптимизация на код",
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
                 CategoryId = 1,
@@ -236,14 +316,14 @@ namespace JAR.Infrastructure.Data.Seed
             ManagerJobOffer = new JobOffer()
             {
                 Id = 3,
-                Title = "Looking for a manager to lead Microsoft",
-                Description = "Dynamic manager needed at Microsoft to lead teams and drive innovation.",
-                Address = "Reading, Thames Valley Park, UK",
+                Title = "Търси се мениджър за ръководене на Майкрософт",
+                Description = "Търси се динамичен мениджър в Майкрософт, който да ръководи екипи и да стимулира иновации.",
+                Address = "Редмънд, Вашингтон, САЩ",
                 Salary = 15_000,
-                RequiredLanguage = "English C2",
-                RequiredDegree = "Higher Education",
-                RequiredExperience = "10 years",
-                RequiredSkills = " Project Management, Strong Communication, Leadership, Problem-Solving",
+                RequiredLanguage = "Английски C2",
+                RequiredDegree = "Висше образование",
+                RequiredExperience = "10 години",
+                RequiredSkills = "Управление на проекти, Добра комуникация, Лидерство, Решаване на проблеми",
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
                 CategoryId = 3,
@@ -268,7 +348,7 @@ namespace JAR.Infrastructure.Data.Seed
             Room = new Room()
             {
                 Id = 1,
-                Name = "Chat Room",
+                Name = "Чат стая",
                 AdminId = AdminUser.Id,
                 IsDeleted = false
             };
@@ -295,7 +375,7 @@ namespace JAR.Infrastructure.Data.Seed
             {
                 Id = 1,
                 UserId = CompanyOwnerUser.Id,
-                Description = "Very good lecturer. He has experience of 15 years, one of the best.",
+                Description = "Лектор с дългогодишен опит в сферата, един от най-добрите в работата си. Може да ви научи на много неща.",
                 IsDeleted = false
             };
         }
@@ -306,10 +386,10 @@ namespace JAR.Infrastructure.Data.Seed
             {
                 Id = 1,
                 LecturerId = Lecturer.Id,
-                Topic = "How to find easy Job? Is it really hard?",
+                Topic = "Как да си намерим работа? Наистина ли е толкова трудно?",
                 Start = DateTime.UtcNow,
                 End = DateTime.UtcNow.AddHours(2),
-                Description = "In this conference we will talk about that, how to find easy work and is it that hard.",
+                Description = "На тази конференция ще си говорим как да си намерим лесно работа и дали е толкова трудно.",
                 IsDeleted = false,
                 ConferenceUrl = "https://meet.google.com/pra-cekt-nbn"
             };
@@ -320,13 +400,13 @@ namespace JAR.Infrastructure.Data.Seed
             Degree = new Degree()
             {
                 Id = 1,
-                EducationalInstitution = "PPMG \"Dobri Chintulov\"",
-                Major = "Math and Informatik",
-                EducationLevel = "secondary",
-                City = "secondary",
+                EducationalInstitution = "ППМГ \"Добри Чинтулов\"",
+                Major = "Математика и Информатика",
+                EducationLevel = "средно",
+                City = "Сливен",
                 StartDate = new DateTime(2019, 09, 15),
                 EndDate = new DateTime(2027, 05, 24),
-                Description = "I learned a lot of here",
+                Description = "Тук научих много нови неща",
                 CVId = CV.Id,
                 IsDeleted = false
             };
@@ -337,11 +417,11 @@ namespace JAR.Infrastructure.Data.Seed
             ProfessionalExperience = new ProfessionalExperience()
             {
                 Id = 1,
-                CompanyName = "Softuni",
-                City = "Sofia",
+                CompanyName = "Софтуни",
+                City = "София",
                 StartDate = new DateTime(2025, 02, 12),
                 EndDate = new DateTime(2050, 10, 17),
-                Description = "Ï worked a lot of there",
+                Description = "Тук работих много и научих много нови неща",
                 CVId = CV.Id,
                 IsDeleted = false
             };
@@ -353,17 +433,17 @@ namespace JAR.Infrastructure.Data.Seed
             {
                 Id = 1,
                 UserId = GuestUser.Id,
-                FirstName = "Mihail",
-                LastName = "Petrov",
+                FirstName = "Михаил",
+                LastName = "Петров",
                 LinkedInProfile = "https://www.linkedin.com/mihail",
                 PhoneNumber = "0888888888",
-                Address = "Somewhere in Bulgaria, Europe",
-                Gender = "Male",
+                Address = "Сливен, България, Европа",
+                Gender = "Мъж",
                 BirthDate = new DateTime(2008, 09, 13),
-                Citizenship = "Bulgarian",
+                Citizenship = "Българско",
                 Photo = "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-                Languages = "Bulgarian C2, German B1, English B1",
-                Skills = "Math, Programming, History, Table Tennis, Football",
+                Languages = "Български C2, Немски B1, Английски B1",
+                Skills = "Математика, Програмиране, История, Тенис на маса, Футбол",
                 DrivingLicenseCategory = "A",
                 Email = "mihailnanpetrov@gmai.com",
                 IsDeleted = false

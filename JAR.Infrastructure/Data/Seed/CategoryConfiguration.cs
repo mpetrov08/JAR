@@ -15,7 +15,22 @@ namespace JAR.Infrastructure.Data.Seed
         {
             var data = new SeedData();
 
-            builder.HasData(new Category[] { data.SoftwareEngineeringCategory, data.HealthCareCategory, data.ManagementCategory });
+            builder.HasData(new Category[]
+            {
+                data.SoftwareEngineeringCategory,
+                data.HealthCareCategory,
+                data.ManagementCategory,
+                data.MarketingCategory,
+                data.EducationCategory,
+                data.FinanceCategory,
+                data.DesignCategory,
+                data.ConstructionCategory,
+                data.RetailCategory,
+                data.LogisticsCategory,
+                data.HospitalityCategory,
+                data.LawCategory,
+                data.ManufacturingCategory
+            });
         }
     }
 }
